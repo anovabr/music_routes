@@ -1,0 +1,48 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]   # runs every time you push to main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Download your code
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Install Node.js
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # 3. Install dependencies (same as `npm install`)
+      - name: Install dependencies
+        run: npm install
+
+      # 4. Build the production files into /dist
+      - name: Build
+        run: npm run build
+
+      # 5. Upload the /dist folder to GitHub Pages
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      # 6. Publish it
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
