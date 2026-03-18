@@ -2,82 +2,56 @@ import { useEffect, useRef, useCallback } from 'react';
 import * as d3 from 'd3';
 import { treeData, PERIODS } from '../data/composers';
 
-const NODE_R = 9;
-const NODE_R_BRANCH = 14;
-const DX = 180;      // horizontal spacing between sibling nodes
-const DY = 110;      // vertical spacing per depth level
-const DURATION = 450;
+const NW = 170;   // box width
+const NH = 52;    // box height
+const DX = 200;   // horizontal spacing (center-to-center)
+const DY = 120;   // vertical spacing (level-to-level)
+const DURATION = 400;
 
 let nodeIdCounter = 0;
-
 function assignIds(node) {
   node._uid = ++nodeIdCounter;
   if (node.children) node.children.forEach(assignIds);
 }
-
 function collapse(d) {
-  if (d.children) {
-    d._children = d.children;
-    d.children = null;
-  }
+  if (d.children) { d._children = d.children; d.children = null; }
 }
 function expand(d) {
-  if (d._children) {
-    d.children = d._children;
-    d._children = null;
-  }
+  if (d._children) { d.children = d._children; d._children = null; }
 }
 
 export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo, theme }) {
   const wrapperRef = useRef(null);
-  const svgRef = useRef(null);
-  const gRef = useRef(null);
-  const rootRef = useRef(null);
-  const zoomRef = useRef(null);
+  const svgRef    = useRef(null);
+  const gRef      = useRef(null);
+  const rootRef   = useRef(null);
+  const zoomRef   = useRef(null);
   const updateRef = useRef(null);
 
-  // ── colour helpers ───────────────────────────────────────────────────────
   const periodColor = useCallback((periodId) => {
-    if (!periodId) return theme === 'dark' ? '#555' : '#aaa';
-    const p = PERIODS[periodId];
-    return theme === 'dark' ? (p?.color || '#888') : (p?.color || '#888');
+    if (!periodId) return theme === 'dark' ? '#3a3a6a' : '#c0b8d8';
+    return PERIODS[periodId]?.color || '#888';
   }, [theme]);
 
-  const isVisible = useCallback((d) => {
-    if (!d.data.period) return true;           // branch nodes always visible
-    return activePeriods[d.data.period] !== false;
-  }, [activePeriods]);
-
-  // ── main D3 setup — runs once ────────────────────────────────────────────
   useEffect(() => {
     const wrapper = wrapperRef.current;
     if (!wrapper) return;
-
     const w = wrapper.clientWidth || 900;
     const h = wrapper.clientHeight || 700;
 
-    // ── SVG & zoom setup ──────────────────────────────────────────────────
-    const svg = d3.select(svgRef.current)
-      .attr('width', '100%')
-      .attr('height', '100%');
-
+    const svg = d3.select(svgRef.current).attr('width', '100%').attr('height', '100%');
     svg.selectAll('*').remove();
 
     const zoom = d3.zoom()
-      .scaleExtent([0.08, 3])
+      .scaleExtent([0.05, 3])
       .on('zoom', (e) => g.attr('transform', e.transform));
     zoomRef.current = zoom;
     svg.call(zoom);
 
-    // Subtle background pattern
+    // Grid background
     const defs = svg.append('defs');
-    const pattern = defs.append('pattern')
-      .attr('id', 'grid')
-      .attr('width', 60).attr('height', 60)
-      .attr('patternUnits', 'userSpaceOnUse');
-    pattern.append('path')
-      .attr('d', 'M 60 0 L 0 0 0 60')
-      .attr('fill', 'none')
+    const pat = defs.append('pattern').attr('id', 'grid').attr('width', 60).attr('height', 60).attr('patternUnits', 'userSpaceOnUse');
+    pat.append('path').attr('d', 'M 60 0 L 0 0 0 60').attr('fill', 'none')
       .attr('stroke', theme === 'dark' ? 'rgba(255,255,255,0.025)' : 'rgba(0,0,0,0.04)')
       .attr('stroke-width', 1);
     svg.append('rect').attr('width', '100%').attr('height', '100%').attr('fill', 'url(#grid)');
@@ -85,324 +59,218 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
     const g = svg.append('g');
     gRef.current = g;
 
-    // ── Build hierarchy ───────────────────────────────────────────────────
     const dataCopy = JSON.parse(JSON.stringify(treeData));
     assignIds(dataCopy);
     const root = d3.hierarchy(dataCopy);
     root.x0 = w / 2;
     root.y0 = 0;
 
-    // Collapse nodes beyond depth 1 initially
-    root.descendants().forEach(d => {
-      if (d.depth >= 2) collapse(d);
-    });
+    // Collapse beyond depth 1 initially
+    root.descendants().forEach(d => { if (d.depth >= 2) collapse(d); });
     rootRef.current = root;
 
-    // ── Layout ────────────────────────────────────────────────────────────
     const treeLayout = d3.tree().nodeSize([DX, DY]);
 
-    // ── Link path (top → down) ────────────────────────────────────────────
-    function diagonal(s, t) {
-      const my = (s.y + t.y) / 2;
-      return `M${s.x},${s.y} C${s.x},${my} ${t.x},${my} ${t.x},${t.y}`;
+    // Link: from bottom-center of parent box to top-center of child box
+    function link(s, t) {
+      const sy = s.y + NH / 2;
+      const ty = t.y - NH / 2;
+      const my = (sy + ty) / 2;
+      return `M${s.x},${sy} C${s.x},${my} ${t.x},${my} ${t.x},${ty}`;
     }
 
-    // ── Update function ───────────────────────────────────────────────────
     function update(source) {
       treeLayout(root);
-
       const allNodes = root.descendants();
       const allLinks = root.links();
 
-      // ── Links ───────────────────────────────────────────────────────────
-      const linkSel = g.selectAll('path.link')
-        .data(allLinks, d => d.target.data._uid);
+      // ── Links ──────────────────────────────────────────────────────────────
+      const linkSel = g.selectAll('path.link').data(allLinks, d => d.target.data._uid);
 
-      const linkEnter = linkSel.enter().append('path')
-        .attr('class', 'link')
-        .attr('d', () => {
-          const o = { x: source.x0 ?? source.x, y: source.y0 ?? source.y };
-          return diagonal(o, o);  // top-down: x=horiz, y=vert
-        })
-        .attr('fill', 'none')
-        .attr('stroke-width', 1.5)
-        .attr('opacity', 0);
+      const srcPt = { x: source.x0 ?? source.x, y: source.y0 ?? source.y };
 
-      linkEnter.merge(linkSel)
+      linkSel.enter().append('path').attr('class', 'link')
+        .attr('d', () => link(srcPt, srcPt))
+        .attr('fill', 'none').attr('stroke-width', 1.5).attr('opacity', 0)
+        .merge(linkSel)
         .transition().duration(DURATION)
-        .attr('d', d => diagonal(d.source, d.target))
+        .attr('d', d => link(d.source, d.target))
+        .attr('stroke', d => periodColor(d.target.data.period))
         .attr('opacity', d => {
-          if (!d.target.data.period) return 0.35;
-          return activePeriods[d.target.data.period] !== false ? 0.45 : 0.08;
-        })
-        .attr('stroke', d => {
-          if (!d.target.data.period) return theme === 'dark' ? '#3a3a6a' : '#c0b8a8';
-          return periodColor(d.target.data.period);
+          if (!d.source.data.period && d.source.depth === 0) return 0; // hide root links
+          if (!d.target.data.period) return 0.3;
+          return activePeriods[d.target.data.period] !== false ? 0.55 : 0.08;
         });
 
-      linkSel.exit()
-        .transition().duration(DURATION)
-        .attr('d', () => {
-          const o = { x: source.x, y: source.y };
-          return diagonal(o, o);
-        })
-        .attr('opacity', 0)
-        .remove();
+      linkSel.exit().transition().duration(DURATION)
+        .attr('d', () => link({ x: source.x, y: source.y }, { x: source.x, y: source.y }))
+        .attr('opacity', 0).remove();
 
-      // ── Nodes ───────────────────────────────────────────────────────────
-      const nodeSel = g.selectAll('g.node')
-        .data(allNodes, d => d.data._uid);
+      // ── Nodes ──────────────────────────────────────────────────────────────
+      const nodeSel = g.selectAll('g.node').data(allNodes, d => d.data._uid);
 
-      const nodeEnter = nodeSel.enter().append('g')
-        .attr('class', 'node')
-        .attr('transform', () => `translate(${source.x0 ?? source.x},${source.y0 ?? source.y})`)
+      const nodeEnter = nodeSel.enter().append('g').attr('class', 'node')
+        .attr('transform', () => `translate(${srcPt.x},${srcPt.y})`)
         .attr('opacity', 0)
         .style('cursor', 'pointer')
         .on('click', (event, d) => {
           event.stopPropagation();
-          if (d.children) {
-            collapse(d);
-          } else if (d._children) {
-            expand(d);
-          }
-          if (d.data.period) {
-            onSelectComposer(d.data);
-          }
+          if (d.depth === 0) return; // root not interactive
+          if (d.children) collapse(d);
+          else if (d._children) expand(d);
+          if (d.data.period) onSelectComposer(d.data);
           update(d);
         });
 
-      const isBranch = (d) => d.data.type === 'branch' || d.data.type === 'root';
+      // Box
+      nodeEnter.append('rect').attr('class', 'node-box')
+        .attr('width', NW).attr('height', NH)
+        .attr('x', -NW / 2).attr('y', -NH / 2)
+        .attr('rx', 7).attr('ry', 7);
 
-      // Glow filter
-      const glowId = `glow-${Math.random().toString(36).slice(2)}`;
-      const filter = defs.append('filter').attr('id', glowId).attr('x', '-30%').attr('y', '-30%').attr('width', '160%').attr('height', '160%');
-      filter.append('feGaussianBlur').attr('in', 'SourceGraphic').attr('stdDeviation', '3').attr('result', 'blur');
-      const merge = filter.append('feMerge');
-      merge.append('feMergeNode').attr('in', 'blur');
-      merge.append('feMergeNode').attr('in', 'SourceGraphic');
+      // Left accent bar
+      nodeEnter.append('rect').attr('class', 'node-accent')
+        .attr('width', 4).attr('height', NH - 4)
+        .attr('x', -NW / 2 + 0).attr('y', -NH / 2 + 2)
+        .attr('rx', 2);
 
-      // Outer ring (collapsed indicator)
-      nodeEnter.append('circle')
-        .attr('class', 'node-ring')
-        .attr('r', d => isBranch(d) ? NODE_R_BRANCH + 5 : NODE_R + 4)
-        .attr('fill', 'none')
-        .attr('stroke-width', 1.5)
-        .attr('stroke-dasharray', '3,3');
+      // Name
+      nodeEnter.append('text').attr('class', 'node-name')
+        .attr('x', -NW / 2 + 14).attr('y', -7)
+        .attr('dominant-baseline', 'middle')
+        .style('pointer-events', 'none').style('user-select', 'none');
 
-      // Main circle
-      nodeEnter.append('circle')
-        .attr('class', 'node-circle')
-        .attr('r', d => isBranch(d) ? NODE_R_BRANCH : NODE_R)
-        .attr('filter', `url(#${glowId})`);
+      // Dates
+      nodeEnter.append('text').attr('class', 'node-dates')
+        .attr('x', -NW / 2 + 14).attr('y', 11)
+        .attr('dominant-baseline', 'middle')
+        .style('pointer-events', 'none').style('user-select', 'none');
 
-      // Expand/collapse indicator
-      nodeEnter.append('text')
-        .attr('class', 'node-indicator')
-        .attr('text-anchor', 'middle')
-        .attr('dominant-baseline', 'central')
-        .attr('dy', '0.05em')
-        .style('font-size', d => isBranch(d) ? '15px' : '12px')
-        .style('pointer-events', 'none')
-        .style('user-select', 'none');
+      // Expand indicator (bottom center)
+      nodeEnter.append('text').attr('class', 'node-expand')
+        .attr('x', 0).attr('y', NH / 2 + 1)
+        .attr('text-anchor', 'middle').attr('dominant-baseline', 'hanging')
+        .style('pointer-events', 'none').style('user-select', 'none');
 
-      // Name label
-      nodeEnter.append('text')
-        .attr('class', 'node-label')
-        .attr('dy', '0.32em')
-        .style('pointer-events', 'none')
-        .style('user-select', 'none');
-
-      // Dates label
-      nodeEnter.append('text')
-        .attr('class', 'node-dates')
-        .attr('dy', '0.32em')
-        .style('pointer-events', 'none')
-        .style('user-select', 'none');
-
-      // Video icon
-      nodeEnter.append('text')
-        .attr('class', 'node-video-icon')
-        .attr('text-anchor', 'middle')
-        .attr('dominant-baseline', 'central')
-        .style('cursor', 'pointer')
-        .style('font-size', '11px')
-        .on('click', (event, d) => {
-          event.stopPropagation();
-          if (d.data.videos?.length) onOpenVideo(d.data.videos[0], d.data);
-        });
-
-      // ── Merge enter + update ─────────────────────────────────────────────
+      // ── Merge ──────────────────────────────────────────────────────────────
       const nodeUpdate = nodeEnter.merge(nodeSel);
 
       nodeUpdate.transition().duration(DURATION)
         .attr('transform', d => `translate(${d.x},${d.y})`)
         .attr('opacity', d => {
+          if (d.depth === 0) return 0; // hide root node entirely
           if (!d.data.period) return 1;
-          return activePeriods[d.data.period] !== false ? 1 : 0.18;
+          return activePeriods[d.data.period] !== false ? 1 : 0.15;
         });
 
-      // Node circle styles
-      nodeUpdate.select('circle.node-circle')
+      const dark = theme === 'dark';
+
+      nodeUpdate.select('rect.node-box')
         .transition().duration(DURATION)
-        .attr('r', d => isBranch(d) ? NODE_R_BRANCH : NODE_R)
         .attr('fill', d => {
-          if (isBranch(d)) return theme === 'dark' ? '#1e1e3a' : '#f0ece0';
-          return periodColor(d.data.period);
+          const c = periodColor(d.data.period);
+          return dark
+            ? `color-mix(in srgb, ${c} 14%, #12121f)`
+            : `color-mix(in srgb, ${c} 12%, #faf6ef)`;
         })
-        .attr('stroke', d => {
-          if (isBranch(d)) return theme === 'dark' ? '#7070b0' : '#8888aa';
-          return theme === 'dark' ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.2)';
-        })
-        .attr('stroke-width', d => isBranch(d) ? 2 : 1.5);
+        .attr('stroke', d => periodColor(d.data.period))
+        .attr('stroke-width', 1.5)
+        .attr('stroke-opacity', d => activePeriods[d.data.period] !== false ? 0.7 : 0.2);
 
-      // Ring visibility
-      nodeUpdate.select('circle.node-ring')
-        .attr('stroke', d => {
-          if (isBranch(d)) return theme === 'dark' ? '#5050a0' : '#aaa0d0';
-          return periodColor(d.data.period);
-        })
-        .attr('opacity', d => (d._children ? 0.6 : 0));
+      nodeUpdate.select('rect.node-accent')
+        .attr('fill', d => periodColor(d.data.period))
+        .attr('opacity', 0.85);
 
-      // Indicator (+/-)
-      nodeUpdate.select('text.node-indicator')
-        .text(d => {
-          if (isBranch(d)) return d.children ? '−' : d._children ? '+' : '♩';
-          return d.children ? '−' : d._children ? '+' : '';
-        })
-        .attr('fill', d => {
-          if (isBranch(d)) return theme === 'dark' ? '#a0a0d0' : '#6060a0';
-          return theme === 'dark' ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.8)';
-        });
-
-      // Label positioning — centered below node (top-down layout)
-      nodeUpdate.select('text.node-label')
-        .attr('x', 0)
-        .attr('y', d => (isBranch(d) ? NODE_R_BRANCH : NODE_R) + 14)
-        .attr('dy', '0em')
-        .attr('text-anchor', 'middle')
+      nodeUpdate.select('text.node-name')
         .text(d => d.data.name || '')
-        .attr('fill', theme === 'dark' ? '#e8e0d5' : '#1a1a2e')
-        .style('font-size', d => isBranch(d) ? '15px' : '14px')
-        .style('font-weight', d => isBranch(d) ? '600' : '400')
-        .style('font-family', d => isBranch(d) ? "'Playfair Display', serif" : "'Inter', sans-serif");
-
-      // Dates — below label
-      nodeUpdate.select('text.node-dates')
-        .attr('x', 0)
-        .attr('y', d => (isBranch(d) ? NODE_R_BRANCH : NODE_R) + 26)
-        .attr('dy', '0em')
-        .attr('text-anchor', 'middle')
-        .text(d => {
-          if (!d.data.born) return '';
-          const died = d.data.died ? d.data.died : '   ';
-          return `${d.data.born}–${died}`;
-        })
-        .attr('fill', theme === 'dark' ? '#8888aa' : '#666680')
-        .style('font-size', '12px')
+        .attr('fill', dark ? '#e8e0d5' : '#1a1520')
+        .style('font-size', '13px')
+        .style('font-weight', '600')
         .style('font-family', "'Inter', sans-serif");
 
-      // Video icon — above node
-      nodeUpdate.select('text.node-video-icon')
-        .attr('x', 0)
-        .attr('y', d => -((isBranch(d) ? NODE_R_BRANCH : NODE_R) + 6))
-        .attr('text-anchor', 'middle')
-        .text(d => d.data.videos?.length ? '▶' : '')
-        .attr('fill', theme === 'dark' ? '#c9a84c' : '#8B4513')
-        .attr('opacity', 0.8);
+      nodeUpdate.select('text.node-dates')
+        .text(d => {
+          if (!d.data.born) return d.data.nationality || '';
+          const died = d.data.died ?? '    ';
+          return `${d.data.born}–${died}`;
+        })
+        .attr('fill', dark ? '#8888aa' : '#6060a0')
+        .style('font-size', '11px')
+        .style('font-family', "'Inter', sans-serif");
 
-      // ── Exit ─────────────────────────────────────────────────────────────
-      nodeSel.exit()
-        .transition().duration(DURATION)
+      nodeUpdate.select('text.node-expand')
+        .text(d => d._children ? '▾' : '')
+        .attr('fill', dark ? '#6060a0' : '#9090b0')
+        .style('font-size', '12px');
+
+      nodeSel.exit().transition().duration(DURATION)
         .attr('transform', `translate(${source.x},${source.y})`)
-        .attr('opacity', 0)
-        .remove();
+        .attr('opacity', 0).remove();
 
-      // Store positions
       allNodes.forEach(d => { d.x0 = d.x; d.y0 = d.y; });
     }
 
     updateRef.current = update;
     update(root);
 
-    // Initial zoom — root centered horizontally, near top
-    const initScale = 0.7;
-    svg.call(zoom.transform,
-      d3.zoomIdentity.translate(w / 2, 60).scale(initScale)
-    );
+    // Initial zoom: centre horizontally, first-level nodes near top
+    svg.call(zoom.transform, d3.zoomIdentity.translate(w / 2, 80).scale(0.65));
 
-    // ── Resize handler ─────────────────────────────────────────────────────
     const ro = new ResizeObserver(() => {
       if (updateRef.current && rootRef.current) updateRef.current(rootRef.current);
     });
     ro.observe(wrapper);
     return () => ro.disconnect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [theme]);  // Re-init when theme changes
+  }, [theme]);
 
-  // ── Re-apply colours when period filters change ──────────────────────────
+  // Recolour on filter change
   useEffect(() => {
     if (!gRef.current) return;
     const g = gRef.current;
-
-    g.selectAll('g.node')
-      .transition().duration(250)
+    g.selectAll('g.node').transition().duration(250)
       .attr('opacity', d => {
+        if (d.depth === 0) return 0;
         if (!d.data.period) return 1;
-        return activePeriods[d.data.period] !== false ? 1 : 0.18;
+        return activePeriods[d.data.period] !== false ? 1 : 0.15;
       });
-
-    g.selectAll('path.link')
-      .transition().duration(250)
+    g.selectAll('path.link').transition().duration(250)
       .attr('opacity', d => {
-        if (!d.target.data.period) return 0.35;
-        return activePeriods[d.target.data.period] !== false ? 0.45 : 0.08;
+        if (!d.source.data.period && d.source.depth === 0) return 0;
+        if (!d.target.data.period) return 0.3;
+        return activePeriods[d.target.data.period] !== false ? 0.55 : 0.08;
       });
   }, [activePeriods]);
 
-  // ── Zoom controls ────────────────────────────────────────────────────────
-  const handleZoomIn = () => {
-    if (svgRef.current && zoomRef.current)
-      d3.select(svgRef.current).transition().duration(300).call(zoomRef.current.scaleBy, 1.4);
-  };
-  const handleZoomOut = () => {
-    if (svgRef.current && zoomRef.current)
-      d3.select(svgRef.current).transition().duration(300).call(zoomRef.current.scaleBy, 0.7);
-  };
-  const handleReset = () => {
-    if (svgRef.current && zoomRef.current) {
-      const w = wrapperRef.current?.clientWidth || 900;
-      d3.select(svgRef.current).transition().duration(500)
-        .call(zoomRef.current.transform, d3.zoomIdentity.translate(w / 2, 60).scale(0.7));
-    }
+  const handleZoomIn  = () => d3.select(svgRef.current).transition().duration(300).call(zoomRef.current.scaleBy, 1.4);
+  const handleZoomOut = () => d3.select(svgRef.current).transition().duration(300).call(zoomRef.current.scaleBy, 0.7);
+  const handleReset   = () => {
+    const w = wrapperRef.current?.clientWidth || 900;
+    d3.select(svgRef.current).transition().duration(500)
+      .call(zoomRef.current.transform, d3.zoomIdentity.translate(w / 2, 80).scale(0.65));
   };
   const handleExpandAll = () => {
-    if (!rootRef.current || !updateRef.current) return;
-    rootRef.current.descendants().forEach(d => {
-      if (d._children) expand(d);
-    });
-    updateRef.current(rootRef.current);
+    rootRef.current?.descendants().forEach(d => { if (d._children) expand(d); });
+    updateRef.current?.(rootRef.current);
   };
   const handleCollapseAll = () => {
-    if (!rootRef.current || !updateRef.current) return;
-    rootRef.current.descendants().forEach(d => {
-      if (d.depth >= 2) collapse(d);
-    });
-    updateRef.current(rootRef.current);
+    rootRef.current?.descendants().forEach(d => { if (d.depth >= 2) collapse(d); });
+    updateRef.current?.(rootRef.current);
   };
 
   return (
     <div ref={wrapperRef} className="tree-wrapper">
       <svg ref={svgRef} className="tree-svg" />
       <div className="tree-controls">
-        <button onClick={handleZoomIn} title="Zoom in">＋</button>
+        <button onClick={handleZoomIn}  title="Zoom in">＋</button>
         <button onClick={handleZoomOut} title="Zoom out">－</button>
-        <button onClick={handleReset} title="Reset view">⌂</button>
+        <button onClick={handleReset}   title="Reset view">⌂</button>
         <div className="tree-controls-sep" />
-        <button onClick={handleExpandAll} title="Expand all">⊞</button>
+        <button onClick={handleExpandAll}   title="Expand all">⊞</button>
         <button onClick={handleCollapseAll} title="Collapse all">⊟</button>
       </div>
       <div className="tree-hint">
-        Click a node to expand · Click composer name to see details · ▶ to play video
+        Click a box to expand · click to open details
       </div>
     </div>
   );
