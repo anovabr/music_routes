@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]   # runs every time you push to main
+    branches: [main, "claude/*"]   # runs on main or any claude/* branch
 
 permissions:
   contents: read
