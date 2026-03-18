@@ -37,12 +37,67 @@ export const treeData = {
               [v('Symphony No. 94 "Surprise"', 'r9YAEl3LAi4'), v('String Quartet Op. 76 "Emperor"', 'QLvQSOLSHQA'), v('The Creation', 'KFiRVQqxBHM')],
               [
                 c('mozart', 'Wolfgang Amadeus Mozart', 1756, 1791, 'CLASSICAL', 'Austrian',
-                  'Perhaps the most naturally gifted composer in history. His command of opera, symphony, concerto, and chamber music is unsurpassed. He and Haydn were the closest of friends; each shaped the other\'s mature style.',
+                  'Perhaps the most naturally gifted composer in history. His command of opera, symphony, concerto, and chamber music is unsurpassed. He and Haydn were the closest of friends; each shaped the other\'s mature style. His most celebrated student, Hummel, carried the Classical piano ideal directly into the Romantic age.',
                   [
                     v('Symphony No. 40 in G minor', 'W1fPHBgBelc'),
                     v('Piano Concerto No. 21', 'EvpFe2k5e4I'),
                     v('Don Giovanni Overture', 'SgBMTyq1z1s'),
                     v('Requiem — Lacrimosa', 'FyVJRPSLZXY'),
+                  ],
+                  [
+                    c('hummel', 'J.N. Hummel', 1778, 1837, 'CLASSICAL', 'Austrian',
+                      'Mozart\'s star pupil — he lived in the Mozart household from age 8. The most celebrated pianist between Mozart and Liszt, his crystalline technique and singing tone were the direct model for Chopin\'s early style. He also taught the young Mendelssohn.',
+                      [
+                        v('Trumpet Concerto in E-flat', 'cE3ZjFBFqcA'),
+                        v('Piano Concerto No. 2 in A minor', 'vbpXALo1fkA'),
+                        v('Piano Sonata Op. 81', 'g4BOVP3TCKE'),
+                      ],
+                      [
+                        c('chopin', 'Frédéric Chopin', 1810, 1849, 'ROMANTIC', 'Polish',
+                          'The poet of the piano. He modelled his early concertos directly on Hummel\'s — then went far beyond, inventing an entirely new harmonic and expressive language that influenced every pianist after him.',
+                          [
+                            v('Nocturne Op. 9 No. 2', '9E6b3swbnWg'),
+                            v('Ballade No. 1 in G minor', 'VmFmAvC4YA8'),
+                            v('Piano Sonata No. 2 "Funeral March"', 'vUTx0gpMDyQ'),
+                            v('24 Études (Pollini)', 'atXTEEFvFNA', 'Maurizio Pollini'),
+                          ],
+                          [
+                            c('scriabin', 'Alexander Scriabin', 1872, 1915, 'MODERN', 'Russian',
+                              'Began in Chopin\'s world and ended in a private universe of mystical atonality. His late works are like no other music — dense, vertiginous, and unearthly.',
+                              [
+                                v('Piano Sonata No. 5', 'RGDyFb6TG4M'),
+                                v('Poem of Ecstasy', 'yA8rH7CFXDM'),
+                                v('Études Op. 42', 'jwPbx5CXGDQ'),
+                              ]),
+
+                            c('rachmaninoff', 'Sergei Rachmaninoff', 1873, 1943, 'LATE_ROMANTIC', 'Russian',
+                              'The last great Romantic composer. His piano writing inherits Chopin\'s lyricism; his orchestral sweep inherits Tchaikovsky\'s grandeur. The concertos remain the most performed in the repertoire.',
+                              [
+                                v('Piano Concerto No. 2', 'rEGOihjqO9w'),
+                                v('Rhapsody on a Theme of Paganini', 'kHIGzwc-Yew'),
+                                v('Symphony No. 2', 'SJCeRLOa9Oc'),
+                                v('Piano Concerto No. 3 (Horowitz)', 'vFskSlMwpg4', 'Vladimir Horowitz'),
+                              ],
+                              [
+                                c('horowitz', 'Vladimir Horowitz', 1903, 1989, 'CONTEMPORARY', 'Russian-American',
+                                  'The last great Romantic pianist. A supernatural technique and deeply personal interpretations. His 1965 Carnegie Hall return after a 12-year absence is a legendary recording.',
+                                  [
+                                    v('Carnegie Hall Return 1965', 'dKFvNVPCmrg'),
+                                    v('Scarlatti Sonatas', 'jG5Xts-vwIY'),
+                                    v('Rachmaninoff Piano Concerto No. 3', 'vFskSlMwpg4'),
+                                  ]),
+                              ]),
+                          ]),
+
+                        c('mendelssohn', 'Felix Mendelssohn', 1809, 1847, 'ROMANTIC', 'German',
+                          'Child prodigy who received early piano guidance from Hummel. He single-handedly revived Bach\'s St. Matthew Passion in 1829, rescuing Bach from near-oblivion. His lyrical Romanticism and impeccable Classical form make him the most perfectly balanced composer of the 19th century.',
+                          [
+                            v('Violin Concerto in E minor', 'CRMBCM2-EQE'),
+                            v('A Midsummer Night\'s Dream Overture', 'tE6ELY2AhF8'),
+                            v('Songs Without Words (selection)', 'RxAUc0M9CyE'),
+                            v('Symphony No. 4 "Italian"', 'gy5Ve3338-E'),
+                          ]),
+                      ]),
                   ]),
 
                 c('beethoven', 'Ludwig van Beethoven', 1770, 1827, 'CLASSICAL', 'German',
@@ -127,7 +182,7 @@ export const treeData = {
                               ],
                               [
                                 c('faure', 'Gabriel Fauré', 1845, 1924, 'LATE_ROMANTIC', 'French',
-                                  'The subtle master of French song and piano music. His harmonic innovations — understated but profound — pointed toward Impressionism, and he taught Ravel at the Paris Conservatoire.',
+                                  'The subtle master of French song and piano music. His harmonic innovations pointed toward Impressionism. As director of the Paris Conservatoire he taught both Ravel and Nadia Boulanger — making him the ancestor of virtually the entire French and American 20th-century tradition.',
                                   [
                                     v('Requiem', 'MRo3tQH7CqU'),
                                     v('Pavane Op. 50', 'FRSAVAJq7ik'),
@@ -141,6 +196,31 @@ export const treeData = {
                                         v('Piano Concerto in G', 'AijVEqq1QGQ'),
                                         v('La Valse', '_WqkAoGC9w0'),
                                         v('Gaspard de la Nuit (Argerich)', '1_fH7J1-HpI', 'Martha Argerich'),
+                                      ]),
+
+                                    c('boulanger', 'Nadia Boulanger', 1887, 1979, 'MODERN', 'French',
+                                      'The most influential composition teacher of the 20th century. Fauré\'s student at the Paris Conservatoire, she later shaped an extraordinary roster: Copland, Piazzolla, Barenboim — and Philip Glass, through whom her lineage reaches minimalism and beyond.',
+                                      [
+                                        v('Lili Boulanger — D\'un soir triste', 'nECZHvMDN_E'),
+                                        v('Conducting Monteverdi Madrigals', 'ARBDHrpX_Fg'),
+                                      ],
+                                      [
+                                        c('glass', 'Philip Glass', 1937, null, 'CONTEMPORARY', 'American',
+                                          'Studied under Nadia Boulanger in Paris and was transformed by Ravi Shankar\'s rhythmic cycles. The defining figure of musical minimalism — his hypnotic, cycling patterns permeated concert halls, operas, and film scores worldwide.',
+                                          [
+                                            v('Metamorphosis Two', 'FaovqbcSYqk'),
+                                            v('Koyaanisqatsi', 'jBzXqBJuBME'),
+                                            v('Violin Concerto No. 1', 'OtQOLw_I1LQ'),
+                                          ],
+                                          [
+                                            c('einaudi', 'Ludovico Einaudi', 1955, null, 'CONTEMPORARY', 'Italian',
+                                              'The most-streamed classical composer alive. His meditative, minimal piano works sit at the intersection of classical, ambient and contemporary — directly shaped by Glass\'s minimalism and Pärt\'s stillness.',
+                                              [
+                                                v('Nuvole Bianche', '_y8evPFDKpA'),
+                                                v('Experience', 'jM8dCGIm6yc'),
+                                                v('Una Mattina', 'Dq3PkVJ0p3s'),
+                                              ]),
+                                          ]),
                                       ]),
                                   ]),
                               ]),
@@ -218,42 +298,6 @@ export const treeData = {
           ]),
       ]),
 
-    // ── CHOPIN ───────────────────────────────────────────────────────────────
-    c('chopin', 'Frédéric Chopin', 1810, 1849, 'ROMANTIC', 'Polish',
-      'The poet of the piano. He invented an entirely new harmonic and expressive language for the instrument — one that influenced every pianist and composer after him, from Scriabin to Rachmaninoff.',
-      [
-        v('Nocturne Op. 9 No. 2', '9E6b3swbnWg'),
-        v('Ballade No. 1 in G minor', 'VmFmAvC4YA8'),
-        v('Piano Sonata No. 2 "Funeral March"', 'vUTx0gpMDyQ'),
-        v('24 Études (Pollini)', 'atXTEEFvFNA', 'Maurizio Pollini'),
-      ],
-      [
-        c('scriabin', 'Alexander Scriabin', 1872, 1915, 'MODERN', 'Russian',
-          'Began in Chopin\'s world and ended in a private universe of mystical atonality. His late works are like no other music — dense, vertiginous, and unearthly.',
-          [
-            v('Piano Sonata No. 5', 'RGDyFb6TG4M'),
-            v('Poem of Ecstasy', 'yA8rH7CFXDM'),
-            v('Études Op. 42', 'jwPbx5CXGDQ'),
-          ]),
-
-        c('rachmaninoff', 'Sergei Rachmaninoff', 1873, 1943, 'LATE_ROMANTIC', 'Russian',
-          'The last great Romantic composer. His piano writing inherits Chopin\'s lyricism; his orchestral sweep inherits Tchaikovsky\'s grandeur. The concertos remain the most performed in the repertoire.',
-          [
-            v('Piano Concerto No. 2', 'rEGOihjqO9w'),
-            v('Rhapsody on a Theme of Paganini', 'kHIGzwc-Yew'),
-            v('Symphony No. 2', 'SJCeRLOa9Oc'),
-            v('Piano Concerto No. 3 (Horowitz)', 'vFskSlMwpg4', 'Vladimir Horowitz'),
-          ],
-          [
-            c('horowitz', 'Vladimir Horowitz', 1903, 1989, 'CONTEMPORARY', 'Russian-American',
-              'The last great Romantic pianist. A supernatural technique and deeply personal interpretations. His 1965 Carnegie Hall return after a 12-year absence is a legendary recording.',
-              [
-                v('Carnegie Hall Return 1965', 'dKFvNVPCmrg'),
-                v('Scarlatti Sonatas', 'jG5Xts-vwIY'),
-                v('Rachmaninoff Piano Concerto No. 3', 'vFskSlMwpg4'),
-              ]),
-          ]),
-      ]),
 
     // ── TCHAIKOVSKY → PROKOFIEV ──────────────────────────────────────────────
     c('tchaikovsky', 'Pyotr Tchaikovsky', 1840, 1893, 'ROMANTIC', 'Russian',
@@ -283,9 +327,34 @@ export const treeData = {
           ]),
       ]),
 
+    // ── SATIE → LES SIX ──────────────────────────────────────────────────────
+    c('satie', 'Erik Satie', 1866, 1925, 'IMPRESSIONIST', 'French',
+      'The great iconoclast. His Gymnopédies dissolved Romantic rhetoric into pure atmosphere a full decade before Debussy. He championed simplicity and irony against Wagnerian excess and directly inspired the group of young French composers who called themselves Les Six.',
+      [
+        v('Gymnopédies No. 1', 'S-Xm7s9eGxU'),
+        v('Gnossiennes No. 1', 'ka6uDPMCVlw'),
+        v('Gymnopédies Nos. 1–3', 'TLNnDmdGBBg'),
+      ],
+      [
+        c('poulenc', 'Francis Poulenc', 1899, 1963, 'MODERN', 'French',
+          'The wittiest and most beloved of Les Six, shaped by Satie\'s irreverence and economy. His music swings between sparkling wit and unexpected depth — the Gloria and Stabat Mater are among the most moving choral works of the 20th century.',
+          [
+            v('Gloria', 'jB5AJ1dB27c'),
+            v('Stabat Mater', '0m4kFYiBqgE'),
+            v('Concerto for Two Pianos', 'SgHCHibQSmk'),
+          ]),
+
+        c('milhaud', 'Darius Milhaud', 1892, 1974, 'MODERN', 'French',
+          'The most prolific of Les Six. His jazz-inflected polytonality — as in La Création du monde — was revolutionary. He later taught at Mills College in California where he influenced a generation of American composers.',
+          [
+            v('La Création du monde', 'LfruHYcnFwM'),
+            v('Le Bœuf sur le toit', 'kvRGSSiXoyo'),
+          ]),
+      ]),
+
     // ── DEBUSSY → MESSIAEN → BOULEZ ──────────────────────────────────────────
     c('debussy', 'Claude Debussy', 1862, 1918, 'IMPRESSIONIST', 'French',
-      'The founder of musical Impressionism. He dissolved the iron structures of tonal harmony in favour of colour, atmosphere, and suggestion — opening the door to everything that followed, from Ravel to Messiaen.',
+      'The founder of musical Impressionism. Trained at the Paris Conservatoire under Ernest Guiraud, he was profoundly shaped by Satie\'s simplicity, Wagner\'s harmony, and Javanese gamelan. He dissolved the iron structures of tonal harmony in favour of colour, atmosphere, and suggestion — opening the door to everything that followed.',
       [
         v('Clair de Lune', 'CvFH_6DNRCY'),
         v('La Mer', 'j5oJt6FVilQ'),
@@ -310,31 +379,22 @@ export const treeData = {
           ]),
       ]),
 
-    // ── STRAVINSKY → GLASS → EINAUDI ─────────────────────────────────────────
-    c('stravinsky', 'Igor Stravinsky', 1882, 1971, 'MODERN', 'Russian',
-      'The most stylistically versatile composer of the 20th century — from Rimsky-Korsakov\'s pupil to Diaghilev\'s composer to neoclassicist to serialist. His rhythmic innovations in The Rite of Spring changed music irrevocably.',
+    // ── RIMSKY-KORSAKOV → STRAVINSKY ─────────────────────────────────────────
+    c('rimsky', 'Nikolai Rimsky-Korsakov', 1844, 1908, 'ROMANTIC', 'Russian',
+      'The master orchestrator of the Russian nationalist school and the greatest composition teacher Russia produced. Stravinsky studied privately under him for six years. His Principles of Orchestration became the standard textbook of the art.',
       [
-        v('The Rite of Spring', '5UJOaGIhG7A'),
-        v('The Firebird Suite', '3tqhBCM6HxE'),
-        v('Petrushka', 'cEfHe8_wd4k'),
-        v('Symphony of Psalms', 'FGNBrHFQJtY'),
+        v('Scheherazade Op. 35', 'SQNymNaTr-Y'),
+        v('Flight of the Bumblebee', 'ym5QGKQN0I4'),
+        v('Capriccio Espagnol', 'eLVAlDqDEDI'),
       ],
       [
-        c('glass', 'Philip Glass', 1937, null, 'CONTEMPORARY', 'American',
-          'The defining figure of musical minimalism. Stravinsky\'s rhythmic clarity and neoclassical economy were the gateway. Glass\'s hypnotic, cycling patterns permeated concert halls, operas, and film scores worldwide.',
+        c('stravinsky', 'Igor Stravinsky', 1882, 1971, 'MODERN', 'Russian',
+          'Rimsky-Korsakov\'s most famous pupil and the most stylistically versatile composer of the 20th century — from Russian nationalist to Diaghilev\'s revolutionary to neoclassicist to serialist. The Rite of Spring\'s rhythmic violence changed music irrevocably.',
           [
-            v('Metamorphosis Two', 'FaovqbcSYqk'),
-            v('Koyaanisqatsi', 'jBzXqBJuBME'),
-            v('Violin Concerto No. 1', 'OtQOLw_I1LQ'),
-          ],
-          [
-            c('einaudi', 'Ludovico Einaudi', 1955, null, 'CONTEMPORARY', 'Italian',
-              'The most-streamed classical composer alive. His meditative, minimal piano works sit at the intersection of classical, ambient and contemporary — directly shaped by Glass\'s minimalism and Pärt\'s stillness.',
-              [
-                v('Nuvole Bianche', '_y8evPFDKpA'),
-                v('Experience', 'jM8dCGIm6yc'),
-                v('Una Mattina', 'Dq3PkVJ0p3s'),
-              ]),
+            v('The Rite of Spring', '5UJOaGIhG7A'),
+            v('The Firebird Suite', '3tqhBCM6HxE'),
+            v('Petrushka', 'cEfHe8_wd4k'),
+            v('Symphony of Psalms', 'FGNBrHFQJtY'),
           ]),
       ]),
 
