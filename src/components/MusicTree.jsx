@@ -201,7 +201,7 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
         .attr('text-anchor', 'middle')
         .attr('dominant-baseline', 'central')
         .attr('dy', '0.05em')
-        .style('font-size', d => isBranch(d) ? '13px' : '10px')
+        .style('font-size', d => isBranch(d) ? '15px' : '12px')
         .style('pointer-events', 'none')
         .style('user-select', 'none');
 
@@ -282,7 +282,7 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
         .attr('text-anchor', 'middle')
         .text(d => d.data.name || '')
         .attr('fill', theme === 'dark' ? '#e8e0d5' : '#1a1a2e')
-        .style('font-size', d => isBranch(d) ? '13px' : '12px')
+        .style('font-size', d => isBranch(d) ? '15px' : '14px')
         .style('font-weight', d => isBranch(d) ? '600' : '400')
         .style('font-family', d => isBranch(d) ? "'Playfair Display', serif" : "'Inter', sans-serif");
 
@@ -298,7 +298,7 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
           return `${d.data.born}–${died}`;
         })
         .attr('fill', theme === 'dark' ? '#8888aa' : '#666680')
-        .style('font-size', '10px')
+        .style('font-size', '12px')
         .style('font-family', "'Inter', sans-serif");
 
       // Video icon — above node

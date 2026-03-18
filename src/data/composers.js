@@ -15,9 +15,6 @@ function c(id, name, born, died, period, nationality, description, videos, child
 function v(title, youtubeId, performer = '') {
   return { title, youtubeId, performer };
 }
-function branch(id, name, children) {
-  return { id, name, type: 'branch', children };
-}
 
 // ─── Tree Data ─────────────────────────────────────────────────────────────────
 export const treeData = {
@@ -26,22 +23,18 @@ export const treeData = {
   type: 'root',
   children: [
 
-    // ── BAROQUE ──────────────────────────────────────────────────────────────
-    branch('baroque-branch', 'Baroque Foundations', [
-      c('monteverdi', 'Claudio Monteverdi', 1567, 1643, 'BAROQUE', 'Italian',
-        'Pioneer of opera and the madrigal. His work stands at the birth of the Baroque era and represents one of the most dramatic revolutions in Western music.',
-        [v("L'Orfeo — Opera", 'ARBDHrpX_Fg'), v('Vespers of 1610', 'fFmKlkX_JRA')]),
+    c('monteverdi', 'Claudio Monteverdi', 1567, 1643, 'BAROQUE', 'Italian',
+      'Pioneer of opera and the madrigal. His work stands at the birth of the Baroque era and represents one of the most dramatic revolutions in Western music.',
+      [v("L'Orfeo — Opera", 'ARBDHrpX_Fg'), v('Vespers of 1610', 'fFmKlkX_JRA')]),
 
-      c('vivaldi', 'Antonio Vivaldi', 1678, 1741, 'BAROQUE', 'Italian',
-        'The Red Priest. Prolific virtuoso composer who pushed the concerto form to new heights. Bach himself transcribed his concertos.',
-        [v('The Four Seasons', 'GRxofEmo3HA'), v('Gloria in D major', 'k1-FJbLkNwY')]),
+    c('vivaldi', 'Antonio Vivaldi', 1678, 1741, 'BAROQUE', 'Italian',
+      'The Red Priest. Prolific virtuoso composer who pushed the concerto form to new heights. Bach himself transcribed his concertos.',
+      [v('The Four Seasons', 'GRxofEmo3HA'), v('Gloria in D major', 'k1-FJbLkNwY')]),
 
-      c('handel', 'G.F. Handel', 1685, 1759, 'BAROQUE', 'German-British',
-        'Master of the English oratorio. Settled in London, became the most celebrated composer of his era with works of grandeur and public spectacle.',
-        [v('Messiah — Hallelujah', 'VbEFgSFEVlo'), v('Water Music Suite', 'tJBDs9TXRMA'), v('Music for the Royal Fireworks', 'EvMnKqfM9ws')]),
-    ]),
+    c('handel', 'G.F. Handel', 1685, 1759, 'BAROQUE', 'German-British',
+      'Master of the English oratorio. Settled in London, became the most celebrated composer of his era with works of grandeur and public spectacle.',
+      [v('Messiah — Hallelujah', 'VbEFgSFEVlo'), v('Water Music Suite', 'tJBDs9TXRMA'), v('Music for the Royal Fireworks', 'EvMnKqfM9ws')]),
 
-    // ── BACH → MAIN LINEAGE ───────────────────────────────────────────────────
     c('bach', 'Johann Sebastian Bach', 1685, 1750, 'BAROQUE', 'German',
       'The pinnacle of Baroque polyphony and perhaps the greatest composer who ever lived. His mastery of counterpoint and harmonic invention laid the foundation for all Western music that followed.',
       [
@@ -196,9 +189,7 @@ export const treeData = {
           ]),
       ]),
 
-    // ── ROMANTIC PARALLEL ─────────────────────────────────────────────────────
-    branch('romantic-branch', 'Romantic Voices', [
-      c('schumann', 'Robert Schumann', 1810, 1856, 'ROMANTIC', 'German',
+    c('schumann', 'Robert Schumann', 1810, 1856, 'ROMANTIC', 'German',
         'Poet of the Romantic piano miniature. Schumann\'s music reflects his turbulent inner life; he famously championed the young Brahms.',
         [
           v('Piano Concerto in A minor', 'Kqpnpf1MDKA'),
@@ -243,19 +234,16 @@ export const treeData = {
             ]),
         ]),
 
-      c('tchaikovsky', 'Pyotr Tchaikovsky', 1840, 1893, 'ROMANTIC', 'Russian',
-        'Russia\'s most beloved composer. He combined the Romantic virtuosity of Western Europe with deep Russian lyricism, producing the most famous ballets ever written.',
-        [
-          v('Piano Concerto No. 1', 'AAMPuRU4BFU'),
-          v('Violin Concerto', 'KDntuhCqNW4'),
-          v('Swan Lake — Ballet', 'gG5RmfxVLa0'),
-          v('1812 Overture', 'VbM4EIEQb6Q'),
-        ]),
-    ]),
+    c('tchaikovsky', 'Pyotr Tchaikovsky', 1840, 1893, 'ROMANTIC', 'Russian',
+      'Russia\'s most beloved composer. He combined the Romantic virtuosity of Western Europe with deep Russian lyricism, producing the most famous ballets ever written.',
+      [
+        v('Piano Concerto No. 1', 'AAMPuRU4BFU'),
+        v('Violin Concerto', 'KDntuhCqNW4'),
+        v('Swan Lake — Ballet', 'gG5RmfxVLa0'),
+        v('1812 Overture', 'VbM4EIEQb6Q'),
+      ]),
 
-    // ── FRENCH IMPRESSIONISM ──────────────────────────────────────────────────
-    branch('impressionist-branch', 'French Impressionism', [
-      c('debussy', 'Claude Debussy', 1862, 1918, 'IMPRESSIONIST', 'French',
+    c('debussy', 'Claude Debussy', 1862, 1918, 'IMPRESSIONIST', 'French',
         'The founder of musical impressionism. Debussy dissolved the iron structures of tonal harmony in favour of colour, atmosphere, and the shimmer of suggestion — opening the door to modernism.',
         [
           v('Clair de Lune', 'CvFH_6DNRCY'),
@@ -263,142 +251,126 @@ export const treeData = {
           v('Prélude à l\'après-midi d\'un faune', 'tKVmKgvSCIE'),
           v('Préludes Book 1 (Gieseking)', 'G3-4VFkLUAY', 'Walter Gieseking'),
         ]),
-    ]),
 
-    // ── RUSSIAN & MODERN ──────────────────────────────────────────────────────
-    branch('modern-branch', 'Modern & 20th Century', [
-      c('stravinsky', 'Igor Stravinsky', 1882, 1971, 'MODERN', 'Russian',
-        'The most stylistically versatile composer of the 20th century. He moved from lush post-Romanticism through primitivism, neoclassicism, and finally serialism.',
-        [
-          v('The Rite of Spring', '5UJOaGIhG7A'),
-          v('The Firebird Suite', '3tqhBCM6HxE'),
-          v('Petrushka', 'cEfHe8_wd4k'),
-          v('Symphony of Psalms', 'FGNBrHFQJtY'),
-        ]),
+    c('stravinsky', 'Igor Stravinsky', 1882, 1971, 'MODERN', 'Russian',
+      'The most stylistically versatile composer of the 20th century. He moved from lush post-Romanticism through primitivism, neoclassicism, and finally serialism.',
+      [
+        v('The Rite of Spring', '5UJOaGIhG7A'),
+        v('The Firebird Suite', '3tqhBCM6HxE'),
+        v('Petrushka', 'cEfHe8_wd4k'),
+        v('Symphony of Psalms', 'FGNBrHFQJtY'),
+      ]),
 
-      c('bartok', 'Béla Bartók', 1881, 1945, 'MODERN', 'Hungarian',
-        'Pioneer of ethnomusicology who fused peasant folk music from Eastern Europe with the most advanced modernist techniques of his time.',
-        [
-          v('Piano Concerto No. 3', 'YcnX8GhVBDk'),
-          v('Music for Strings, Percussion & Celesta', 'DixMhDsRxG8'),
-          v('String Quartet No. 4', 'a4dCGKdU8_4'),
-        ]),
+    c('bartok', 'Béla Bartók', 1881, 1945, 'MODERN', 'Hungarian',
+      'Pioneer of ethnomusicology who fused Eastern European folk music with the most advanced modernist techniques of his time.',
+      [
+        v('Piano Concerto No. 3', 'YcnX8GhVBDk'),
+        v('Music for Strings, Percussion & Celesta', 'DixMhDsRxG8'),
+        v('String Quartet No. 4', 'a4dCGKdU8_4'),
+      ]),
 
-      c('prokofiev', 'Sergei Prokofiev', 1891, 1953, 'MODERN', 'Russian',
-        'Crisp, sardonic, and deeply lyrical in equal measure. He wrote under Soviet repression yet produced some of the most vital and inventive music of the 20th century.',
-        [
-          v('Piano Concerto No. 3', 'fnmUvSEPOuY'),
-          v('Romeo and Juliet — Dance of the Knights', 'rvqKl8ERnW4'),
-          v('Symphony No. 1 "Classical"', 'F7kmJBwLGVU'),
-        ],
-        [
-          c('shostakovich', 'Dmitri Shostakovich', 1906, 1975, 'MODERN', 'Russian',
-            'The great voice of the Soviet era. His music is a coded record of suffering and survival — alternating between biting satire and the deepest tragedy.',
-            [
-              v('Symphony No. 5', 'mP-gnCzuapk'),
-              v('String Quartet No. 8', 'RXBmKhBjlqo'),
-              v('Piano Concerto No. 2', 'e5l5UzuHEMk'),
-            ]),
-        ]),
-    ]),
+    c('prokofiev', 'Sergei Prokofiev', 1891, 1953, 'MODERN', 'Russian',
+      'Crisp, sardonic, and deeply lyrical in equal measure. He wrote under Soviet repression yet produced some of the most vital and inventive music of the 20th century.',
+      [
+        v('Piano Concerto No. 3', 'fnmUvSEPOuY'),
+        v('Romeo and Juliet — Dance of the Knights', 'rvqKl8ERnW4'),
+        v('Symphony No. 1 "Classical"', 'F7kmJBwLGVU'),
+      ],
+      [
+        c('shostakovich', 'Dmitri Shostakovich', 1906, 1975, 'MODERN', 'Russian',
+          'The great voice of the Soviet era. His music is a coded record of suffering and survival — alternating between biting satire and the deepest tragedy.',
+          [
+            v('Symphony No. 5', 'mP-gnCzuapk'),
+            v('String Quartet No. 8', 'RXBmKhBjlqo'),
+            v('Piano Concerto No. 2', 'e5l5UzuHEMk'),
+          ]),
+      ]),
 
-    // ── CONTEMPORARY ─────────────────────────────────────────────────────────
-    branch('contemporary-branch', 'Contemporary & Minimal', [
-      c('part', 'Arvo Pärt', 1935, null, 'CONTEMPORARY', 'Estonian',
-        'Creator of the tintinnabuli style. After a long creative silence, Pärt emerged with music of monastic stillness and spiritual depth that speaks directly to the soul.',
-        [
-          v('Spiegel im Spiegel', 'TJ6Mzvh3XCc'),
-          v('Für Alina', '1hlzZB_Nzf0'),
-          v('Tabula Rasa', 'Knj3UdKdGMU'),
-        ]),
+    c('part', 'Arvo Pärt', 1935, null, 'CONTEMPORARY', 'Estonian',
+      'Creator of the tintinnabuli style. After a long creative silence, Pärt emerged with music of monastic stillness and spiritual depth that speaks directly to the soul.',
+      [
+        v('Spiegel im Spiegel', 'TJ6Mzvh3XCc'),
+        v('Für Alina', '1hlzZB_Nzf0'),
+        v('Tabula Rasa', 'Knj3UdKdGMU'),
+      ]),
 
-      c('glass', 'Philip Glass', 1937, null, 'CONTEMPORARY', 'American',
-        'The most prominent figure in musical minimalism. His hypnotic, cycling patterns have permeated concert halls, operas, and film scores worldwide.',
-        [
-          v('Metamorphosis Two', 'FaovqbcSYqk'),
-          v('Koyaanisqatsi', 'jBzXqBJuBME'),
-          v('Violin Concerto No. 1', 'OtQOLw_I1LQ'),
-        ]),
+    c('glass', 'Philip Glass', 1937, null, 'CONTEMPORARY', 'American',
+      'The most prominent figure in musical minimalism. His hypnotic, cycling patterns have permeated concert halls, operas, and film scores worldwide.',
+      [
+        v('Metamorphosis Two', 'FaovqbcSYqk'),
+        v('Koyaanisqatsi', 'jBzXqBJuBME'),
+        v('Violin Concerto No. 1', 'OtQOLw_I1LQ'),
+      ]),
 
-      c('reich', 'Steve Reich', 1936, null, 'CONTEMPORARY', 'American',
-        'Pioneer of phasing and process music. His work with tape loops and live instruments transformed Western music\'s relationship with rhythm and time.',
-        [
-          v('Music for 18 Musicians', 'PBiU1wMEPNk'),
-          v('Different Trains', 'tCpxC8lmkT0'),
-          v('Electric Counterpoint', 'vugqRAX7xQE'),
-        ]),
+    c('reich', 'Steve Reich', 1936, null, 'CONTEMPORARY', 'American',
+      'Pioneer of phasing and process music. His work with tape loops and live instruments transformed Western music\'s relationship with rhythm and time.',
+      [
+        v('Music for 18 Musicians', 'PBiU1wMEPNk'),
+        v('Different Trains', 'tCpxC8lmkT0'),
+        v('Electric Counterpoint', 'vugqRAX7xQE'),
+      ]),
 
-      c('adams', 'John Adams', 1947, null, 'CONTEMPORARY', 'American',
-        'Post-minimalist. He brought narrative, lyricism, and harmonic richness back to minimalism. Nixon in China is a landmark of late 20th-century opera.',
-        [
-          v('Shaker Loops', 'eiLyfZR1wnI'),
-          v('Short Ride in a Fast Machine', 'dpUyQkxD09A'),
-        ]),
-    ]),
+    c('adams', 'John Adams', 1947, null, 'CONTEMPORARY', 'American',
+      'Post-minimalist. He brought narrative, lyricism, and harmonic richness back to minimalism. Nixon in China is a landmark of late 20th-century opera.',
+      [
+        v('Shaker Loops', 'eiLyfZR1wnI'),
+        v('Short Ride in a Fast Machine', 'dpUyQkxD09A'),
+      ]),
 
-    // ── GREAT PERFORMERS ─────────────────────────────────────────────────────
-    branch('performers-branch', 'Great Performers', [
-      c('gould', 'Glenn Gould', 1932, 1982, 'CONTEMPORARY', 'Canadian',
-        'The most idiosyncratic and influential pianist of the 20th century. He retired from concert at 31, recording studio performances of uncanny intellectual depth. His 1981 Goldberg Variations is one of the great artistic farewells.',
-        [
-          v('Goldberg Variations 1981', 'Ah392lnFHxM'),
-          v('Bach WTC Book 1', 'EZ-NYKYD5MM'),
-          v('Beethoven Sonata Op. 109', 'xvlJMR-NLEI'),
-        ]),
+    c('gould', 'Glenn Gould', 1932, 1982, 'CONTEMPORARY', 'Canadian',
+      'The most idiosyncratic and influential pianist of the 20th century. He retired from concert at 31, recording studio performances of uncanny intellectual depth. His 1981 Goldberg Variations is one of the great artistic farewells.',
+      [
+        v('Goldberg Variations 1981', 'Ah392lnFHxM'),
+        v('Bach WTC Book 1', 'EZ-NYKYD5MM'),
+        v('Beethoven Sonata Op. 109', 'xvlJMR-NLEI'),
+      ]),
 
-      c('gieseking', 'Walter Gieseking', 1895, 1956, 'CONTEMPORARY', 'German',
-        'Legendary for his feather-light touch and extraordinary tonal palette. His recordings of Debussy and Ravel remain unsurpassed benchmarks.',
-        [
-          v('Debussy Préludes Book 1', 'G3-4VFkLUAY'),
-          v('Mozart Piano Sonatas', 'QCwHNiKWiGs'),
-        ]),
+    c('gieseking', 'Walter Gieseking', 1895, 1956, 'CONTEMPORARY', 'German',
+      'Legendary for his feather-light touch and extraordinary tonal palette. His recordings of Debussy and Ravel remain unsurpassed benchmarks.',
+      [
+        v('Debussy Préludes Book 1', 'G3-4VFkLUAY'),
+        v('Mozart Piano Sonatas', 'QCwHNiKWiGs'),
+      ]),
 
-      c('richter', 'Sviatoslav Richter', 1915, 1997, 'CONTEMPORARY', 'Russian',
-        'Titan of 20th-century piano. A vast repertoire performed at the highest level, an overwhelming physical and intellectual presence, and legendary live concerts.',
-        [
-          v('Schubert Wanderer Fantasy', 'OmQBnMjcKo8'),
-          v('Beethoven "Hammerklavier" Sonata', 'pJnFdV8LXYY'),
-          v('Prokofiev Piano Concerto No. 5', 'PoECd9BXK6A'),
-        ],
-        [
-          c('zimerman', 'Krystian Zimerman', 1956, null, 'CONTEMPORARY', 'Polish',
-            'One of the supreme pianists of the modern era. A consummate perfectionist, his Chopin and Brahms are considered definitive interpretations.',
-            [
-              v('Brahms Piano Concerto No. 2', 'WBMRLO_Ymd4'),
-              v('Chopin Piano Concerto No. 1', 'cBDl_lH_B40'),
-            ]),
-          c('wang', 'Yuja Wang', 1987, null, 'CONTEMPORARY', 'Chinese',
-            'Dazzling technique combined with fearless musicianship. One of the most exciting pianists of her generation.',
-            [
-              v('Prokofiev Piano Concerto No. 3', 'fnmUvSEPOuY'),
-              v('Ravel Gaspard de la Nuit', '1_fH7J1-HpI'),
-            ]),
-        ]),
+    c('richter', 'Sviatoslav Richter', 1915, 1997, 'CONTEMPORARY', 'Russian',
+      'Titan of 20th-century piano. A vast repertoire performed at the highest level, an overwhelming physical and intellectual presence, and legendary live concerts.',
+      [
+        v('Schubert Wanderer Fantasy', 'OmQBnMjcKo8'),
+        v('Beethoven "Hammerklavier" Sonata', 'pJnFdV8LXYY'),
+        v('Prokofiev Piano Concerto No. 5', 'PoECd9BXK6A'),
+      ],
+      [
+        c('zimerman', 'Krystian Zimerman', 1956, null, 'CONTEMPORARY', 'Polish',
+          'One of the supreme pianists of the modern era. A consummate perfectionist, his Chopin and Brahms are considered definitive interpretations.',
+          [
+            v('Brahms Piano Concerto No. 2', 'WBMRLO_Ymd4'),
+            v('Chopin Piano Concerto No. 1', 'cBDl_lH_B40'),
+          ]),
+      ]),
 
-      c('argerich', 'Martha Argerich', 1941, null, 'CONTEMPORARY', 'Argentine',
-        'Perhaps the greatest living pianist. Explosive, risk-taking, deeply musical — she has defined interpretations of Chopin, Schumann, Prokofiev, and Ravel for generations.',
-        [
-          v('Ravel Piano Concerto in G', 'AijVEqq1QGQ'),
-          v('Chopin Piano Sonata No. 3', 'SjnKR8V0v60'),
-          v('Prokofiev Piano Concerto No. 3', 'fWEQMbrXWqY'),
-        ],
-        [
-          c('trifonov', 'Daniil Trifonov', 1991, null, 'CONTEMPORARY', 'Russian',
-            'The prodigy of the current generation. Combines technical brilliance with rare musical sensitivity and extraordinary intellectual depth.',
-            [
-              v('Chopin Études', 'SjnKR8V0v60'),
-              v('Rachmaninoff Piano Concerto No. 3', 'YL-RdSV3xag'),
-              v('Liszt Piano Sonata in B minor', 'vCVfMBkNprA'),
-            ]),
-        ]),
+    c('argerich', 'Martha Argerich', 1941, null, 'CONTEMPORARY', 'Argentine',
+      'Perhaps the greatest living pianist. Explosive, risk-taking, deeply musical — she has defined interpretations of Chopin, Schumann, Prokofiev, and Ravel for generations.',
+      [
+        v('Ravel Piano Concerto in G', 'AijVEqq1QGQ'),
+        v('Chopin Piano Sonata No. 3', 'SjnKR8V0v60'),
+        v('Prokofiev Piano Concerto No. 3', 'fWEQMbrXWqY'),
+      ],
+      [
+        c('trifonov', 'Daniil Trifonov', 1991, null, 'CONTEMPORARY', 'Russian',
+          'The prodigy of the current generation. Combines technical brilliance with rare musical sensitivity and extraordinary intellectual depth.',
+          [
+            v('Chopin Études', 'SjnKR8V0v60'),
+            v('Rachmaninoff Piano Concerto No. 3', 'YL-RdSV3xag'),
+            v('Liszt Piano Sonata in B minor', 'vCVfMBkNprA'),
+          ]),
+      ]),
 
-      c('pollini', 'Maurizio Pollini', 1942, 2024, 'CONTEMPORARY', 'Italian',
-        'The supreme intellectual pianist. Crystal-clear technique and an architecture of steely logic made his Chopin and Beethoven benchmarks for all time.',
-        [
-          v('Chopin 24 Études', 'atXTEEFvFNA'),
-          v('Beethoven Piano Sonatas (late)', 'oZ-HxaMOm9w'),
-        ]),
-    ]),
+    c('pollini', 'Maurizio Pollini', 1942, 2024, 'CONTEMPORARY', 'Italian',
+      'The supreme intellectual pianist. Crystal-clear technique and an architecture of steely logic made his Chopin and Beethoven benchmarks for all time.',
+      [
+        v('Chopin 24 Études', 'atXTEEFvFNA'),
+        v('Beethoven Piano Sonatas (late)', 'oZ-HxaMOm9w'),
+      ]),
   ],
 };
 
