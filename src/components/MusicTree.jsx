@@ -5,8 +5,12 @@ import { treeData, PERIODS } from '../data/composers';
 const NW = 170;   // box width
 const NH = 52;    // box height
 const DX = 200;   // horizontal spacing (center-to-center)
-const DY = 120;   // vertical spacing (level-to-level)
+const DY = 120;   // kept for d3.tree nodeSize only (y is overridden by birth year)
 const DURATION = 400;
+
+const PX_PER_YEAR  = 6;    // screen pixels per year of birth
+const YEAR_ORIGIN  = 1540; // world-y = 0 corresponds to this year
+const MIN_GAP      = NH + 20; // minimum px between parent bottom and child top
 
 let nodeIdCounter = 0;
 function assignIds(node) {
@@ -59,6 +63,26 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
     const g = svg.append('g');
     gRef.current = g;
 
+    // ── Year ruler (drawn first so it sits below all nodes) ─────────────────
+    const isDark = theme === 'dark';
+    const rulerG = g.append('g').attr('class', 'time-ruler');
+    for (let yr = 1550; yr <= 2060; yr += 50) {
+      const ry = (yr - YEAR_ORIGIN) * PX_PER_YEAR;
+      rulerG.append('line')
+        .attr('x1', -4000).attr('x2', 6000)
+        .attr('y1', ry).attr('y2', ry)
+        .attr('stroke', isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)')
+        .attr('stroke-width', 1);
+      rulerG.append('text')
+        .attr('x', -760).attr('y', ry)
+        .attr('dominant-baseline', 'middle')
+        .attr('fill', isDark ? 'rgba(180,170,210,0.42)' : 'rgba(80,70,110,0.4)')
+        .style('font-size', '13px').style('font-weight', '500')
+        .style('pointer-events', 'none').style('user-select', 'none')
+        .style('font-family', "'Inter', sans-serif")
+        .text(yr);
+    }
+
     const dataCopy = JSON.parse(JSON.stringify(treeData));
     assignIds(dataCopy);
     const root = d3.hierarchy(dataCopy);
@@ -81,6 +105,21 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
 
     function update(source) {
       treeLayout(root);
+
+      // ── Override Y with birth-year axis ──────────────────────────────────
+      // d3.tree() gave us good X positions (horizontal branching).
+      // We replace Y so the vertical axis = real time.
+      root.eachBefore(d => {
+        if (d.depth === 0) { d.y = -200; return; }           // root hidden above view
+        if (!d.data.born) {                                    // branch nodes w/o date
+          d.y = d.parent ? d.parent.y + MIN_GAP : 0;
+          return;
+        }
+        const timeY = (d.data.born - YEAR_ORIGIN) * PX_PER_YEAR;
+        // Guarantee child is always below its parent (teacher born before student)
+        d.y = d.parent ? Math.max(timeY, d.parent.y + MIN_GAP) : timeY;
+      });
+
       const allNodes = root.descendants();
       const allLinks = root.links();
 
@@ -239,8 +278,8 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
     updateRef.current = update;
     update(root);
 
-    // Initial zoom: centre horizontally, first-level nodes near top
-    svg.call(zoom.transform, d3.zoomIdentity.translate(w / 2, 80).scale(0.65));
+    // Initial zoom: centre horizontally, Baroque era near top (~1550-1780 visible)
+    svg.call(zoom.transform, d3.zoomIdentity.translate(w / 2, 60).scale(0.48));
 
     const ro = new ResizeObserver(() => {
       if (updateRef.current && rootRef.current) updateRef.current(rootRef.current);
@@ -273,7 +312,7 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
   const handleReset   = () => {
     const w = wrapperRef.current?.clientWidth || 900;
     d3.select(svgRef.current).transition().duration(500)
-      .call(zoomRef.current.transform, d3.zoomIdentity.translate(w / 2, 80).scale(0.65));
+      .call(zoomRef.current.transform, d3.zoomIdentity.translate(w / 2, 60).scale(0.48));
   };
   const handleExpandAll = () => {
     rootRef.current?.descendants().forEach(d => { if (d._children) expand(d); });
@@ -296,7 +335,7 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
         <button onClick={handleCollapseAll} title="Collapse all">⊟</button>
       </div>
       <div className="tree-hint">
-        Click box to open details · ▾ strip to expand/collapse
+        Vertical axis = birth year · Click box to open · ▾ to expand
       </div>
     </div>
   );
