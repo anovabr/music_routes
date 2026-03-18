@@ -177,7 +177,50 @@ button {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding: 16px 12px;
+  overflow-x: hidden;
+  padding: 10px 10px 16px;
+  gap: 0;
+  transition: width 0.22s ease, padding 0.22s ease;
+}
+
+.filter-panel.collapsed {
+  width: 36px;
+  padding: 10px 4px;
+  overflow: hidden;
+  align-items: center;
+}
+
+.filter-collapse-btn {
+  align-self: flex-end;
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  margin-bottom: 6px;
+}
+
+.filter-panel.collapsed .filter-collapse-btn {
+  align-self: center;
+  margin-bottom: 0;
+}
+
+.filter-collapse-btn:hover {
+  background: var(--surface2);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.filter-body {
+  display: flex;
+  flex-direction: column;
   gap: 8px;
 }
 

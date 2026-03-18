@@ -115,11 +115,8 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
         .style('cursor', 'pointer')
         .on('click', (event, d) => {
           event.stopPropagation();
-          if (d.depth === 0) return; // root not interactive
-          if (d.children) collapse(d);
-          else if (d._children) expand(d);
+          if (d.depth === 0) return;
           if (d.data.period) onSelectComposer(d.data);
-          update(d);
         });
 
       // Box
@@ -146,10 +143,23 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
         .attr('dominant-baseline', 'middle')
         .style('pointer-events', 'none').style('user-select', 'none');
 
-      // Expand indicator (bottom center)
+      // Toggle strip — clickable zone at bottom of box for fold/unfold
+      nodeEnter.append('rect').attr('class', 'node-toggle')
+        .attr('width', NW - 4).attr('height', 13)
+        .attr('x', -NW / 2 + 2).attr('y', NH / 2 - 14)
+        .attr('rx', 3).attr('ry', 3)
+        .attr('fill', 'transparent')
+        .on('click', (event, d) => {
+          event.stopPropagation();
+          if (d.children) collapse(d);
+          else if (d._children) expand(d);
+          update(d);
+        });
+
+      // Expand indicator — inside the toggle strip
       nodeEnter.append('text').attr('class', 'node-expand')
-        .attr('x', 0).attr('y', NH / 2 + 1)
-        .attr('text-anchor', 'middle').attr('dominant-baseline', 'hanging')
+        .attr('x', 0).attr('y', NH / 2 - 7)
+        .attr('text-anchor', 'middle').attr('dominant-baseline', 'middle')
         .style('pointer-events', 'none').style('user-select', 'none');
 
       // ── Merge ──────────────────────────────────────────────────────────────
@@ -198,10 +208,26 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
         .style('font-size', '11px')
         .style('font-family', "'Inter', sans-serif");
 
+      nodeUpdate.select('rect.node-toggle')
+        .attr('fill', d => {
+          const hasFold = d._children || (d.children && d.children.length > 0);
+          if (!hasFold) return 'transparent';
+          return dark ? 'rgba(80,80,180,0.2)' : 'rgba(80,80,180,0.12)';
+        })
+        .attr('stroke', d => {
+          const hasFold = d._children || (d.children && d.children.length > 0);
+          return hasFold ? periodColor(d.data.period) : 'none';
+        })
+        .attr('stroke-width', 0.5)
+        .attr('stroke-opacity', 0.3)
+        .style('pointer-events', d =>
+          (d._children || (d.children && d.children.length > 0)) ? 'all' : 'none')
+        .style('cursor', 'pointer');
+
       nodeUpdate.select('text.node-expand')
-        .text(d => d._children ? '▾' : '')
-        .attr('fill', dark ? '#6060a0' : '#9090b0')
-        .style('font-size', '12px');
+        .text(d => d._children ? '▾' : (d.children && d.children.length > 0 ? '▴' : ''))
+        .attr('fill', dark ? '#8080c0' : '#7070b0')
+        .style('font-size', '10px');
 
       nodeSel.exit().transition().duration(DURATION)
         .attr('transform', `translate(${source.x},${source.y})`)
@@ -270,7 +296,7 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
         <button onClick={handleCollapseAll} title="Collapse all">⊟</button>
       </div>
       <div className="tree-hint">
-        Click a box to expand · click to open details
+        Click box to open details · ▾ strip to expand/collapse
       </div>
     </div>
   );
