@@ -4,8 +4,8 @@ import { treeData, PERIODS } from '../data/composers';
 
 const NODE_R = 9;
 const NODE_R_BRANCH = 14;
-const DX = 44;       // vertical spacing between nodes
-const DY = 260;      // horizontal spacing per depth level
+const DX = 180;      // horizontal spacing between sibling nodes
+const DY = 110;      // vertical spacing per depth level
 const DURATION = 450;
 
 let nodeIdCounter = 0;
@@ -89,7 +89,7 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
     const dataCopy = JSON.parse(JSON.stringify(treeData));
     assignIds(dataCopy);
     const root = d3.hierarchy(dataCopy);
-    root.x0 = h / 2;
+    root.x0 = w / 2;
     root.y0 = 0;
 
     // Collapse nodes beyond depth 1 initially
@@ -101,10 +101,10 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
     // ── Layout ────────────────────────────────────────────────────────────
     const treeLayout = d3.tree().nodeSize([DX, DY]);
 
-    // ── Link path ─────────────────────────────────────────────────────────
+    // ── Link path (top → down) ────────────────────────────────────────────
     function diagonal(s, t) {
-      const mx = (s.y + t.y) / 2;
-      return `M${s.y},${s.x} C${mx},${s.x} ${mx},${t.x} ${t.y},${t.x}`;
+      const my = (s.y + t.y) / 2;
+      return `M${s.x},${s.y} C${s.x},${my} ${t.x},${my} ${t.x},${t.y}`;
     }
 
     // ── Update function ───────────────────────────────────────────────────
@@ -122,7 +122,7 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
         .attr('class', 'link')
         .attr('d', () => {
           const o = { x: source.x0 ?? source.x, y: source.y0 ?? source.y };
-          return diagonal(o, o);
+          return diagonal(o, o);  // top-down: x=horiz, y=vert
         })
         .attr('fill', 'none')
         .attr('stroke-width', 1.5)
@@ -155,7 +155,7 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
 
       const nodeEnter = nodeSel.enter().append('g')
         .attr('class', 'node')
-        .attr('transform', () => `translate(${source.y0 ?? source.y},${source.x0 ?? source.x})`)
+        .attr('transform', () => `translate(${source.x0 ?? source.x},${source.y0 ?? source.y})`)
         .attr('opacity', 0)
         .style('cursor', 'pointer')
         .on('click', (event, d) => {
@@ -235,7 +235,7 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
       const nodeUpdate = nodeEnter.merge(nodeSel);
 
       nodeUpdate.transition().duration(DURATION)
-        .attr('transform', d => `translate(${d.y},${d.x})`)
+        .attr('transform', d => `translate(${d.x},${d.y})`)
         .attr('opacity', d => {
           if (!d.data.period) return 1;
           return activePeriods[d.data.period] !== false ? 1 : 0.18;
@@ -274,27 +274,24 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
           return theme === 'dark' ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.8)';
         });
 
-      // Label positioning
+      // Label positioning — centered below node (top-down layout)
       nodeUpdate.select('text.node-label')
-        .attr('x', d => {
-          const r = isBranch(d) ? NODE_R_BRANCH : NODE_R;
-          return (d.children || d._children) ? -(r + 8) : (r + 8);
-        })
-        .attr('text-anchor', d => (d.children || d._children) ? 'end' : 'start')
+        .attr('x', 0)
+        .attr('y', d => (isBranch(d) ? NODE_R_BRANCH : NODE_R) + 14)
+        .attr('dy', '0em')
+        .attr('text-anchor', 'middle')
         .text(d => d.data.name || '')
         .attr('fill', theme === 'dark' ? '#e8e0d5' : '#1a1a2e')
         .style('font-size', d => isBranch(d) ? '13px' : '12px')
         .style('font-weight', d => isBranch(d) ? '600' : '400')
         .style('font-family', d => isBranch(d) ? "'Playfair Display', serif" : "'Inter', sans-serif");
 
-      // Dates
+      // Dates — below label
       nodeUpdate.select('text.node-dates')
-        .attr('x', d => {
-          const r = isBranch(d) ? NODE_R_BRANCH : NODE_R;
-          return (d.children || d._children) ? -(r + 8) : (r + 8);
-        })
-        .attr('y', 14)
-        .attr('text-anchor', d => (d.children || d._children) ? 'end' : 'start')
+        .attr('x', 0)
+        .attr('y', d => (isBranch(d) ? NODE_R_BRANCH : NODE_R) + 26)
+        .attr('dy', '0em')
+        .attr('text-anchor', 'middle')
         .text(d => {
           if (!d.data.born) return '';
           const died = d.data.died ? d.data.died : '   ';
@@ -304,14 +301,11 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
         .style('font-size', '10px')
         .style('font-family', "'Inter', sans-serif");
 
-      // Video icon
+      // Video icon — above node
       nodeUpdate.select('text.node-video-icon')
-        .attr('x', d => {
-          const r = isBranch(d) ? NODE_R_BRANCH : NODE_R;
-          return (d.children || d._children) ? -(r + 8) : (r + 8);
-        })
-        .attr('y', -14)
-        .attr('text-anchor', d => (d.children || d._children) ? 'end' : 'start')
+        .attr('x', 0)
+        .attr('y', d => -((isBranch(d) ? NODE_R_BRANCH : NODE_R) + 6))
+        .attr('text-anchor', 'middle')
         .text(d => d.data.videos?.length ? '▶' : '')
         .attr('fill', theme === 'dark' ? '#c9a84c' : '#8B4513')
         .attr('opacity', 0.8);
@@ -319,7 +313,7 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
       // ── Exit ─────────────────────────────────────────────────────────────
       nodeSel.exit()
         .transition().duration(DURATION)
-        .attr('transform', `translate(${source.y},${source.x})`)
+        .attr('transform', `translate(${source.x},${source.y})`)
         .attr('opacity', 0)
         .remove();
 
@@ -330,10 +324,10 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
     updateRef.current = update;
     update(root);
 
-    // Initial zoom to show first two levels nicely
+    // Initial zoom — root centered horizontally, near top
     const initScale = 0.7;
     svg.call(zoom.transform,
-      d3.zoomIdentity.translate(60, h / 2).scale(initScale)
+      d3.zoomIdentity.translate(w / 2, 60).scale(initScale)
     );
 
     // ── Resize handler ─────────────────────────────────────────────────────
@@ -376,9 +370,9 @@ export default function MusicTree({ activePeriods, onSelectComposer, onOpenVideo
   };
   const handleReset = () => {
     if (svgRef.current && zoomRef.current) {
-      const h = wrapperRef.current?.clientHeight || 700;
+      const w = wrapperRef.current?.clientWidth || 900;
       d3.select(svgRef.current).transition().duration(500)
-        .call(zoomRef.current.transform, d3.zoomIdentity.translate(60, h / 2).scale(0.7));
+        .call(zoomRef.current.transform, d3.zoomIdentity.translate(w / 2, 60).scale(0.7));
     }
   };
   const handleExpandAll = () => {

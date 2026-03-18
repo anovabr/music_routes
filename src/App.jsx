@@ -13,7 +13,7 @@ const DEFAULT_PERIODS = Object.keys(PERIODS).reduce(
 
 export default function App() {
   const [theme, setTheme] = useState('dark');
-  const [view, setView] = useState('tree');
+  const [view, setView] = useState('timeline');
   const [selectedComposer, setSelectedComposer] = useState(null);
   const [activeVideo, setActiveVideo] = useState(null);   // { video, composer }
   const [activePeriods, setActivePeriods] = useState(DEFAULT_PERIODS);
