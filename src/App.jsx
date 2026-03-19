@@ -102,12 +102,24 @@ export default function App() {
     setActiveVideo({ video, composer }), []);
 
   const [mobileTab, setMobileTab] = useState('timeline');
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Close hamburger menu when clicking outside the header
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handle = (e) => {
+      if (!e.target.closest('.app-header')) setMenuOpen(false);
+    };
+    document.addEventListener('click', handle);
+    return () => document.removeEventListener('click', handle);
+  }, [menuOpen]);
 
   const handleSelectComposer = useCallback((c) => {
     setSelectedComposer(c);
     setSearchOpen(false);
     setSearchQuery('');
     setMobileTab('lineage');
+    setMenuOpen(false);
   }, []);
 
   // Random composer
@@ -120,12 +132,23 @@ export default function App() {
     <div className="app" data-theme={theme}>
 
       {/* ── Header ─────────────────────────────────────────────────────── */}
-      <header className="app-header">
+      <header className={`app-header${menuOpen ? ' menu-open' : ''}`}>
         <div className="header-logo">
           <span className="treble-clef">𝄞</span>
           <h1>Classical Music Neurotree</h1>
           <span className="byline">by Luis Anunciação</span>
         </div>
+
+        {/* Hamburger button — mobile only */}
+        <button
+          className="hamburger-btn"
+          onClick={(e) => { e.stopPropagation(); setMenuOpen(m => !m); }}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+        >
+          <span className={menuOpen ? 'open' : ''} />
+          <span className={menuOpen ? 'open' : ''} />
+          <span className={menuOpen ? 'open' : ''} />
+        </button>
 
         {/* Search */}
         <div className="search-container">

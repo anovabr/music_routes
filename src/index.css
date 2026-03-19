@@ -1177,6 +1177,11 @@ button {
   display: none;
 }
 
+/* ── Hamburger Button (hidden on desktop) ───────────────────────────────────── */
+.hamburger-btn {
+  display: none;
+}
+
 @media (max-width: 1024px) {
   html, body, #root {
     overflow: hidden;
@@ -1258,15 +1263,13 @@ button {
 }
 
 @media (max-width: 768px) {
+  /* ── Compact header: only logo + hamburger visible ── */
   .app-header {
-    flex-wrap: wrap;
-    height: auto;
-    padding: 12px 16px;
-    gap: 10px;
-  }
-
-  .header-logo {
-    order: 1;
+    flex-wrap: nowrap;
+    height: 56px;
+    padding: 0 16px;
+    overflow: visible;
+    position: relative;
   }
 
   .header-logo h1 {
@@ -1277,67 +1280,146 @@ button {
     display: none;
   }
 
-  .search-container {
-    order: 5;
+  /* Hide all nav/control items by default */
+  .search-container,
+  .header-periods,
+  .header-controls {
+    display: none;
+  }
+
+  /* ── Hamburger button ── */
+  .hamburger-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 8px 6px;
+    margin-left: auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background var(--transition);
+  }
+
+  .hamburger-btn:hover {
+    background: var(--surface2);
+  }
+
+  .hamburger-btn span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+    transform-origin: center;
+  }
+
+  /* Animate to ✕ when open */
+  .hamburger-btn span.open:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+  .hamburger-btn span.open:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger-btn span.open:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+  /* ── Expanded drawer when menu-open ── */
+  .app-header.menu-open {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 12px 16px 16px;
+    gap: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    z-index: 100;
+  }
+
+  .app-header.menu-open .header-logo {
+    flex: 1;
+  }
+
+  .app-header.menu-open .hamburger-btn {
+    margin-left: 0;
+  }
+
+  .app-header.menu-open .search-container {
+    display: flex;
+    order: 3;
     width: 100%;
     margin: 0;
   }
 
-  .search-dropdown {
-    width: calc(100vw - 32px);
+  .app-header.menu-open .search-dropdown {
+    width: 100%;
     left: 0;
     right: 0;
   }
 
-  .header-periods {
+  .app-header.menu-open .header-periods {
+    display: flex;
     order: 4;
     width: 100%;
     justify-content: flex-start;
-    gap: 4px;
+    gap: 6px;
     overflow-x: auto;
     flex-wrap: nowrap;
-    padding: 4px 0;
+    padding: 2px 0;
     -webkit-overflow-scrolling: touch;
   }
 
   .period-btn {
-    padding: 3px 8px;
-    font-size: 10px;
+    padding: 5px 10px;
+    font-size: 11px;
     white-space: nowrap;
   }
 
   .period-name {
-    display: none;
+    display: inline;
   }
 
   .period-count {
     display: none;
   }
 
-  .header-controls {
-    order: 2;
-    margin-left: auto;
+  .app-header.menu-open .header-controls {
+    display: flex;
+    order: 5;
+    width: 100%;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 2px;
   }
 
-  .bmc-btn span {
-    display: none;
+  .app-header.menu-open .bmc-btn span {
+    display: inline;
   }
 
-  .bmc-btn {
-    padding: 6px;
-    font-size: 14px;
+  /* ── Lineage tree: bigger nodes, easier to read on mobile ── */
+  .tree-node-body {
+    min-width: 110px;
+    max-width: 160px;
+    padding: 10px 12px 10px 18px;
   }
 
-  /* Timeline grid: 1 column on small phones */
+  .tree-node-name {
+    font-size: 13px;
+  }
+
+  .tree-node-dates {
+    font-size: 11px;
+  }
+
+  .lineage-controls button,
+  .lineage-controls .zoom-level {
+    min-width: 32px;
+    min-height: 32px;
+    font-size: 16px;
+  }
+
+  /* Timeline grid */
   .timeline-grid {
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-  }
-
-  /* Lineage tree: allow horizontal scroll on mobile */
-  .tree-canvas {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
   }
 }
 
@@ -1355,5 +1437,11 @@ button {
     width: 32px;
     height: 32px;
     font-size: 14px;
+  }
+
+  /* Single-column nodes on very small screens */
+  .tree-node-body {
+    min-width: 100px;
+    max-width: 140px;
   }
 }

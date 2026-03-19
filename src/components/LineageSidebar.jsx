@@ -254,6 +254,28 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
     }
   }, []);
 
+  // Touch pan handlers
+  const handleTouchStart = useCallback((e) => {
+    if (e.touches.length !== 1) return;
+    const t = e.touches[0];
+    isPanning.current = true;
+    panStart.current = { x: t.clientX, y: t.clientY };
+    panOrigin.current = { ...pan };
+  }, [pan]);
+
+  const handleTouchMove = useCallback((e) => {
+    if (!isPanning.current || e.touches.length !== 1) return;
+    const t = e.touches[0];
+    setPan({
+      x: panOrigin.current.x + (t.clientX - panStart.current.x),
+      y: panOrigin.current.y + (t.clientY - panStart.current.y),
+    });
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    isPanning.current = false;
+  }, []);
+
   return (
     <aside className="lineage-sidebar" ref={sidebarRef} style={{ width }}>
       {/* Resize handle */}
@@ -274,14 +296,18 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
       </div>
 
       {lineageTree ? (
-        <div 
-          className="lineage-tree" 
-          ref={treeContainerRef} 
+        <div
+          className="lineage-tree"
+          ref={treeContainerRef}
           onWheel={handleWheel}
           onMouseDown={handlePanStart}
           onMouseMove={handlePanMove}
           onMouseUp={handlePanEnd}
           onMouseLeave={handlePanEnd}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          style={{ touchAction: 'none' }}
         >
           <div 
             className="lineage-tree-inner" 
