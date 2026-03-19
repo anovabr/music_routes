@@ -1,45 +1,14 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback } from 'react';
 import FilterPanel from './components/FilterPanel';
+import LineageSidebar from './components/LineageSidebar';
 import VideoModal from './components/VideoModal';
 import TimelineView from './components/TimelineView';
-import { PERIODS, getAncestors, getComposerNode } from './data/composers';
+import { PERIODS } from './data/composers';
 
 const DEFAULT_PERIODS = Object.keys(PERIODS).reduce(
   (acc, k) => ({ ...acc, [k]: true }),
   {}
 );
-
-// Lineage breadcrumb component for header
-function LineageBreadcrumb({ composer, onSelect, onClear }) {
-  const ancestors = getAncestors(composer.id);
-  const node = getComposerNode(composer.id);
-  const childCount = node?.children?.filter(c => c.period)?.length || 0;
-
-  return (
-    <div className="lineage-breadcrumb">
-      {ancestors.map((ancestor, idx) => (
-        <span key={ancestor.id} className="breadcrumb-item">
-          <button
-            className="breadcrumb-link"
-            onClick={() => onSelect(ancestor)}
-            style={{ '--pc': PERIODS[ancestor.period]?.color }}
-          >
-            {ancestor.name}
-          </button>
-          <span className="breadcrumb-sep">→</span>
-        </span>
-      ))}
-      <span
-        className="breadcrumb-current"
-        style={{ '--pc': PERIODS[composer.period]?.color }}
-      >
-        {composer.name}
-        {childCount > 0 && <span className="breadcrumb-children">({childCount})</span>}
-      </span>
-      <button className="breadcrumb-clear" onClick={onClear} title="Clear selection">×</button>
-    </div>
-  );
-}
 
 export default function App() {
   const [theme, setTheme] = useState('dark');
@@ -67,14 +36,7 @@ export default function App() {
           <span className="treble-clef">𝄞</span>
           <h1>Classical Music Neurotree</h1>
         </div>
-        {/* Lineage Breadcrumb */}
-        {selectedComposer && (
-          <LineageBreadcrumb
-            composer={selectedComposer}
-            onSelect={handleSelectComposer}
-            onClear={() => setSelectedComposer(null)}
-          />
-        )}
+
         <div className="header-controls">
           <button
             className="theme-toggle"
@@ -101,6 +63,15 @@ export default function App() {
             onOpenVideo={handleOpenVideo}
           />
         </div>
+
+        {selectedComposer && (
+          <LineageSidebar
+            composer={selectedComposer}
+            onClose={() => setSelectedComposer(null)}
+            onOpenVideo={handleOpenVideo}
+            onSelectComposer={handleSelectComposer}
+          />
+        )}
       </main>
 
       {/* ── Video Modal ─────────────────────────────────────────────────── */}

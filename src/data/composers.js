@@ -541,6 +541,25 @@ export function getAncestors(composerId) {
   return ancestors.filter(a => a.period); // only actual composers
 }
 
+// ─── Get direct children (students) of a composer ──────────────────────────────
+export function getChildren(composerId) {
+  function find(node) {
+    if (node.id === composerId) return node.children || [];
+    if (node.children) {
+      for (const child of node.children) {
+        const found = find(child);
+        if (found) return found;
+      }
+    }
+    return null;
+  }
+  for (const child of treeData.children) {
+    const found = find(child);
+    if (found) return found.filter(c => c.period);
+  }
+  return [];
+}
+
 // ─── Get a composer node by ID (with full subtree) ─────────────────────────────
 export function getComposerNode(composerId) {
   function find(node) {

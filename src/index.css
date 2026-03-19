@@ -131,79 +131,6 @@ button {
   border-color: var(--accent);
 }
 
-/* ── Lineage Breadcrumb (in header) ──────────────────────────────────────────── */
-.lineage-breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  flex: 1;
-  justify-content: center;
-  padding: 0 20px;
-  overflow: hidden;
-}
-
-.breadcrumb-item {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.breadcrumb-link {
-  background: transparent;
-  border: none;
-  color: var(--text2);
-  font-size: 13px;
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: all var(--transition);
-  white-space: nowrap;
-}
-
-.breadcrumb-link:hover {
-  background: var(--surface);
-  color: var(--pc, var(--accent));
-}
-
-.breadcrumb-sep {
-  color: var(--text3);
-  font-size: 11px;
-}
-
-.breadcrumb-current {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--pc, var(--text));
-  padding: 4px 10px;
-  background: color-mix(in srgb, var(--pc) 15%, var(--surface));
-  border-radius: 6px;
-  white-space: nowrap;
-}
-
-.breadcrumb-children {
-  font-size: 11px;
-  font-weight: 400;
-  color: var(--text2);
-  margin-left: 4px;
-}
-
-.breadcrumb-clear {
-  background: transparent;
-  border: none;
-  color: var(--text3);
-  font-size: 16px;
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 4px;
-  margin-left: 8px;
-  transition: all var(--transition);
-}
-
-.breadcrumb-clear:hover {
-  background: var(--surface);
-  color: var(--red);
-}
-
 /* ── Main ────────────────────────────────────────────────────────────────────── */
 .app-main {
   flex: 1;
@@ -214,7 +141,8 @@ button {
 
 /* ── Filter Panel ────────────────────────────────────────────────────────────── */
 .filter-panel {
-  flex: 1;
+  flex-shrink: 0;
+  width: 200px;
   background: var(--bg2);
   border-right: 1px solid var(--border);
   display: flex;
@@ -391,6 +319,315 @@ button {
 @keyframes slideIn {
   from { transform: translateX(20px); opacity: 0; }
   to   { transform: translateX(0);    opacity: 1; }
+}
+
+/* ── Lineage Sidebar (Tree view in Timeline) ─────────────────────────────────── */
+.lineage-sidebar {
+  flex-shrink: 0;
+  background: var(--bg2);
+  border-left: 1px solid var(--border);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.25s ease;
+  position: relative;
+  min-width: 300px;
+  max-width: 900px;
+}
+
+/* Resize handle */
+.lineage-resize-handle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  cursor: ew-resize;
+  background: transparent;
+  z-index: 10;
+  transition: background 0.15s ease;
+}
+
+.lineage-resize-handle:hover,
+.lineage-resize-handle:active {
+  background: var(--accent);
+}
+
+.lineage-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.lineage-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.lineage-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lineage-controls button {
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  font-size: 13px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition);
+  cursor: pointer;
+}
+
+.lineage-controls button:hover {
+  background: var(--surface2);
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.lineage-close {
+  border-radius: 50% !important;
+}
+
+.lineage-close:hover {
+  background: var(--red) !important;
+  color: #fff !important;
+  border-color: var(--red) !important;
+}
+
+.lineage-tree {
+  flex: 1;
+  padding: 16px;
+  overflow: auto;
+}
+
+/* Tree node wrapper */
+.tree-node-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tree-node-wrapper.root {
+  align-items: flex-start;
+}
+
+.tree-node {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  transition: all var(--transition);
+}
+
+.tree-node:hover {
+  background: var(--surface);
+}
+
+.tree-node.selected {
+  background: color-mix(in srgb, var(--pc) 15%, var(--surface));
+}
+
+/* Toggle button */
+.tree-toggle {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  background: transparent;
+  border: none;
+  color: var(--text3);
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all var(--transition);
+}
+
+.tree-toggle.has-children {
+  color: var(--pc, var(--accent));
+}
+
+.tree-toggle.has-children:hover {
+  background: var(--surface2);
+  color: var(--text);
+}
+
+.tree-toggle:disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+
+/* Node body - clickable area */
+.tree-node-body {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 140px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  transition: all var(--transition);
+  position: relative;
+}
+
+.tree-node-body:hover {
+  border-color: var(--pc, var(--accent));
+  background: var(--surface2);
+}
+
+.tree-node.selected .tree-node-body {
+  background: color-mix(in srgb, var(--pc) 15%, var(--surface));
+  border-color: var(--pc);
+  border-width: 2px;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--pc) 25%, transparent);
+}
+
+.tree-node-accent {
+  width: 4px;
+  height: calc(100% - 8px);
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  border-radius: 2px;
+  background: var(--pc, var(--accent));
+}
+
+.tree-node-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-left: 8px;
+  min-width: 0;
+}
+
+.tree-node-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tree-node-dates {
+  font-size: 12px;
+  color: var(--text2);
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+}
+
+.tree-node-play {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--pc, var(--accent));
+  border: none;
+  color: #fff;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.tree-node-play:hover {
+  transform: scale(1.1);
+  filter: brightness(1.1);
+}
+
+/* Children container with connectors */
+.tree-children-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+/* Vertical connector from parent to horizontal line */
+.tree-connector-vertical {
+  width: 2px;
+  height: 20px;
+  background: var(--pc, var(--border));
+  opacity: 0.5;
+}
+
+/* Horizontal connector between siblings */
+.tree-connector-horizontal {
+  height: 2px;
+  background: var(--pc, var(--border));
+  opacity: 0.5;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tree-children.siblings {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.tree-children:not(.siblings) {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 20px;
+}
+
+/* Wrapper for each child with its connector */
+.tree-child-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Vertical connector from horizontal line down to child */
+.tree-connector-down {
+  width: 2px;
+  height: 12px;
+  background: var(--pc, var(--border));
+  opacity: 0.5;
+}
+
+/* Calculate horizontal connector width based on children */
+.tree-children.siblings .tree-connector-horizontal {
+  width: calc(100% - 80px);
+}
+
+.lineage-description {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+  max-height: 140px;
+  overflow-y: auto;
+}
+
+.lineage-description p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text2);
+  font-style: italic;
+  margin: 0;
 }
 
 /* ── Video Modal ──────────────────────────────────────────────────────────────── */
