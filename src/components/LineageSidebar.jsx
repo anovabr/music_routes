@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect } from 'react';
+import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import { PERIODS, buildLineageTree, getComposerNode } from '../data/composers';
 
 function TreeNode({ node, selectedId, expandedIds, onToggle, onSelect, onOpenVideo, depth = 0 }) {
@@ -69,6 +69,11 @@ function TreeNode({ node, selectedId, expandedIds, onToggle, onSelect, onOpenVid
 export default function LineageSidebar({ composer, onClose, onSelectComposer, onOpenVideo }) {
   if (!composer) return null;
 
+  // Resize state
+  const [width, setWidth] = useState(320);
+  const isResizing = useRef(false);
+  const sidebarRef = useRef(null);
+
   // Build the lineage tree with selected composer
   const lineageTree = useMemo(() => buildLineageTree(composer.id), [composer.id]);
 
@@ -119,6 +124,35 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
     setExpandedIds(ids);
   }, [composer.id, lineageTree]);
 
+  // Resize handlers
+  const handleMouseDown = useCallback((e) => {
+    isResizing.current = true;
+    document.body.style.cursor = 'ew-resize';
+    document.body.style.userSelect = 'none';
+    e.preventDefault();
+  }, []);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!isResizing.current) return;
+      const newWidth = window.innerWidth - e.clientX;
+      setWidth(Math.max(200, Math.min(600, newWidth)));
+    };
+
+    const handleMouseUp = () => {
+      isResizing.current = false;
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, []);
+
   const handleToggle = useCallback((id) => {
     setExpandedIds(prev => {
       const next = new Set(prev);
@@ -164,7 +198,10 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
   if (!lineageTree) return null;
 
   return (
-    <aside className="lineage-sidebar">
+    <aside className="lineage-sidebar" ref={sidebarRef} style={{ width }}>
+      {/* Resize handle */}
+      <div className="lineage-resize-handle" onMouseDown={handleMouseDown} />
+      
       <div className="lineage-header">
         <h3 className="lineage-title">Lineage Tree</h3>
         <div className="lineage-controls">

@@ -647,7 +647,6 @@ button {
 
 /* ── Lineage Sidebar (Tree view in Timeline) ─────────────────────────────────── */
 .lineage-sidebar {
-  width: 320px;
   flex-shrink: 0;
   background: var(--bg2);
   border-left: 1px solid var(--border);
@@ -655,6 +654,27 @@ button {
   display: flex;
   flex-direction: column;
   animation: slideIn 0.25s ease;
+  position: relative;
+  min-width: 200px;
+  max-width: 600px;
+}
+
+/* Resize handle */
+.lineage-resize-handle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  cursor: ew-resize;
+  background: transparent;
+  z-index: 10;
+  transition: background 0.15s ease;
+}
+
+.lineage-resize-handle:hover,
+.lineage-resize-handle:active {
+  background: var(--accent);
 }
 
 .lineage-header {
