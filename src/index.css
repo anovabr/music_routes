@@ -514,6 +514,75 @@ button {
   font-style: italic;
 }
 
+/* ── Lineage (Teachers / Students) ────────────────────────────────────────────── */
+.panel-lineage {
+  margin-bottom: 20px;
+}
+
+.panel-lineage-title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text2);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lineage-icon {
+  font-size: 14px;
+}
+
+.panel-lineage-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.panel-lineage-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  text-align: left;
+  transition: all var(--transition);
+  width: 100%;
+  cursor: pointer;
+}
+
+.panel-lineage-item:hover {
+  background: var(--surface2);
+  border-color: var(--lc, var(--accent));
+  transform: translateX(2px);
+}
+
+.panel-lineage-item .lineage-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--lc, var(--accent));
+  flex-shrink: 0;
+}
+
+.panel-lineage-item .lineage-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  flex: 1;
+}
+
+.panel-lineage-item .lineage-dates {
+  font-size: 11px;
+  color: var(--text3);
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+}
+
 .panel-videos-title {
   font-size: 12px;
   font-weight: 600;

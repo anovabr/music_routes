@@ -521,3 +521,41 @@ export function flatComposers() {
   treeData.children.forEach(walk);
   return result.sort((a, b) => a.born - b.born);
 }
+
+// ─── Get ancestors (teachers) of a composer ────────────────────────────────────
+export function getAncestors(composerId) {
+  const ancestors = [];
+  function walk(node, path) {
+    if (node.id === composerId) {
+      ancestors.push(...path);
+      return true;
+    }
+    if (node.children) {
+      for (const child of node.children) {
+        if (walk(child, [...path, node])) return true;
+      }
+    }
+    return false;
+  }
+  treeData.children.forEach(child => walk(child, []));
+  return ancestors.filter(a => a.period); // only actual composers
+}
+
+// ─── Get direct children (students) of a composer ──────────────────────────────
+export function getChildren(composerId) {
+  function find(node) {
+    if (node.id === composerId) return node.children || [];
+    if (node.children) {
+      for (const child of node.children) {
+        const found = find(child);
+        if (found) return found;
+      }
+    }
+    return null;
+  }
+  for (const child of treeData.children) {
+    const found = find(child);
+    if (found) return found.filter(c => c.period);
+  }
+  return [];
+}

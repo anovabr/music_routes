@@ -99,6 +99,7 @@ export default function App() {
             composer={selectedComposer}
             onClose={() => setSelectedComposer(null)}
             onOpenVideo={handleOpenVideo}
+            onSelectComposer={handleSelectComposer}
           />
         )}
       </main>
