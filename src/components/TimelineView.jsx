@@ -61,7 +61,7 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
                     <div
                       key={c.id}
                       className={cardClass}
-                      onClick={() => onSelectComposer(c)}
+                      onClick={() => onSelectComposer(isSelected ? null : c)}
                     >
                       <div className="tcard-header">
                         <div className="tcard-dot" style={{ background: period.color }} />

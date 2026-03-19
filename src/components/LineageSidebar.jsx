@@ -410,7 +410,10 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
             <div className="lineage-video-section">
               <div className="lineage-video-header">
                 <span className="lineage-video-playing">▶ {activeVideo.video.title}</span>
-                <button className="lineage-video-close" onClick={onCloseVideo} title="Close video">✕</button>
+                <button className="lineage-video-close" onClick={onCloseVideo} title="Close video">
+                  <span className="video-close-x">✕</span>
+                  <span className="video-close-back">← Back</span>
+                </button>
               </div>
               <div className="lineage-video-container">
                 <VideoPlayer

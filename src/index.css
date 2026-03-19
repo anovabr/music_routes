@@ -589,6 +589,10 @@ button {
   border-color: var(--red);
 }
 
+/* Desktop: show ✕, hide "← Back" */
+.video-close-back { display: none; }
+.video-close-x    { display: inline; }
+
 .lineage-video-container {
   position: relative;
   width: 100%;
@@ -864,7 +868,7 @@ button {
 }
 
 .tcard--dim {
-  opacity: 0.35;
+  opacity: 0.55;
 }
 
 .tcard-header {
@@ -1800,6 +1804,28 @@ button {
     height: 7px;
     border-radius: 50%;
     background: var(--accent);
+  }
+
+  /* Bigger close/back button for video on mobile */
+  .lineage-video-close {
+    width: auto;
+    height: 40px;
+    padding: 0 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  /* Swap label: show "← Back", hide ✕ */
+  .video-close-x    { display: none; }
+  .video-close-back { display: inline; }
+
+  /* Taller video header so close button is easy to tap */
+  .lineage-video-header {
+    min-height: 52px;
+    padding: 8px 12px;
+    gap: 8px;
   }
 }
 
