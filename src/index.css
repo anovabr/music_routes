@@ -645,6 +645,246 @@ button {
   font-style: italic;
 }
 
+/* ── Lineage Sidebar (Tree view in Timeline) ─────────────────────────────────── */
+.lineage-sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  background: var(--bg2);
+  border-left: 1px solid var(--border);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.25s ease;
+}
+
+.lineage-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.lineage-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.lineage-close {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  font-size: 11px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition);
+}
+
+.lineage-close:hover {
+  background: var(--red);
+  color: #fff;
+  border-color: var(--red);
+}
+
+.lineage-tree {
+  flex: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.lineage-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.lineage-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.lineage-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.lineage-connector {
+  width: 2px;
+  height: 16px;
+  background: linear-gradient(to bottom, var(--pc, var(--border)), var(--border));
+}
+
+.lineage-connector.down {
+  background: linear-gradient(to bottom, var(--border), var(--pc, var(--border)));
+}
+
+.lineage-connector.up {
+  height: 12px;
+  background: var(--border);
+}
+
+/* Tree node styling */
+.lineage-node {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 260px;
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+}
+
+.lineage-node:not(.selected):hover {
+  background: var(--surface2);
+  border-color: var(--pc, var(--accent));
+  transform: scale(1.02);
+}
+
+.lineage-node.selected {
+  background: color-mix(in srgb, var(--pc) 12%, var(--surface));
+  border-color: var(--pc);
+  border-width: 2px;
+  cursor: default;
+}
+
+.lineage-node.ancestor {
+  opacity: 0.85;
+}
+
+.lineage-node.child {
+  opacity: 0.85;
+}
+
+.lineage-node-accent {
+  width: 4px;
+  height: calc(100% - 8px);
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  border-radius: 2px;
+  background: var(--pc, var(--accent));
+}
+
+.lineage-node-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-left: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.lineage-node-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lineage-node-dates {
+  font-size: 11px;
+  color: var(--text3);
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+}
+
+.lineage-node-nat {
+  font-size: 10px;
+  color: var(--text3);
+  margin-top: 2px;
+}
+
+.lineage-node-play {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--pc, var(--accent));
+  border: none;
+  color: #fff;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.lineage-node-play:hover {
+  transform: scale(1.1);
+  filter: brightness(1.1);
+}
+
+.lineage-section.current {
+  margin: 12px 0;
+}
+
+.lineage-section.children {
+  margin-top: 4px;
+}
+
+.lineage-connector-branch {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 4px;
+}
+
+.branch-line {
+  width: 2px;
+  height: 12px;
+  background: var(--border);
+}
+
+.lineage-children-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.lineage-item.child {
+  width: 100%;
+}
+
+.lineage-description {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+  max-height: 140px;
+  overflow-y: auto;
+}
+
+.lineage-description p {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text2);
+  font-style: italic;
+  margin: 0;
+}
+
 /* ── Video Modal ──────────────────────────────────────────────────────────────── */
 .modal-overlay {
   position: fixed;

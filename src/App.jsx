@@ -2,6 +2,7 @@ import { useState, useCallback, useMemo } from 'react';
 import MusicTree from './components/MusicTree';
 import FilterPanel from './components/FilterPanel';
 import ComposerPanel from './components/ComposerPanel';
+import LineageSidebar from './components/LineageSidebar';
 import VideoModal from './components/VideoModal';
 import TimelineView from './components/TimelineView';
 import { PERIODS } from './data/composers';
@@ -94,8 +95,17 @@ export default function App() {
           )}
         </div>
 
-        {selectedComposer && (
+        {selectedComposer && view === 'tree' && (
           <ComposerPanel
+            composer={selectedComposer}
+            onClose={() => setSelectedComposer(null)}
+            onOpenVideo={handleOpenVideo}
+            onSelectComposer={handleSelectComposer}
+          />
+        )}
+
+        {selectedComposer && view === 'timeline' && (
+          <LineageSidebar
             composer={selectedComposer}
             onClose={() => setSelectedComposer(null)}
             onOpenVideo={handleOpenVideo}
