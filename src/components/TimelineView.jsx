@@ -1,24 +1,15 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { flatComposers, PERIODS } from '../data/composers';
 
-export default function TimelineView({ activePeriods, onSelectComposer, onOpenVideo }) {
-  const [search, setSearch] = useState('');
+export default function TimelineView({ activePeriods, selectedComposer, onSelectComposer, onOpenVideo }) {
   const all = useMemo(() => flatComposers(), []);
 
   const filtered = useMemo(() => {
     return all.filter(c => {
       if (activePeriods[c.period] === false) return false;
-      if (search) {
-        const q = search.toLowerCase();
-        return (
-          c.name.toLowerCase().includes(q) ||
-          (c.nationality || '').toLowerCase().includes(q) ||
-          (PERIODS[c.period]?.name || '').toLowerCase().includes(q)
-        );
-      }
       return true;
     });
-  }, [all, activePeriods, search]);
+  }, [all, activePeriods]);
 
   // Group by period
   const grouped = useMemo(() => {
@@ -34,24 +25,18 @@ export default function TimelineView({ activePeriods, onSelectComposer, onOpenVi
 
   return (
     <div className="timeline-view">
-      <div className="timeline-header">
-        <h2 className="timeline-title">Classical Music Timeline</h2>
-        <input
-          className="timeline-search"
-          type="text"
-          placeholder="Search composers, nationality, period…"
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-        />
-      </div>
-
       <div className="timeline-content">
         {periodOrder.map(pid => {
           const composers = grouped[pid];
           if (!composers?.length) return null;
           const period = PERIODS[pid];
           return (
-            <section key={pid} className="timeline-section" style={{ '--pc': period.color }}>
+            <section
+              key={pid}
+              id={`period-${pid}`}
+              className="timeline-section"
+              style={{ '--pc': period.color }}
+            >
               <div className="timeline-period-header">
                 <span className="timeline-period-dot" />
                 <h3 className="timeline-period-name">{period.name}</h3>
@@ -62,9 +47,19 @@ export default function TimelineView({ activePeriods, onSelectComposer, onOpenVi
                 {composers.map(c => (
                   <div
                     key={c.id}
-                    className="timeline-card"
+                    className={`timeline-card ${selectedComposer?.id === c.id ? 'is-selected' : ''}`}
                     onClick={() => onSelectComposer(c)}
                   >
+                    {/* Quick play button */}
+                    {c.videos?.length > 0 && (
+                      <button
+                        className="tcard-quick-play"
+                        onClick={e => { e.stopPropagation(); onOpenVideo(c.videos[0], c); }}
+                        title={`Play: ${c.videos[0].title}`}
+                      >
+                        ▶
+                      </button>
+                    )}
                     <div className="tcard-header">
                       <div className="tcard-dot" style={{ background: period.color }} />
                       <h4 className="tcard-name">{c.name}</h4>

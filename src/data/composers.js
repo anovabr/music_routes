@@ -23,11 +23,33 @@ export const treeData = {
   type: 'root',
   children: [
 
-    // ── MONTEVERDI → HANDEL → HAYDN → CLASSICAL LINEAGE ──────────────────────
+    // ── ITALIAN OPERA: MONTEVERDI → BEL CANTO → VERDI → PUCCINI ───────────────
     c('monteverdi', 'Claudio Monteverdi', 1567, 1643, 'BAROQUE', 'Italian',
       'The inventor of opera. His L\'Orfeo (1607) launched an entirely new art form. His radical text-setting and harmonic daring mark the birth of the Baroque era.',
       [v("L'Orfeo — Opera", 'ARBDHrpX_Fg'), v('Vespers of 1610', 'fFmKlkX_JRA')],
       [
+        // Opera tradition branch
+        c('rossini', 'Gioachino Rossini', 1792, 1868, 'ROMANTIC', 'Italian',
+          'The first international superstar of opera. His wit and melodic genius in The Barber of Seville set the standard for bel canto. He retired at 37, having shaped Donizetti, Bellini, and indirectly Verdi.',
+          [v('The Barber of Seville — Overture', 'OloXRhxnrE8'), v('William Tell — Overture', 'c7O91GDWGPU'), v('La Cenerentola — Non più mesta', 'EtKMtzAaJP8')],
+          [
+            c('donizetti', 'Gaetano Donizetti', 1797, 1848, 'ROMANTIC', 'Italian',
+              'Master of bel canto who wrote over 70 operas. His Lucia di Lammermoor contains one of opera\'s most famous mad scenes.',
+              [v('Lucia di Lammermoor — Mad Scene', 'r8E_7M7LL4U'), v("L'elisir d'amore — Una furtiva lagrima", 'fN7zHhYghQ4')]),
+            c('bellini', 'Vincenzo Bellini', 1801, 1835, 'ROMANTIC', 'Italian',
+              'The supreme melodist of bel canto. His long-breathed lines in Norma influenced Chopin\'s piano writing. Died at just 33.',
+              [v('Norma — Casta Diva', 'fzPXwJEjpbo'), v('I Puritani — A te, o cara', 'kThNJZJiJck')]),
+            c('verdi', 'Giuseppe Verdi', 1813, 1901, 'ROMANTIC', 'Italian',
+              'Italy\'s greatest opera composer and a national hero of the Risorgimento. From Rigoletto to Otello, he brought unprecedented dramatic truth and psychological depth to opera.',
+              [v('Rigoletto — La donna è mobile', 'xCFEk6Y8TsA'), v('La Traviata — Brindisi', 'g0WlNh2McaI'), v('Aida — Triumphal March', 'ZDFFHaz9GsY'), v('Requiem — Dies Irae', 'pW1Uc-grcMs')],
+              [
+                c('puccini', 'Giacomo Puccini', 1858, 1924, 'LATE_ROMANTIC', 'Italian',
+                  'The heir to Verdi\'s operatic throne. His gift for soaring melody and theatrical timing in La Bohème, Tosca, and Madama Butterfly made him the most performed opera composer today.',
+                  [v('La Bohème — Che gelida manina', 'bTFJRZ2RvaE'), v('Tosca — E lucevan le stelle', 'nYDbIm2xJas'), v('Madama Butterfly — Un bel dì', 'hS9YKjRlSjg'), v('Turandot — Nessun dorma', 'cWc7vYjgnMc')]),
+              ]),
+          ]),
+
+        // Oratorio tradition → Classical lineage
         c('handel', 'G.F. Handel', 1685, 1759, 'BAROQUE', 'German-British',
           'Master of the English oratorio. His Messiah (1741) was so overwhelming it moved Haydn to tears and directly inspired him to compose The Creation. Handel defined large-scale choral drama for all who followed.',
           [v('Messiah — Hallelujah', 'VbEFgSFEVlo'), v('Water Music Suite', 'tJBDs9TXRMA'), v('Music for the Royal Fireworks', 'EvMnKqfM9ws')],
@@ -89,7 +111,7 @@ export const treeData = {
                               ]),
 
                             c('einaudi', 'Ludovico Einaudi', 1955, null, 'CONTEMPORARY', 'Italian',
-                              'The most-streamed classical composer alive. His meditative, minimal piano works sit at the intersection of classical, ambient and contemporary — inheriting Chopin\'s poetic lyricism for the modern age.',
+                              'The most-streamed classical composer alive. His meditative, minimal piano works inherit Chopin\'s poetic lyricism while channeling Satie\'s sparse, repetitive aesthetic — bridging Romantic pianism with modern minimalism.',
                               [
                                 v('Nuvole Bianche', '_y8evPFDKpA'),
                                 v('Experience', 'jM8dCGIm6yc'),
@@ -196,6 +218,14 @@ export const treeData = {
                                     v('Four Last Songs', 'ACN-JZ-iJ4E'),
                                     v('Der Rosenkavalier — Suite', 'Vy_xpOST5Mc'),
                                   ]),
+
+                                c('bruckner', 'Anton Bruckner', 1824, 1896, 'LATE_ROMANTIC', 'Austrian',
+                                  'The great cathedral builder of the symphony. A devoted Wagnerian, his massive symphonies — often revised obsessively — represent the apotheosis of Romantic grandeur. Mahler conducted his works and carried his monumental vision forward.',
+                                  [
+                                    v('Symphony No. 4 "Romantic"', 'gcBg-tXn0fs'),
+                                    v('Symphony No. 7 — Adagio', 'uaV3eEJB55c'),
+                                    v('Symphony No. 9', 'A_LO6_XK64E'),
+                                  ]),
                               ]),
 
                             c('saint-saens', 'Camille Saint-Saëns', 1835, 1921, 'ROMANTIC', 'French',
@@ -224,10 +254,37 @@ export const treeData = {
                                       ]),
 
                                     c('boulanger', 'Nadia Boulanger', 1887, 1979, 'MODERN', 'French',
-                                      'The most influential composition teacher of the 20th century. Fauré\'s student at the Paris Conservatoire, she later shaped an extraordinary roster: Copland, Piazzolla, Barenboim — and Philip Glass, through whom her lineage reaches minimalism and beyond.',
+                                      'The most influential composition teacher of the 20th century. Fauré\'s student at the Paris Conservatoire, she shaped generations: Copland defined American classical music, Piazzolla revolutionized tango, and Glass pioneered minimalism.',
                                       [
                                         v('Lili Boulanger — D\'un soir triste', 'nECZHvMDN_E'),
                                         v('Conducting Monteverdi Madrigals', 'ARBDHrpX_Fg'),
+                                      ],
+                                      [
+                                        c('copland', 'Aaron Copland', 1900, 1990, 'MODERN', 'American',
+                                          'The dean of American music. Boulanger\'s first famous American pupil, he forged a distinctly American sound — open harmonies, folk melodies, and wide-open spaces. Appalachian Spring and Fanfare for the Common Man are national treasures.',
+                                          [
+                                            v('Appalachian Spring', 'hYBS-cMSHIw'),
+                                            v('Fanfare for the Common Man', 'FLMVB0B1_Ts'),
+                                            v('Rodeo — Hoe-Down', 'LsReWx9XdNs'),
+                                            v('Clarinet Concerto', 'DHC_BPt6fMs'),
+                                          ],
+                                          [
+                                            c('bernstein', 'Leonard Bernstein', 1918, 1990, 'MODERN', 'American',
+                                              'Composer, conductor, educator — American music\'s renaissance man. West Side Story brought Broadway to symphonic heights. As conductor of the NY Philharmonic, he was America\'s ambassador of classical music.',
+                                              [
+                                                v('West Side Story — Symphonic Dances', 'bxkOLQzSq88'),
+                                                v('Candide — Overture', 'JNi2gflJ0R4'),
+                                                v('Chichester Psalms', 'ciCN1CYcaYM'),
+                                              ]),
+                                          ]),
+                                        c('piazzolla', 'Astor Piazzolla', 1921, 1992, 'MODERN', 'Argentine',
+                                          'The revolutionary of tango. Boulanger told him to embrace his tango roots, and he did — fusing Buenos Aires\' street music with jazz and classical complexity to create nuevo tango.',
+                                          [
+                                            v('Libertango', 'POWcnNt0pFw'),
+                                            v('Oblivion', 'AcnpMKBdF4s'),
+                                            v('Adiós Nonino', 'VTPec8z5vXk'),
+                                            v('Four Seasons of Buenos Aires', 'TadxLCMq-2U'),
+                                          ]),
                                       ]),
                                   ]),
                               ]),
@@ -251,6 +308,15 @@ export const treeData = {
                   ]),
               ]),
           ]),
+      ]),
+
+    // ── PACHELBEL ─────────────────────────────────────────────────────────────
+    c('pachelbel', 'Johann Pachelbel', 1653, 1706, 'BAROQUE', 'German',
+      'The master of the South German Baroque organ school. He taught Johann Christoph Bach — J.S. Bach\'s older brother and first teacher — directly transmitting the German contrapuntal tradition. His Canon in D is one of the most beloved works in all of classical music.',
+      [
+        v('Canon in D', 'NlprozGcs98'),
+        v('Chaconne in F minor', 'z4MhVFJYtE4'),
+        v('Hexachordum Apollinis', '0SYUljJZmOE'),
       ]),
 
     // ── VIVALDI → BACH ───────────────────────────────────────────────────────
@@ -282,14 +348,14 @@ export const treeData = {
               ],
               [
                 c('max-richter', 'Max Richter', 1966, null, 'CONTEMPORARY', 'German-British',
-                  'Neoclassical composer who recomposes the canon. His Recomposed Vivaldi and Sleep project brought classical music to new audiences. His work bridges Bach\'s counterpoint with Glass\'s minimalism.',
+                  'Neoclassical composer who recomposes the canon. His Recomposed Vivaldi and Sleep project brought classical music to new audiences. His work bridges Glass\'s minimalism with Pärt\'s spiritual tintinnabuli — a meditation on silence and sound.',
                   [
                     v('On the Nature of Daylight', 'rVN1B-tUpgs'),
                     v('Recomposed: Vivaldi - Spring 1', 'FAhSyMl2MjU'),
                     v('Sleep - Dream 3', 'S3hBksAsLz8'),
                   ]),
                 c('frahm', 'Nils Frahm', 1982, null, 'CONTEMPORARY', 'German',
-                  'Berlin-based pianist and producer who merges acoustic piano with analogue synthesizers. His textural approach to counterpoint shows Glass\'s influence filtered through electronic experimentation.',
+                  'Berlin-based pianist and producer who merges acoustic piano with analogue synthesizers. His quiet, slowly evolving textures echo Morton Feldman\'s extended durations while his electronic experimentation channels Brian Eno\'s ambient vision.',
                   [
                     v('Says', 'xLNeZogTsK8'),
                     v('Ambre', 'PtW1n1URWVM'),
@@ -453,23 +519,156 @@ export const treeData = {
           ]),
       ]),
 
-    // ── RIMSKY-KORSAKOV → STRAVINSKY ─────────────────────────────────────────
-    c('rimsky', 'Nikolai Rimsky-Korsakov', 1844, 1908, 'ROMANTIC', 'Russian',
-      'The master orchestrator of the Russian nationalist school and the greatest composition teacher Russia produced. Stravinsky studied privately under him for six years. His Principles of Orchestration became the standard textbook of the art.',
+    // ── THE RUSSIAN FIVE (Mighty Handful) → STRAVINSKY ───────────────────────
+    c('balakirev', 'Mily Balakirev', 1837, 1910, 'ROMANTIC', 'Russian',
+      'The founder and spiritual leader of "The Five" — the group of Russian nationalist composers who forged a distinctly Russian musical identity against Western European influence. He mentored Mussorgsky, Borodin, and Rimsky-Korsakov.',
       [
-        v('Scheherazade Op. 35', 'SQNymNaTr-Y'),
-        v('Flight of the Bumblebee', 'ym5QGKQN0I4'),
-        v('Capriccio Espagnol', 'eLVAlDqDEDI'),
+        v('Islamey — Oriental Fantasy', 'k0XoRKpV_Tg'),
+        v('Symphony No. 1 in C', 'jF1JqH2k8ZE'),
       ],
       [
-        c('stravinsky', 'Igor Stravinsky', 1882, 1971, 'MODERN', 'Russian',
-          'Rimsky-Korsakov\'s most famous pupil and the most stylistically versatile composer of the 20th century — from Russian nationalist to Diaghilev\'s revolutionary to neoclassicist to serialist. The Rite of Spring\'s rhythmic violence changed music irrevocably.',
+        c('mussorgsky', 'Modest Mussorgsky', 1839, 1881, 'ROMANTIC', 'Russian',
+          'The most original voice of The Five. His raw, unpolished genius in Boris Godunov and Pictures at an Exhibition broke all conventions. He died tragically at 42, leaving many works unfinished.',
           [
-            v('The Rite of Spring', '5UJOaGIhG7A'),
-            v('The Firebird Suite', '3tqhBCM6HxE'),
-            v('Petrushka', 'cEfHe8_wd4k'),
-            v('Symphony of Psalms', 'FGNBrHFQJtY'),
+            v('Pictures at an Exhibition', 'FsvpFU7KY7E'),
+            v('Night on Bald Mountain', 'iCEDfZgDPS8'),
+            v('Boris Godunov — Coronation Scene', 'r0BNnMoO_g8'),
           ]),
+        c('borodin', 'Alexander Borodin', 1833, 1887, 'ROMANTIC', 'Russian',
+          'A chemist by profession who composed in his spare hours. His Polovtsian Dances and two string quartets are masterpieces of Russian Romanticism. His unfinished opera Prince Igor was completed by Rimsky-Korsakov.',
+          [
+            v('Polovtsian Dances', 'wiexn6O9To4'),
+            v('String Quartet No. 2 — Nocturne', 'bNJ3Kf0O2Lw'),
+            v('In the Steppes of Central Asia', 'UepBA19ocpE'),
+          ]),
+        c('rimsky', 'Nikolai Rimsky-Korsakov', 1844, 1908, 'ROMANTIC', 'Russian',
+          'The master orchestrator of The Five and Russia\'s greatest composition teacher. He completed and edited works by Mussorgsky and Borodin. Stravinsky studied under him for six years; his Principles of Orchestration remains a standard textbook.',
+          [
+            v('Scheherazade Op. 35', 'SQNymNaTr-Y'),
+            v('Flight of the Bumblebee', 'ym5QGKQN0I4'),
+            v('Capriccio Espagnol', 'eLVAlDqDEDI'),
+          ],
+          [
+            c('stravinsky', 'Igor Stravinsky', 1882, 1971, 'MODERN', 'Russian',
+              'Rimsky-Korsakov\'s most famous pupil and the most stylistically versatile composer of the 20th century — from Russian nationalist to Diaghilev\'s revolutionary to neoclassicist to serialist. The Rite of Spring\'s rhythmic violence changed music irrevocably.',
+              [
+                v('The Rite of Spring', '5UJOaGIhG7A'),
+                v('The Firebird Suite', '3tqhBCM6HxE'),
+                v('Petrushka', 'cEfHe8_wd4k'),
+                v('Symphony of Psalms', 'FGNBrHFQJtY'),
+              ]),
+          ]),
+      ]),
+
+    // ── ENGLISH SCHOOL: PURCELL → ELGAR → BRITTEN ────────────────────────────
+    c('purcell', 'Henry Purcell', 1659, 1695, 'BAROQUE', 'English',
+      'England\'s greatest native composer until Elgar. His Dido and Aeneas contains one of opera\'s most heartbreaking arias. His death at 36 left English music in the shadow of imports like Handel for two centuries.',
+      [
+        v('Dido & Aeneas — When I am laid', 'wCY-47iwj5Q'),
+        v('Music for the Funeral of Queen Mary', 'E5I82DIRtmE'),
+        v('The Fairy Queen — Suite', 'aXQRDwPTU_4'),
+      ],
+      [
+        c('elgar', 'Edward Elgar', 1857, 1934, 'LATE_ROMANTIC', 'British',
+          'The first great English composer since Purcell. Self-taught from the provinces, he created the Enigma Variations and a cello concerto of overwhelming nobility. He gave England its voice in the late Romantic era.',
+          [
+            v('Enigma Variations', 'sUgoBb8m1eE'),
+            v('Cello Concerto', 'OPhkZW_jwc0'),
+            v('Pomp and Circumstance No. 1', 'moL4MkJ-aLk'),
+          ],
+          [
+            c('vaughan-williams', 'Ralph Vaughan Williams', 1872, 1958, 'MODERN', 'British',
+              'The pastoral voice of England. Studied with Ravel in Paris, but his music draws on English folk song and Tudor polyphony. His nine symphonies and The Lark Ascending define an English musical identity.',
+              [
+                v('The Lark Ascending', 'ZR2JlDnT2l8'),
+                v('Fantasia on a Theme by Thomas Tallis', 'qIhCEMx8V4w'),
+                v('Symphony No. 5', 'lSkg8L6Y1qA'),
+              ]),
+            c('britten', 'Benjamin Britten', 1913, 1976, 'MODERN', 'British',
+              'The greatest British composer since Purcell. His operas — Peter Grimes, Billy Budd, The Turn of the Screw — revived English opera after three centuries. His War Requiem is one of the 20th century\'s most powerful antiwar statements.',
+              [
+                v('Peter Grimes — Four Sea Interludes', 'dGeDfU6BxXI'),
+                v('War Requiem — Dies Irae', 'B0sIu8K_cJ8'),
+                v('The Young Person\'s Guide to the Orchestra', 'HrNu_cJ1BVk'),
+                v('Simple Symphony', 'LdBapzNTYtQ'),
+              ]),
+          ]),
+      ]),
+
+    // ── PAGANINI (Virtuoso phenomenon) ───────────────────────────────────────
+    c('paganini', 'Niccolò Paganini', 1782, 1840, 'ROMANTIC', 'Italian',
+      'The devil\'s violinist. His supernatural virtuosity so astonished Liszt that the young pianist vowed to become the Paganini of the piano — and did. Schumann, Brahms, and Rachmaninoff all wrote variations on his themes.',
+      [
+        v('24 Caprices — No. 24', 'OhVjS5Lraxc'),
+        v('Violin Concerto No. 1', 'O9i1rfJOHngs'),
+        v('La Campanella (original violin)', '4K0w6v7LNYQ'),
+      ]),
+
+    // ── BERLIOZ (French Romantic orchestration) ──────────────────────────────
+    c('berlioz', 'Hector Berlioz', 1803, 1869, 'ROMANTIC', 'French',
+      'The revolutionary orchestrator. His Symphonie fantastique (1830) — written for a 150-piece orchestra — invented program music and modern orchestration simultaneously. His Treatise on Instrumentation taught generations how to write for orchestra.',
+      [
+        v('Symphonie fantastique', 'sK4dz6Gbcdk'),
+        v('Harold in Italy', 'aV-XnB3j_Ko'),
+        v('Roman Carnival Overture', 'zPxGnWnvdtE'),
+        v('Requiem — Dies Irae', 'lCQwzFh0yxg'),
+      ]),
+
+    // ── AMERICAN SCHOOL: GERSHWIN → FILM COMPOSERS ───────────────────────────
+    c('gershwin', 'George Gershwin', 1898, 1937, 'MODERN', 'American',
+      'He made jazz symphonic. Rhapsody in Blue fused classical form with jazz harmony; Porgy and Bess is America\'s great opera. He died at 38 of a brain tumor, at the height of his powers.',
+      [
+        v('Rhapsody in Blue', 'ynEOo28lsbc'),
+        v('An American in Paris', 'KVofPrmO2X0'),
+        v('Porgy and Bess — Summertime', 'O7-Qa92Rrvs'),
+        v('Piano Concerto in F', 'WYi2ZRcX5J4'),
+      ],
+      [
+        c('john-williams', 'John Williams', 1932, null, 'CONTEMPORARY', 'American',
+          'The most successful film composer in history. Star Wars, Indiana Jones, Harry Potter, Schindler\'s List — his themes have become part of global culture. A direct heir to the great Romantic orchestrators through the American studio system.',
+          [
+            v('Star Wars — Main Theme', 'iH6a1iYQ0GA'),
+            v('Schindler\'s List — Theme', 'VvKjpGP6P5Y'),
+            v('Jurassic Park — Theme', 'D8zlUUrFK-M'),
+            v('Harry Potter — Hedwig\'s Theme', 'uGrEjjHInEA'),
+          ]),
+      ]),
+
+    // ── VILLA-LOBOS (Brazil) ─────────────────────────────────────────────────
+    c('villa-lobos', 'Heitor Villa-Lobos', 1887, 1959, 'MODERN', 'Brazilian',
+      'The voice of Brazil. Largely self-taught, he fused Brazilian folk music, Bach (in his Bachianas Brasileiras), and French Impressionism into over 2,000 works. He made Brazil a presence on the world musical stage.',
+      [
+        v('Bachianas Brasileiras No. 5', 'jJo0FG1dR3o'),
+        v('Bachianas Brasileiras No. 2 — Little Train', 'eQRoBdGpJ_I'),
+        v('Guitar Concerto', 'PDTA9TjKXvk'),
+        v('Prelude No. 1 for Guitar', '_9LFsqsn4Kg'),
+      ]),
+
+    // ── POLISH AVANT-GARDE: PENDERECKI & GÓRECKI ─────────────────────────────
+    c('penderecki', 'Krzysztof Penderecki', 1933, 2020, 'CONTEMPORARY', 'Polish',
+      'The master of controlled chaos. His Threnody for the Victims of Hiroshima (1960) opened new worlds of orchestral texture. Later works like the Polish Requiem returned to a more Romantic grandeur. Kubrick, Lynch, and Scorsese have used his music.',
+      [
+        v('Threnody for Hiroshima', 'Dp3BlFZWJNA'),
+        v('St. Luke Passion', 'M0-l8bBPmWo'),
+        v('Polymorphia', 'BLvFZrSP8zE'),
+      ],
+      [
+        c('gorecki', 'Henryk Górecki', 1933, 2010, 'CONTEMPORARY', 'Polish',
+          'From avant-garde to holy minimalism. His Symphony No. 3 (Symphony of Sorrowful Songs) became a phenomenon in 1992, reaching millions with its meditative simplicity on the theme of maternal loss.',
+          [
+            v('Symphony No. 3 — Mvt. 2', '_7qdFg4tGwg'),
+            v('Totus Tuus', 'NDBj8NVP7EM'),
+          ]),
+      ]),
+
+    // ── D. SCARLATTI (Baroque keyboard) ──────────────────────────────────────
+    c('d-scarlatti', 'Domenico Scarlatti', 1685, 1757, 'BAROQUE', 'Italian',
+      'Contemporary of Bach and Handel but utterly unlike them. His 555 keyboard sonatas — written for the Spanish queen — are short, brilliant, and endlessly inventive, anticipating Romantic pianism by a century.',
+      [
+        v('Sonata K. 141 in D minor', '7bpqAGMO2tU'),
+        v('Sonata K. 380 in E major', 'K9Lm9D-xdMg'),
+        v('Sonata K. 9 (Pastoral)', 'z0a7VN7S5Ks'),
+        v('30 Sonatas (Horowitz)', 'jG5Xts-vwIY', 'Vladimir Horowitz'),
       ]),
 
     // ── BARTÓK → LIGETI ──────────────────────────────────────────────────────
@@ -535,6 +734,24 @@ export const treeData = {
             v('Short Ride in a Fast Machine', 'dpUyQkxD09A'),
             v('Doctor Atomic Symphony', 'XNzRMZflbNE'),
           ]),
+      ]),
+
+    // ── FELDMAN (Experimental / Extended Duration) ───────────────────────────
+    c('feldman', 'Morton Feldman', 1926, 1987, 'MODERN', 'American',
+      'Pioneer of indeterminate music and extended durations. His quiet, slowly evolving works — some lasting six hours — explored the threshold of audibility. His influence echoes through the ambient piano scene, notably Nils Frahm.',
+      [
+        v('Rothko Chapel', 'wJMVGYbBz8M'),
+        v('For Philip Guston', 'XHkKu5aVEgw'),
+        v('Triadic Memories', 'o4SzWBAGj1E'),
+      ]),
+
+    // ── ENO (Ambient Pioneer) ────────────────────────────────────────────────
+    c('eno', 'Brian Eno', 1948, null, 'CONTEMPORARY', 'British',
+      'Inventor of ambient music. Though rooted in rock and electronic experimentation, his Music for Airports (1978) created a new genre that profoundly shaped the contemporary neo-classical piano scene.',
+      [
+        v('Music for Airports 1/1', 'vNwYtllyt3Q'),
+        v('An Ending (Ascent)', 'aKw5mbcE7VY'),
+        v('Deep Blue Day', 'nSKsWHzRsHw'),
       ]),
 
     // ── GREAT PERFORMERS ─────────────────────────────────────────────────────
@@ -608,7 +825,7 @@ export function flatComposers() {
 }
 
 // ─── Get ancestors (teachers) of a composer ────────────────────────────────────
-export function getAncestors(composerId) {
+function getAncestors(composerId) {
   const ancestors = [];
   function walk(node, path) {
     if (node.id === composerId) {
@@ -626,27 +843,8 @@ export function getAncestors(composerId) {
   return ancestors.filter(a => a.period); // only actual composers
 }
 
-// ─── Get direct children (students) of a composer ──────────────────────────────
-export function getChildren(composerId) {
-  function find(node) {
-    if (node.id === composerId) return node.children || [];
-    if (node.children) {
-      for (const child of node.children) {
-        const found = find(child);
-        if (found) return found;
-      }
-    }
-    return null;
-  }
-  for (const child of treeData.children) {
-    const found = find(child);
-    if (found) return found.filter(c => c.period);
-  }
-  return [];
-}
-
 // ─── Get a composer node by ID (with full subtree) ─────────────────────────────
-export function getComposerNode(composerId) {
+function getComposerNode(composerId) {
   function find(node) {
     if (node.id === composerId) return node;
     if (node.children) {
