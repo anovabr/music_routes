@@ -87,6 +87,31 @@ export const treeData = {
                                     v('Rachmaninoff Piano Concerto No. 3', 'vFskSlMwpg4'),
                                   ]),
                               ]),
+
+                            c('einaudi', 'Ludovico Einaudi', 1955, null, 'CONTEMPORARY', 'Italian',
+                              'The most-streamed classical composer alive. His meditative, minimal piano works sit at the intersection of classical, ambient and contemporary — inheriting Chopin\'s poetic lyricism for the modern age.',
+                              [
+                                v('Nuvole Bianche', '_y8evPFDKpA'),
+                                v('Experience', 'jM8dCGIm6yc'),
+                                v('Una Mattina', 'Dq3PkVJ0p3s'),
+                                v('I Giorni', 'fEOJQawykD0'),
+                              ],
+                              [
+                                c('albanese', 'Federico Albanese', 1982, null, 'CONTEMPORARY', 'Italian',
+                                  'Berlin-based Italian composer blending classical piano with electronic textures. His cinematic, introspective works continue Einaudi\'s meditative tradition.',
+                                  [
+                                    v('The Houseboat and the Moon', 'qp0lH0pFKnQ'),
+                                    v('Before and Now Seems Infinite', 'IjFPLhGMoTw'),
+                                    v('The Blue Hour', '5eYS9xmUwLM'),
+                                  ]),
+                                c('beving', 'Joep Beving', 1976, null, 'CONTEMPORARY', 'Dutch',
+                                  'Dutch pianist who found viral success with his deeply emotional, minimalist piano works. His slow, meditative pieces continue the lineage of Einaudi\'s accessible neo-classical style.',
+                                  [
+                                    v('Solipsism', '2pUdKvtqRzg'),
+                                    v('Awakening', 'RyeLkryZPi4'),
+                                    v('Ab Ovo', 'W0txKNHqZPk'),
+                                  ]),
+                              ]),
                           ]),
 
                         c('mendelssohn', 'Felix Mendelssohn', 1809, 1847, 'ROMANTIC', 'German',
@@ -213,12 +238,19 @@ export const treeData = {
                                             v('Violin Concerto No. 1', 'OtQOLw_I1LQ'),
                                           ],
                                           [
-                                            c('einaudi', 'Ludovico Einaudi', 1955, null, 'CONTEMPORARY', 'Italian',
-                                              'The most-streamed classical composer alive. His meditative, minimal piano works sit at the intersection of classical, ambient and contemporary — directly shaped by Glass\'s minimalism and Pärt\'s stillness.',
+                                            c('richter', 'Max Richter', 1966, null, 'CONTEMPORARY', 'German-British',
+                                              'Neoclassical composer who recomposes the canon. His Recomposed Vivaldi and Sleep project brought classical music to new audiences. Directly influenced by Glass\'s minimalist techniques.',
                                               [
-                                                v('Nuvole Bianche', '_y8evPFDKpA'),
-                                                v('Experience', 'jM8dCGIm6yc'),
-                                                v('Una Mattina', 'Dq3PkVJ0p3s'),
+                                                v('On the Nature of Daylight', 'rVN1B-tUpgs'),
+                                                v('Recomposed: Vivaldi - Spring 1', 'FAhSyMl2MjU'),
+                                                v('Sleep - Dream 3', 'S3hBksAsLz8'),
+                                              ]),
+                                            c('frahm', 'Nils Frahm', 1982, null, 'CONTEMPORARY', 'German',
+                                              'Berlin-based pianist and producer who merges acoustic piano with analogue synthesizers. His live performances and studio albums have redefined neo-classical music for the 21st century.',
+                                              [
+                                                v('Says', 'xLNeZogTsK8'),
+                                                v('Ambre', 'PtW1n1URWVM'),
+                                                v('My Friend the Forest', 'BOZIe6eJbQU'),
                                               ]),
                                           ]),
                                       ]),
@@ -264,6 +296,31 @@ export const treeData = {
             c('cpe-bach', 'C.P.E. Bach', 1714, 1788, 'CLASSICAL', 'German',
               'J.S. Bach\'s most famous son. His "empfindsamer Stil" (sensitive style) broke from Baroque formalism and was a direct bridge to the Classical style of Haydn and Mozart.',
               [v('Prussian Sonata No. 1', 'YUVPBqXY3sc'), v('Symphony Wq 183 No. 1', 'p7zR9UrHqiA')]),
+
+            c('glass-bach', 'Philip Glass', 1937, null, 'CONTEMPORARY', 'American',
+              'The defining figure of musical minimalism. Though formally trained by Boulanger, his hypnotic, cycling patterns draw deeply from Bach\'s contrapuntal techniques, creating a modern expression of Baroque structure.',
+              [
+                v('Metamorphosis Two', 'FaovqbcSYqk'),
+                v('Koyaanisqatsi', 'jBzXqBJuBME'),
+                v('Violin Concerto No. 1', 'OtQOLw_I1LQ'),
+                v('Glassworks — Opening', 'n27pMwZ0cDM'),
+              ],
+              [
+                c('richter-bach', 'Max Richter', 1966, null, 'CONTEMPORARY', 'German-British',
+                  'Neoclassical composer who recomposes the canon. His Recomposed Vivaldi and Sleep project brought classical music to new audiences. His work bridges Bach\'s counterpoint with Glass\'s minimalism.',
+                  [
+                    v('On the Nature of Daylight', 'rVN1B-tUpgs'),
+                    v('Recomposed: Vivaldi - Spring 1', 'FAhSyMl2MjU'),
+                    v('Sleep - Dream 3', 'S3hBksAsLz8'),
+                  ]),
+                c('frahm-bach', 'Nils Frahm', 1982, null, 'CONTEMPORARY', 'German',
+                  'Berlin-based pianist and producer who merges acoustic piano with analogue synthesizers. His textural approach to counterpoint shows Glass\'s influence filtered through electronic experimentation.',
+                  [
+                    v('Says', 'xLNeZogTsK8'),
+                    v('Ambre', 'PtW1n1URWVM'),
+                    v('My Friend the Forest', 'BOZIe6eJbQU'),
+                  ]),
+              ]),
           ]),
       ]),
 
@@ -350,6 +407,31 @@ export const treeData = {
             v('La Création du monde', 'LfruHYcnFwM'),
             v('Le Bœuf sur le toit', 'kvRGSSiXoyo'),
           ]),
+
+        c('arnalds', 'Ólafur Arnalds', 1986, null, 'CONTEMPORARY', 'Icelandic',
+          'The foremost voice of Nordic neo-classical music. Satie\'s atmospheric simplicity echoes through his delicate fusion of strings, piano, and generative electronics. His music redefined contemporary classical for a new generation.',
+          [
+            v('Near Light', 'UXNLNqHqkek'),
+            v('Only the Winds', 'GvoyPQDOgso'),
+            v('re:member — undone', 'rMzuBgSPh8Y'),
+            v('Saman', 'GYy_KzAn5vU'),
+          ],
+          [
+            c('rani', 'Hania Rani', 1990, null, 'CONTEMPORARY', 'Polish',
+              'Warsaw-born pianist and composer whose introspective, minimalist works blend classical piano with electronic textures. Her atmospheric style continues Arnalds\'s fusion of acoustic and electronic worlds.',
+              [
+                v('Eden', 'Nc-mYpOBkvY'),
+                v('Glass', 'P1-FkR24mMk'),
+                v('F Major', 'q8Y7-Nprlo8'),
+              ]),
+            c('cipa', 'Carlos Cipa', 1985, null, 'CONTEMPORARY', 'German',
+              'Munich-based pianist known for his ethereal, meditative compositions. His delicate touch and atmospheric soundscapes carry forward the neo-classical tradition of Arnalds.',
+              [
+                v('Correlations', 'HDq3j_H_K-0'),
+                v('The Raft', 'k9-_7HhBbsI'),
+                v('Debayashi', 'O3k7z3FHAX8'),
+              ]),
+          ]),
       ]),
 
     // ── DEBUSSY → MESSIAEN → BOULEZ ──────────────────────────────────────────
@@ -375,6 +457,23 @@ export const treeData = {
               [
                 v('Le Marteau sans maître', 'iDMDFZVmQUE'),
                 v('Notations I–IV (conductor)', 'QE4MBFDwRgA'),
+              ]),
+          ]),
+
+        c('tiersen', 'Yann Tiersen', 1970, null, 'CONTEMPORARY', 'French',
+          'Breton composer best known for the Amélie soundtrack. His impressionistic piano miniatures and layered orchestrations carry forward Debussy\'s atmospheric sensibility into contemporary film and concert music.',
+          [
+            v('Comptine d\'un autre été', 'H2-1u8xvk54'),
+            v('La Valse d\'Amélie', 'WPjMTr6wuSM'),
+            v('Sur le fil', 'cvYYqT_uP-w'),
+            v('Porz Goret', '6GnLa0K5vc0'),
+          ],
+          [
+            c('rakotondrabe', 'Gaël Rakotondrabe', 1982, null, 'CONTEMPORARY', 'French-Malagasy',
+              'Paris-based pianist and composer known for his introspective, minimalist pieces. His atmospheric works continue Tiersen\'s blend of classical and cinematic sensibilities.',
+              [
+                v('Notre-Dame', 'J8c7K1QmRQo'),
+                v('Clair-Obscur', 'mlADwxhT8Zs'),
               ]),
           ]),
       ]),
@@ -416,21 +515,32 @@ export const treeData = {
           ]),
       ]),
 
-    // ── ARVO PÄRT → ÓLAFUR ARNALDS ───────────────────────────────────────────
+    // ── ARVO PÄRT → DUSTIN O'HALLORAN ─────────────────────────────────────────
     c('part', 'Arvo Pärt', 1935, null, 'CONTEMPORARY', 'Estonian',
-      'Creator of tintinnabuli — a technique of monastic simplicity where a melody voice and a triad voice move in strict counterpoint. After years of silence, his music of spiritual stillness speaks directly to the soul. Ólafur Arnalds explicitly cites him as a founding influence.',
+      'Creator of tintinnabuli — a technique of monastic simplicity where a melody voice and a triad voice move in strict counterpoint. After years of silence, his music of spiritual stillness speaks directly to the soul.',
       [
         v('Spiegel im Spiegel', 'TJ6Mzvh3XCc'),
         v('Für Alina', '1hlzZB_Nzf0'),
         v('Tabula Rasa', 'Knj3UdKdGMU'),
+        v('Fratres', 'nqAZhkEZpDQ'),
       ],
       [
-        c('arnalds', 'Ólafur Arnalds', 1986, null, 'CONTEMPORARY', 'Icelandic',
-          'The foremost voice of Nordic neo-classical music. He fuses strings, piano, and generative electronics in a delicate world deeply shaped by Pärt\'s tintinnabuli and the Icelandic landscape. His music redefined the boundaries of contemporary classical.',
+        c('ohalloran', 'Dustin O\'Halloran', 1971, null, 'CONTEMPORARY', 'American',
+          'Los Angeles-born pianist and composer known for his intimate, contemplative piano works. His stripped-back aesthetic and spiritual depth carry forward Pärt\'s meditative tradition. He has scored numerous films including Lion and Transparent.',
           [
-            v('Near Light', 'UXNLNqHqkek'),
-            v('Only the Winds', 'GvoyPQDOgso'),
-            v('re:member — undone', 'rMzuBgSPh8Y'),
+            v('Opus 23', 'h9gqkWxnrSY'),
+            v('We Move Lightly', 'CswAFPpvZPY'),
+            v('Opus 37', 'VvxsJRiDe3s'),
+            v('An Ending, a Beginning', 'TJI6g0eR8Fo'),
+          ],
+          [
+            c('howard', 'Luke Howard', 1986, null, 'CONTEMPORARY', 'Australian',
+              'Melbourne-based pianist and composer whose quietly powerful works blend classical piano with ambient textures. His meditative style continues the spiritual lineage of Pärt and O\'Halloran.',
+              [
+                v('St Kilda', 'LvkqWTL3MQE'),
+                v('Atlas', 'kj0i8E6vC5g'),
+                v('The Sand That Ate The Sea', 'sDXKiVs8LxY'),
+              ]),
           ]),
       ]),
 
