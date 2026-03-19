@@ -171,6 +171,9 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
   const [lineagePlaying, setLineagePlaying] = useState(false);
   const [lineageIndex, setLineageIndex] = useState(0);
 
+  // Video bar fold state
+  const [videoFolded, setVideoFolded] = useState(false);
+
   const lineageTree = useMemo(() => composer ? buildLineageTree(composer.id) : null, [composer?.id]);
 
   const lineagePath = useMemo(
@@ -211,6 +214,9 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
     setLineagePlaying(false);
     setLineageIndex(0);
   }, [composer?.id, lineageTree]);
+
+  // Reset fold whenever a new video opens
+  useEffect(() => { setVideoFolded(false); }, [activeVideo?.video?.youtubeId]);
 
   const { wiki, wikiLoading, wikiError } = useWikipedia(composer);
 
@@ -432,21 +438,25 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
       {composer && (
         <div className={`lineage-bottom ${activeVideo ? 'has-video' : ''}`}>
           {activeVideo ? (
-            <div className="lineage-video-section">
-              <div className="lineage-video-header">
-                <span className="lineage-video-playing">▶ {activeVideo.video.title}</span>
-                <button className="lineage-video-close" onClick={onCloseVideo} title="Close video">
+            <div className={`lineage-video-section${videoFolded ? ' folded' : ''}`}>
+              <div className="lineage-video-header" onClick={() => setVideoFolded(f => !f)} style={{ cursor: 'pointer' }}>
+                <span className="lineage-video-playing">
+                  {videoFolded ? '▶' : '▼'} {activeVideo.video.title}
+                </span>
+                <button className="lineage-video-close" onClick={e => { e.stopPropagation(); onCloseVideo(); }} title="Close video">
                   <span className="video-close-x">✕</span>
                   <span className="video-close-back">← Back</span>
                 </button>
               </div>
-              <div className="lineage-video-container">
-                <VideoPlayer
-                  youtubeId={activeVideo.video.youtubeId}
-                  title={activeVideo.video.title}
-                  composer={activeVideo.composer}
-                />
-              </div>
+              {!videoFolded && (
+                <div className="lineage-video-container">
+                  <VideoPlayer
+                    youtubeId={activeVideo.video.youtubeId}
+                    title={activeVideo.video.title}
+                    composer={activeVideo.composer}
+                  />
+                </div>
+              )}
             </div>
           ) : (
             <div className="lineage-info-panel">
