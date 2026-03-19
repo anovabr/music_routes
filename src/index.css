@@ -826,6 +826,47 @@ button {
   background: color-mix(in srgb, var(--accent) 6%, var(--surface));
 }
 
+/* ── Lineage highlighting ──────────────────────────────────────── */
+.tcard--selected {
+  border-color: var(--pc, #fff);
+  box-shadow: 0 0 0 2px var(--pc, #fff), var(--shadow-sm);
+  background: var(--surface2);
+}
+
+.tcard--teacher {
+  border-color: #a78bfa;
+  box-shadow: 0 0 0 2px #a78bfa55;
+  background: var(--surface2);
+}
+.tcard--teacher::before {
+  content: '↑ Teacher';
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: #a78bfa;
+  margin-bottom: 4px;
+}
+
+.tcard--student {
+  border-color: #34d399;
+  box-shadow: 0 0 0 2px #34d39955;
+  background: var(--surface2);
+}
+.tcard--student::before {
+  content: '↓ Student';
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: #34d399;
+  margin-bottom: 4px;
+}
+
+.tcard--dim {
+  opacity: 0.35;
+}
+
 .tcard-header {
   display: flex;
   align-items: flex-start;

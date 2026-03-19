@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { flatComposers, PERIODS, countDescendants } from '../data/composers';
 
-export default function TimelineView({ activePeriods, selectedComposer, onSelectComposer }) {
+export default function TimelineView({ activePeriods, selectedComposer, onSelectComposer, onOpenVideo }) {
   const all = useMemo(() => flatComposers(), []);
 
   const filtered = useMemo(() => {
@@ -41,12 +41,26 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
               </div>
               <div className="timeline-grid">
                 {composers.map(c => {
+                  const isSelected = selectedComposer?.id === c.id;
+                  const isTeacher  = selectedComposer && c.id === selectedComposer.parentId;
+                  const isStudent  = selectedComposer && selectedComposer.childrenIds?.includes(c.id);
+                  const isDimmed   = selectedComposer && !isSelected && !isTeacher && !isStudent;
+
+                  const cardClass = [
+                    'timeline-card',
+                    isSelected ? 'is-selected'    : '',
+                    isTeacher  ? 'tcard--teacher' : '',
+                    isStudent  ? 'tcard--student' : '',
+                    isDimmed   ? 'tcard--dim'     : '',
+                  ].filter(Boolean).join(' ');
+
                   const descendants = countDescendants(c.id);
                   const spotifyUrl = `https://open.spotify.com/search/${encodeURIComponent(c.name)}`;
+
                   return (
                     <div
                       key={c.id}
-                      className={`timeline-card ${selectedComposer?.id === c.id ? 'is-selected' : ''}`}
+                      className={cardClass}
                       onClick={() => onSelectComposer(c)}
                     >
                       <div className="tcard-header">
