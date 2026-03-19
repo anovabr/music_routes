@@ -144,8 +144,10 @@ export default function App() {
   const toggleAllPeriods = useCallback((on) =>
     setActivePeriods(Object.keys(PERIODS).reduce((a, k) => ({ ...a, [k]: on }), {})), []);
 
-  const handleOpenVideo = useCallback((video, composer) =>
-    setActiveVideo({ video, composer }), []);
+  const handleOpenVideo = useCallback((video, composer) => {
+    setActiveVideo({ video, composer });
+    setSelectedComposer(composer);
+  }, []);
 
   const handleSelectComposer = useCallback((c) => {
     setSelectedComposer(c);
