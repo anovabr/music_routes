@@ -31,6 +31,9 @@ export default function App() {
   const [menuOpen, setMenuOpen]   = useState(false);
   const [toast, setToast]         = useState(null); // { msg, id }
   const searchRef = useRef(null);
+  const clefClicksRef = useRef(0);
+  const clefTimerRef  = useRef(null);
+  const konamiRef     = useRef([]);
 
   const allComposers = useMemo(() => flatComposers(), []);
   const composerOfDay = useMemo(() => getComposerOfDay(allComposers), [allComposers]);
@@ -155,6 +158,31 @@ export default function App() {
     handleSelectComposer(random);
   }, [allComposers, handleSelectComposer]);
 
+  // Easter egg #1 — treble clef clicked 5× rapidly
+  const handleClefClick = useCallback(() => {
+    clefClicksRef.current += 1;
+    clearTimeout(clefTimerRef.current);
+    clefTimerRef.current = setTimeout(() => { clefClicksRef.current = 0; }, 1200);
+    if (clefClicksRef.current >= 5) {
+      clefClicksRef.current = 0;
+      showToast('🎹 Maestro unlocked! The gods of music approve.');
+    }
+  }, [showToast]);
+
+  // Easter egg #2 — Konami code
+  const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  useEffect(() => {
+    const handleKonami = (e) => {
+      konamiRef.current = [...konamiRef.current, e.key].slice(-KONAMI.length);
+      if (konamiRef.current.join(',') === KONAMI.join(',')) {
+        showToast('🎼 ↑↑↓↓←→←→ Hidden concerto unlocked! 🎵');
+        konamiRef.current = [];
+      }
+    };
+    window.addEventListener('keydown', handleKonami);
+    return () => window.removeEventListener('keydown', handleKonami);
+  }, [showToast]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <div className="app" data-theme={theme}>
       {/* Loading intro */}
@@ -168,8 +196,13 @@ export default function App() {
 
       {/* ── Header ─────────────────────────────────────────────────────── */}
       <header className={`app-header${menuOpen ? ' menu-open' : ''}`}>
-        <div className="header-logo">
-          <span className="treble-clef">𝄞</span>
+        <div
+          className="header-logo"
+          onClick={() => window.location.reload()}
+          style={{ cursor: 'pointer' }}
+          title="Classical Music — click to reload"
+        >
+          <span className="treble-clef" onClick={e => { e.stopPropagation(); handleClefClick(); }}>𝄞</span>
           <h1>Classical Music</h1>
           <span className="byline">by Luis Anunciação</span>
         </div>
@@ -293,6 +326,7 @@ export default function App() {
             rel="noopener noreferrer"
             className="bmc-btn"
             title="Buy me a coffee"
+            onDoubleClick={e => { e.preventDefault(); showToast('☕ You\'re a true patron of the arts! Grazie mille! 🎶'); }}
           >
             ☕ <span>Buy me a coffee</span>
           </a>

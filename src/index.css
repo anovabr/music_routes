@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   CLASSICAL MUSIC NEUROTREE — Global Styles
+   CLASSICAL MUSIC — Global Styles
    Dark theme by default; [data-theme="light"] overrides
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -11,13 +11,13 @@
   --bg3:        #1a1815;
   --surface:    #201e1a;
   --surface2:   #2a2723;
-  --border:     rgba(201, 168, 76, 0.12);
-  --border2:    rgba(201, 168, 76, 0.06);
-  --text:       #ede7d9;
-  --text2:      #8a7e6c;
-  --text3:      #504840;
-  --accent:     #c9a84c;
-  --accent2:    #e8c870;
+  --border:     rgba(201, 168, 76, 0.18);
+  --border2:    rgba(201, 168, 76, 0.09);
+  --text:       #f0ead9;
+  --text2:      #c4b098;
+  --text3:      #8a7e6c;
+  --accent:     #d4af50;
+  --accent2:    #f0d078;
   --red:        #c44;
   --radius:     8px;
   --radius-lg:  14px;
@@ -103,10 +103,9 @@ button {
 
 .byline {
   font-family: var(--mono);
-  font-size: 9px;
-  color: var(--text3);
+  font-size: 10px;
+  color: var(--text2);
   letter-spacing: 0.06em;
-  opacity: 0.85;
 }
 
 .bmc-btn {
@@ -152,7 +151,7 @@ button {
   border-radius: 4px;
   background: transparent;
   border: 1px solid var(--border);
-  color: var(--text3);
+  color: var(--text2);
   font-size: 14px;
   display: flex; align-items: center; justify-content: center;
   transition: all var(--transition);
@@ -177,11 +176,11 @@ button {
   background: transparent;
   border: none;
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 400;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text3);
+  color: var(--text2);
   cursor: pointer;
   transition: all var(--transition);
   text-decoration: none;
@@ -236,7 +235,7 @@ button {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  color: var(--text3);
+  color: var(--text2);
   padding: 40px;
   text-align: center;
 }
@@ -302,7 +301,7 @@ button {
   border-radius: 4px;
   background: transparent;
   border: 1px solid transparent;
-  color: var(--text3);
+  color: var(--text2);
   font-size: 13px;
   display: flex; align-items: center; justify-content: center;
   transition: all var(--transition);
@@ -428,8 +427,8 @@ button {
 
 .tree-node-dates {
   font-family: var(--mono);
-  font-size: 10px;
-  color: var(--text3);
+  font-size: 11px;
+  color: var(--text2);
   letter-spacing: 0.04em;
 }
 
@@ -783,15 +782,15 @@ button {
 
 .timeline-period-years {
   font-family: var(--mono);
-  font-size: 11px;
-  color: var(--text3);
+  font-size: 12px;
+  color: var(--text2);
   letter-spacing: 0.04em;
 }
 
 .timeline-period-count {
   margin-left: auto;
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 11px;
   color: var(--text3);
   letter-spacing: 0.06em;
 }
@@ -858,14 +857,14 @@ button {
 
 .tcard-dates {
   font-family: var(--mono);
-  font-size: 11px;
-  color: var(--text3);
+  font-size: 12px;
+  color: var(--text2);
   letter-spacing: 0.04em;
 }
 
 .tcard-nat {
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: 10px;
   color: var(--text3);
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -896,7 +895,7 @@ button {
   text-align: left;
   transition: color var(--transition);
   width: 100%;
-  color: var(--text3);
+  color: var(--text2);
 }
 .tcard-video-btn:hover { color: var(--accent); }
 
@@ -1025,13 +1024,13 @@ button {
 
 .search-result-years {
   font-size: 12px;
-  color: var(--text3);
+  color: var(--text2);
 }
 
 .search-empty {
   padding: 16px;
   text-align: center;
-  color: var(--text3);
+  color: var(--text2);
   font-size: 13px;
 }
 
@@ -1124,7 +1123,7 @@ button {
 
 .video-unavailable-msg {
   font-size: 12px;
-  color: var(--text3);
+  color: var(--text2);
 }
 
 .video-unavailable-link {
@@ -1388,7 +1387,7 @@ button {
 .shortcuts-footer {
   margin-top: 20px;
   font-size: 12px;
-  color: var(--text3);
+  color: var(--text2);
   text-align: center;
 }
 
@@ -1464,7 +1463,7 @@ button {
   border-radius: 4px;
   background: transparent;
   border: 1px solid var(--border);
-  color: var(--text3);
+  color: var(--text2);
   font-size: 14px;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
@@ -1534,7 +1533,7 @@ button {
 }
 
 .lineage-play-step {
-  color: var(--text3);
+  color: var(--text2);
 }
 
 .lineage-play-actions {
@@ -1585,7 +1584,7 @@ button {
 
 .wiki-loading {
   font-size: 12px;
-  color: var(--text3);
+  color: var(--text2);
   font-style: italic;
 }
 
@@ -1738,7 +1737,7 @@ button {
     gap: 3px;
     padding: 10px 8px;
     font-size: 11px;
-    color: var(--text3);
+    color: var(--text2);
     position: relative;
     transition: color var(--transition);
   }
