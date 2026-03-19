@@ -228,31 +228,6 @@ export const treeData = {
                                       [
                                         v('Lili Boulanger — D\'un soir triste', 'nECZHvMDN_E'),
                                         v('Conducting Monteverdi Madrigals', 'ARBDHrpX_Fg'),
-                                      ],
-                                      [
-                                        c('glass', 'Philip Glass', 1937, null, 'CONTEMPORARY', 'American',
-                                          'Studied under Nadia Boulanger in Paris and was transformed by Ravi Shankar\'s rhythmic cycles. The defining figure of musical minimalism — his hypnotic, cycling patterns permeated concert halls, operas, and film scores worldwide.',
-                                          [
-                                            v('Metamorphosis Two', 'FaovqbcSYqk'),
-                                            v('Koyaanisqatsi', 'jBzXqBJuBME'),
-                                            v('Violin Concerto No. 1', 'OtQOLw_I1LQ'),
-                                          ],
-                                          [
-                                            c('richter', 'Max Richter', 1966, null, 'CONTEMPORARY', 'German-British',
-                                              'Neoclassical composer who recomposes the canon. His Recomposed Vivaldi and Sleep project brought classical music to new audiences. Directly influenced by Glass\'s minimalist techniques.',
-                                              [
-                                                v('On the Nature of Daylight', 'rVN1B-tUpgs'),
-                                                v('Recomposed: Vivaldi - Spring 1', 'FAhSyMl2MjU'),
-                                                v('Sleep - Dream 3', 'S3hBksAsLz8'),
-                                              ]),
-                                            c('frahm', 'Nils Frahm', 1982, null, 'CONTEMPORARY', 'German',
-                                              'Berlin-based pianist and producer who merges acoustic piano with analogue synthesizers. His live performances and studio albums have redefined neo-classical music for the 21st century.',
-                                              [
-                                                v('Says', 'xLNeZogTsK8'),
-                                                v('Ambre', 'PtW1n1URWVM'),
-                                                v('My Friend the Forest', 'BOZIe6eJbQU'),
-                                              ]),
-                                          ]),
                                       ]),
                                   ]),
                               ]),
@@ -297,7 +272,7 @@ export const treeData = {
               'J.S. Bach\'s most famous son. His "empfindsamer Stil" (sensitive style) broke from Baroque formalism and was a direct bridge to the Classical style of Haydn and Mozart.',
               [v('Prussian Sonata No. 1', 'YUVPBqXY3sc'), v('Symphony Wq 183 No. 1', 'p7zR9UrHqiA')]),
 
-            c('glass-bach', 'Philip Glass', 1937, null, 'CONTEMPORARY', 'American',
+            c('glass', 'Philip Glass', 1937, null, 'CONTEMPORARY', 'American',
               'The defining figure of musical minimalism. Though formally trained by Boulanger, his hypnotic, cycling patterns draw deeply from Bach\'s contrapuntal techniques, creating a modern expression of Baroque structure.',
               [
                 v('Metamorphosis Two', 'FaovqbcSYqk'),
@@ -306,14 +281,14 @@ export const treeData = {
                 v('Glassworks — Opening', 'n27pMwZ0cDM'),
               ],
               [
-                c('richter-bach', 'Max Richter', 1966, null, 'CONTEMPORARY', 'German-British',
+                c('max-richter', 'Max Richter', 1966, null, 'CONTEMPORARY', 'German-British',
                   'Neoclassical composer who recomposes the canon. His Recomposed Vivaldi and Sleep project brought classical music to new audiences. His work bridges Bach\'s counterpoint with Glass\'s minimalism.',
                   [
                     v('On the Nature of Daylight', 'rVN1B-tUpgs'),
                     v('Recomposed: Vivaldi - Spring 1', 'FAhSyMl2MjU'),
                     v('Sleep - Dream 3', 'S3hBksAsLz8'),
                   ]),
-                c('frahm-bach', 'Nils Frahm', 1982, null, 'CONTEMPORARY', 'German',
+                c('frahm', 'Nils Frahm', 1982, null, 'CONTEMPORARY', 'German',
                   'Berlin-based pianist and producer who merges acoustic piano with analogue synthesizers. His textural approach to counterpoint shows Glass\'s influence filtered through electronic experimentation.',
                   [
                     v('Says', 'xLNeZogTsK8'),
