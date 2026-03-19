@@ -1,16 +1,17 @@
 import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import { PERIODS, buildLineageTree, getComposerNode } from '../data/composers';
 
-function TreeNode({ node, selectedId, expandedIds, onToggle, onSelect, onOpenVideo, depth = 0 }) {
+function TreeNode({ node, selectedId, expandedIds, onToggle, onSelect, onOpenVideo, depth = 0, isLast = true }) {
   if (!node || !node.period) return null;
 
   const period = PERIODS[node.period];
   const isSelected = node.id === selectedId;
   const isExpanded = expandedIds.has(node.id);
-  const hasChildren = node.children?.filter(c => c.period)?.length > 0;
+  const children = node.children?.filter(c => c.period) || [];
+  const hasChildren = children.length > 0;
 
   return (
-    <div className="tree-node-wrapper" style={{ '--depth': depth }}>
+    <div className={`tree-node-wrapper ${depth === 0 ? 'root' : ''}`} style={{ '--depth': depth }}>
       <div
         className={`tree-node ${isSelected ? 'selected' : ''}`}
         style={{ '--pc': period?.color }}
@@ -45,21 +46,32 @@ function TreeNode({ node, selectedId, expandedIds, onToggle, onSelect, onOpenVid
         )}
       </div>
 
-      {/* Children */}
+      {/* Children - displayed horizontally as siblings */}
       {hasChildren && isExpanded && (
-        <div className="tree-children">
-          {node.children.filter(c => c.period).map(child => (
-            <TreeNode
-              key={child.id}
-              node={child}
-              selectedId={selectedId}
-              expandedIds={expandedIds}
-              onToggle={onToggle}
-              onSelect={onSelect}
-              onOpenVideo={onOpenVideo}
-              depth={depth + 1}
-            />
-          ))}
+        <div className="tree-children-container">
+          <div className="tree-connector-vertical" style={{ '--pc': period?.color }} />
+          {children.length > 1 && (
+            <div className="tree-connector-horizontal" style={{ '--pc': period?.color }} />
+          )}
+          <div className={`tree-children ${children.length > 1 ? 'siblings' : ''}`}>
+            {children.map((child, idx) => (
+              <div key={child.id} className="tree-child-wrapper">
+                {children.length > 1 && (
+                  <div className="tree-connector-down" style={{ '--pc': PERIODS[child.period]?.color }} />
+                )}
+                <TreeNode
+                  node={child}
+                  selectedId={selectedId}
+                  expandedIds={expandedIds}
+                  onToggle={onToggle}
+                  onSelect={onSelect}
+                  onOpenVideo={onOpenVideo}
+                  depth={depth + 1}
+                  isLast={idx === children.length - 1}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
@@ -70,7 +82,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
   if (!composer) return null;
 
   // Resize state
-  const [width, setWidth] = useState(320);
+  const [width, setWidth] = useState(500);
   const isResizing = useRef(false);
   const sidebarRef = useRef(null);
 
@@ -136,7 +148,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
     const handleMouseMove = (e) => {
       if (!isResizing.current) return;
       const newWidth = window.innerWidth - e.clientX;
-      setWidth(Math.max(200, Math.min(600, newWidth)));
+      setWidth(Math.max(300, Math.min(900, newWidth)));
     };
 
     const handleMouseUp = () => {

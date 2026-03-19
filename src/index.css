@@ -655,8 +655,8 @@ button {
   flex-direction: column;
   animation: slideIn 0.25s ease;
   position: relative;
-  min-width: 200px;
-  max-width: 600px;
+  min-width: 300px;
+  max-width: 900px;
 }
 
 /* Resize handle */
@@ -688,7 +688,7 @@ button {
 
 .lineage-title {
   font-family: 'Playfair Display', serif;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   color: var(--text);
 }
@@ -700,12 +700,12 @@ button {
 }
 
 .lineage-controls button {
-  width: 26px; height: 26px;
+  width: 28px; height: 28px;
   border-radius: 6px;
   background: var(--surface);
   border: 1px solid var(--border);
   color: var(--text2);
-  font-size: 12px;
+  font-size: 13px;
   display: flex; align-items: center; justify-content: center;
   transition: all var(--transition);
   cursor: pointer;
@@ -729,13 +729,19 @@ button {
 
 .lineage-tree {
   flex: 1;
-  padding: 12px;
-  overflow-y: auto;
+  padding: 16px;
+  overflow: auto;
 }
 
-/* Tree node wrapper - handles indentation */
+/* Tree node wrapper */
 .tree-node-wrapper {
-  padding-left: calc(var(--depth, 0) * 16px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tree-node-wrapper.root {
+  align-items: flex-start;
 }
 
 .tree-node {
@@ -743,8 +749,7 @@ button {
   align-items: center;
   gap: 6px;
   padding: 6px 8px;
-  margin-bottom: 4px;
-  border-radius: 6px;
+  border-radius: 8px;
   transition: all var(--transition);
 }
 
@@ -754,18 +759,17 @@ button {
 
 .tree-node.selected {
   background: color-mix(in srgb, var(--pc) 15%, var(--surface));
-  border: 1px solid var(--pc);
 }
 
 /* Toggle button */
 .tree-toggle {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border-radius: 4px;
   background: transparent;
   border: none;
   color: var(--text3);
-  font-size: 10px;
+  font-size: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -792,11 +796,10 @@ button {
 .tree-node-body {
   display: flex;
   align-items: center;
-  gap: 8px;
-  flex: 1;
-  min-width: 0;
-  padding: 6px 10px;
-  border-radius: 6px;
+  gap: 10px;
+  min-width: 140px;
+  padding: 8px 12px;
+  border-radius: 8px;
   cursor: pointer;
   background: var(--surface);
   border: 1px solid var(--border2);
@@ -810,17 +813,18 @@ button {
 }
 
 .tree-node.selected .tree-node-body {
-  background: color-mix(in srgb, var(--pc) 12%, var(--surface));
+  background: color-mix(in srgb, var(--pc) 15%, var(--surface));
   border-color: var(--pc);
   border-width: 2px;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--pc) 25%, transparent);
 }
 
 .tree-node-accent {
-  width: 3px;
-  height: calc(100% - 6px);
+  width: 4px;
+  height: calc(100% - 8px);
   position: absolute;
-  left: 3px;
-  top: 3px;
+  left: 4px;
+  top: 4px;
   border-radius: 2px;
   background: var(--pc, var(--accent));
 }
@@ -828,13 +832,13 @@ button {
 .tree-node-info {
   display: flex;
   flex-direction: column;
-  gap: 1px;
-  margin-left: 6px;
+  gap: 2px;
+  margin-left: 8px;
   min-width: 0;
 }
 
 .tree-node-name {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--text);
   white-space: nowrap;
@@ -843,20 +847,20 @@ button {
 }
 
 .tree-node-dates {
-  font-size: 10px;
-  color: var(--text3);
+  font-size: 12px;
+  color: var(--text2);
   font-family: 'Playfair Display', serif;
-  font-style: italic;
+  font-weight: 500;
 }
 
 .tree-node-play {
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   background: var(--pc, var(--accent));
   border: none;
   color: #fff;
-  font-size: 9px;
+  font-size: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -870,12 +874,68 @@ button {
   filter: brightness(1.1);
 }
 
-/* Children container */
-.tree-children {
+/* Children container with connectors */
+.tree-children-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   position: relative;
-  margin-left: 10px;
-  padding-left: 10px;
-  border-left: 1px dashed var(--border);
+}
+
+/* Vertical connector from parent to horizontal line */
+.tree-connector-vertical {
+  width: 2px;
+  height: 20px;
+  background: var(--pc, var(--border));
+  opacity: 0.5;
+}
+
+/* Horizontal connector between siblings */
+.tree-connector-horizontal {
+  height: 2px;
+  background: var(--pc, var(--border));
+  opacity: 0.5;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tree-children.siblings {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.tree-children:not(.siblings) {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 20px;
+}
+
+/* Wrapper for each child with its connector */
+.tree-child-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Vertical connector from horizontal line down to child */
+.tree-connector-down {
+  width: 2px;
+  height: 12px;
+  background: var(--pc, var(--border));
+  opacity: 0.5;
+}
+
+/* Calculate horizontal connector width based on children */
+.tree-children.siblings .tree-connector-horizontal {
+  width: calc(100% - 80px);
 }
 
 .lineage-description {
@@ -887,7 +947,7 @@ button {
 }
 
 .lineage-description p {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.6;
   color: var(--text2);
   font-style: italic;
