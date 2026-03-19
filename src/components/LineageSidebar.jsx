@@ -20,24 +20,14 @@ function TreeNode({ node, selectedId, expandedIds, onToggle, onSelect, onOpenVid
   return (
     <div className={`tree-node-wrapper ${depth === 0 ? 'root' : ''}`} style={{ '--depth': depth }}>
       <div
-        className={`tree-node ${isSelected ? 'selected' : ''}`}
+        className={`tree-node ${isSelected ? 'selected' : ''} ${hasChildren ? 'expandable' : ''}`}
         style={{ '--pc': period?.color }}
       >
-        {/* Expand/collapse indicator */}
-        <span className={`tree-toggle-indicator ${hasChildren ? 'has-children' : ''}`}>
-          {hasChildren ? (isExpanded ? '▾' : '▸') : '•'}
-        </span>
-
         {/* Node content - clickable to select AND toggle */}
         <div className="tree-node-body" onClick={handleBoxClick}>
           <div className="tree-node-accent" />
-          <div className="tree-node-info">
-            <span className="tree-node-name">{node.name}</span>
-            <span className="tree-node-dates">{node.born}–{node.died || ''}</span>
-          </div>
-          {hasChildren && (
-            <span className="tree-node-children-count">{children.length}</span>
-          )}
+          <span className="tree-node-name">{node.name}</span>
+          <span className="tree-node-dates">{node.born}–{node.died || ''}</span>
         </div>
 
         {/* Play button for selected */}
