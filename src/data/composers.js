@@ -862,6 +862,56 @@ function getComposerNode(composerId) {
   return null;
 }
 
+// ─── Count musical descendants of a composer (recursive children with period) ──
+export function countDescendants(composerId) {
+  const node = getComposerNode(composerId);
+  if (!node) return 0;
+  function count(n) {
+    if (!n.children) return 0;
+    return n.children.reduce((acc, child) => {
+      return acc + (child.period ? 1 : 0) + count(child);
+    }, 0);
+  }
+  return count(node);
+}
+
+// ─── Get Wikipedia article name for a composer ─────────────────────────────────
+export function getWikipediaName(composer) {
+  // Override map for names that differ from Wikipedia article titles
+  const overrides = {
+    'cpe-bach': 'Carl_Philipp_Emanuel_Bach',
+    'handel': 'George_Frideric_Handel',
+    'vivaldi': 'Antonio_Vivaldi',
+    'bach': 'Johann_Sebastian_Bach',
+    'mozart': 'Wolfgang_Amadeus_Mozart',
+    'beethoven': 'Ludwig_van_Beethoven',
+    'haydn': 'Joseph_Haydn',
+    'chopin': 'Frédéric_Chopin',
+    'liszt': 'Franz_Liszt',
+    'brahms': 'Johannes_Brahms',
+    'wagner': 'Richard_Wagner',
+    'tchaikovsky': 'Pyotr_Ilyich_Tchaikovsky',
+    'debussy': 'Claude_Debussy',
+    'ravel': 'Maurice_Ravel',
+    'mahler': 'Gustav_Mahler',
+    'strauss-r': 'Richard_Strauss',
+    'schoenberg': 'Arnold_Schoenberg',
+    'stravinsky': 'Igor_Stravinsky',
+    'bartok': 'Béla_Bartók',
+    'rachmaninoff': 'Sergei_Rachmaninoff',
+    'scriabin': 'Alexander_Scriabin',
+    'satie': 'Erik_Satie',
+    'puccini': 'Giacomo_Puccini',
+    'verdi': 'Giuseppe_Verdi',
+    'max-richter': 'Max_Richter',
+    'nils-frahm': 'Nils_Frahm',
+    'olafur-arnalds': 'Ólafur_Arnalds',
+    'glassp': 'Philip_Glass',
+  };
+  if (overrides[composer.id]) return overrides[composer.id];
+  return composer.name.replace(/ /g, '_');
+}
+
 // ─── Build lineage tree: ancestors path + selected + descendants ───────────────
 export function buildLineageTree(composerId) {
   const ancestors = getAncestors(composerId);

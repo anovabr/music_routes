@@ -1,17 +1,13 @@
 import { useMemo } from 'react';
-import { flatComposers, PERIODS } from '../data/composers';
+import { flatComposers, PERIODS, countDescendants } from '../data/composers';
 
 export default function TimelineView({ activePeriods, selectedComposer, onSelectComposer, onOpenVideo }) {
   const all = useMemo(() => flatComposers(), []);
 
   const filtered = useMemo(() => {
-    return all.filter(c => {
-      if (activePeriods[c.period] === false) return false;
-      return true;
-    });
+    return all.filter(c => activePeriods[c.period] !== false);
   }, [all, activePeriods]);
 
-  // Group by period
   const grouped = useMemo(() => {
     const map = {};
     filtered.forEach(c => {
@@ -44,57 +40,96 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
                 <span className="timeline-period-count">{composers.length}</span>
               </div>
               <div className="timeline-grid">
-                {composers.map(c => (
-                  <div
-                    key={c.id}
-                    className={`timeline-card ${selectedComposer?.id === c.id ? 'is-selected' : ''}`}
-                    onClick={() => onSelectComposer(c)}
-                  >
-                    {/* Quick play button */}
-                    {c.videos?.length > 0 && (
-                      <button
-                        className="tcard-quick-play"
-                        onClick={e => { e.stopPropagation(); onOpenVideo(c.videos[0], c); }}
-                        title={`Play: ${c.videos[0].title}`}
-                      >
-                        ▶
-                      </button>
-                    )}
-                    <div className="tcard-header">
-                      <div className="tcard-dot" style={{ background: period.color }} />
-                      <h4 className="tcard-name">{c.name}</h4>
-                    </div>
-                    <div className="tcard-meta">
-                      <span className="tcard-dates">
-                        {c.born}–{c.died || ''}
-                      </span>
-                      {c.nationality && (
-                        <span className="tcard-nat">{c.nationality}</span>
+                {composers.map(c => {
+                  const descendants = countDescendants(c.id);
+                  const spotifyUrl = `https://open.spotify.com/search/${encodeURIComponent(c.name)}`;
+                  return (
+                    <div
+                      key={c.id}
+                      className={`timeline-card ${selectedComposer?.id === c.id ? 'is-selected' : ''}`}
+                      onClick={() => onSelectComposer(c)}
+                    >
+                      {/* Quick play button */}
+                      {c.videos?.length > 0 && (
+                        <button
+                          className="tcard-quick-play"
+                          onClick={e => { e.stopPropagation(); onOpenVideo(c.videos[0], c); }}
+                          title={`Play: ${c.videos[0].title}`}
+                        >
+                          ▶
+                        </button>
                       )}
-                    </div>
-                    {c.description && (
-                      <p className="tcard-desc">
-                        {c.description.slice(0, 120)}
-                        {c.description.length > 120 ? '…' : ''}
-                      </p>
-                    )}
-                    {c.videos?.length > 0 && (
-                      <div className="tcard-videos">
-                        {c.videos.slice(0, 3).map((v, i) => (
-                          <button
-                            key={i}
-                            className="tcard-video-btn"
-                            onClick={e => { e.stopPropagation(); onOpenVideo(v, c); }}
-                            title={v.title}
-                          >
-                            <span className="tcard-play">▶</span>
-                            <span className="tcard-vtitle">{v.title}</span>
-                          </button>
-                        ))}
+
+                      <div className="tcard-header">
+                        <div className="tcard-dot" style={{ background: period.color }} />
+                        <h4 className="tcard-name">{c.name}</h4>
+                        {descendants > 0 && (
+                          <span className="tcard-influence" title={`${descendants} musical descendants`}>
+                            {descendants}
+                          </span>
+                        )}
                       </div>
-                    )}
-                  </div>
-                ))}
+
+                      <div className="tcard-meta">
+                        <span className="tcard-dates">{c.born}–{c.died || ''}</span>
+                        {c.nationality && <span className="tcard-nat">{c.nationality}</span>}
+                      </div>
+
+                      {c.description && (
+                        <p className="tcard-desc">
+                          {c.description.slice(0, 120)}{c.description.length > 120 ? '…' : ''}
+                        </p>
+                      )}
+
+                      {c.videos?.length > 0 && (
+                        <div className="tcard-videos">
+                          {c.videos.slice(0, 3).map((v, i) => (
+                            <button
+                              key={i}
+                              className="tcard-video-btn"
+                              onClick={e => { e.stopPropagation(); onOpenVideo(v, c); }}
+                              title={v.title}
+                            >
+                              <span className="tcard-play">▶</span>
+                              <span className="tcard-vtitle">{v.title}</span>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Streaming links */}
+                      <div className="tcard-streaming" onClick={e => e.stopPropagation()}>
+                        <a
+                          href={spotifyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="tcard-stream-link"
+                          title={`${c.name} on Spotify`}
+                        >
+                          🎵
+                        </a>
+                        <a
+                          href={`https://music.apple.com/search?term=${encodeURIComponent(c.name)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="tcard-stream-link"
+                          title={`${c.name} on Apple Music`}
+                        >
+                          🎧
+                        </a>
+                        <a
+                          href={`https://www.youtube.com/results?search_query=${encodeURIComponent(c.name + ' classical')}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="tcard-stream-link"
+                          title={`${c.name} on YouTube`}
+                        >
+                          ▶
+                        </a>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </section>
           );

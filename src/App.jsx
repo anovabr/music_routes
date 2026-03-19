@@ -1,6 +1,8 @@
 import { useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import LineageSidebar from './components/LineageSidebar';
 import TimelineView from './components/TimelineView';
+import LoadingScreen from './components/LoadingScreen';
+import ShortcutsModal from './components/ShortcutsModal';
 import { PERIODS, flatComposers } from './data/composers';
 
 const DEFAULT_PERIODS = Object.keys(PERIODS).reduce(
@@ -8,19 +10,31 @@ const DEFAULT_PERIODS = Object.keys(PERIODS).reduce(
   {}
 );
 
+// Deterministic "composer of the day" based on UTC date
+function getComposerOfDay(composers) {
+  if (!composers.length) return null;
+  const d = new Date();
+  const seed = d.getUTCFullYear() * 10000 + (d.getUTCMonth() + 1) * 100 + d.getUTCDate();
+  return composers[seed % composers.length];
+}
+
 export default function App() {
-  const [theme, setTheme] = useState('dark');
+  const [loaded, setLoaded]       = useState(false);
+  const [theme, setTheme]         = useState('dark');
   const [selectedComposer, setSelectedComposer] = useState(null);
-  const [activeVideo, setActiveVideo] = useState(null);
-  const [activePeriods, setActivePeriods] = useState(DEFAULT_PERIODS);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchOpen, setSearchOpen] = useState(false);
+  const [activeVideo, setActiveVideo]           = useState(null);
+  const [activePeriods, setActivePeriods]       = useState(DEFAULT_PERIODS);
+  const [searchQuery, setSearchQuery]   = useState('');
+  const [searchOpen, setSearchOpen]     = useState(false);
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
+  const [mobileTab, setMobileTab] = useState('timeline');
+  const [menuOpen, setMenuOpen]   = useState(false);
+  const [toast, setToast]         = useState(null); // { msg, id }
   const searchRef = useRef(null);
 
-  // Get all composers for search and counts
   const allComposers = useMemo(() => flatComposers(), []);
+  const composerOfDay = useMemo(() => getComposerOfDay(allComposers), [allComposers]);
 
-  // Composer counts per period
   const periodCounts = useMemo(() => {
     const counts = {};
     Object.keys(PERIODS).forEach(p => counts[p] = 0);
@@ -28,15 +42,30 @@ export default function App() {
     return counts;
   }, [allComposers]);
 
-  // Search results
   const searchResults = useMemo(() => {
     if (!searchQuery.trim()) return [];
     const q = searchQuery.toLowerCase();
-    return allComposers.filter(c => 
+    return allComposers.filter(c =>
       c.name.toLowerCase().includes(q) ||
       c.nationality?.toLowerCase().includes(q)
     ).slice(0, 8);
   }, [searchQuery, allComposers]);
+
+  // Toast helper
+  const showToast = useCallback((msg) => {
+    const id = Date.now();
+    setToast({ msg, id });
+    setTimeout(() => setToast(t => t?.id === id ? null : t), 2500);
+  }, []);
+
+  // Share button — copy current URL
+  const handleShare = useCallback(() => {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      showToast('Link copied to clipboard!');
+    }).catch(() => {
+      showToast('Could not copy — copy the URL from your address bar');
+    });
+  }, [showToast]);
 
   // URL sync - read on mount
   useEffect(() => {
@@ -62,13 +91,16 @@ export default function App() {
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e) => {
-      // Escape closes modals/search
       if (e.key === 'Escape') {
-        if (activeVideo) setActiveVideo(null);
-        else if (searchOpen) { setSearchOpen(false); setSearchQuery(''); }
-        else if (selectedComposer) setSelectedComposer(null);
+        if (shortcutsOpen)  { setShortcutsOpen(false); return; }
+        if (activeVideo)    { setActiveVideo(null); return; }
+        if (searchOpen)     { setSearchOpen(false); setSearchQuery(''); return; }
+        if (selectedComposer) setSelectedComposer(null);
       }
-      // Ctrl+K or / opens search
+      if (e.key === '?' && !e.target.closest('input')) {
+        e.preventDefault();
+        setShortcutsOpen(s => !s);
+      }
       if ((e.key === 'k' && (e.ctrlKey || e.metaKey)) || (e.key === '/' && !e.target.closest('input'))) {
         e.preventDefault();
         setSearchOpen(true);
@@ -77,20 +109,29 @@ export default function App() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeVideo, searchOpen, selectedComposer]);
+  }, [activeVideo, searchOpen, selectedComposer, shortcutsOpen]);
 
-  // Close search when clicking outside
+  // Close search on outside click
   useEffect(() => {
     if (!searchOpen) return;
-    const handleClick = (e) => {
+    const handle = (e) => {
       if (!e.target.closest('.search-container')) {
-        setSearchOpen(false);
-        setSearchQuery('');
+        setSearchOpen(false); setSearchQuery('');
       }
     };
-    document.addEventListener('click', handleClick);
-    return () => document.removeEventListener('click', handleClick);
+    document.addEventListener('click', handle);
+    return () => document.removeEventListener('click', handle);
   }, [searchOpen]);
+
+  // Close hamburger on outside click
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handle = (e) => {
+      if (!e.target.closest('.app-header')) setMenuOpen(false);
+    };
+    document.addEventListener('click', handle);
+    return () => document.removeEventListener('click', handle);
+  }, [menuOpen]);
 
   const togglePeriod = useCallback((id) =>
     setActivePeriods(p => ({ ...p, [id]: !p[id] })), []);
@@ -101,19 +142,6 @@ export default function App() {
   const handleOpenVideo = useCallback((video, composer) =>
     setActiveVideo({ video, composer }), []);
 
-  const [mobileTab, setMobileTab] = useState('timeline');
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  // Close hamburger menu when clicking outside the header
-  useEffect(() => {
-    if (!menuOpen) return;
-    const handle = (e) => {
-      if (!e.target.closest('.app-header')) setMenuOpen(false);
-    };
-    document.addEventListener('click', handle);
-    return () => document.removeEventListener('click', handle);
-  }, [menuOpen]);
-
   const handleSelectComposer = useCallback((c) => {
     setSelectedComposer(c);
     setSearchOpen(false);
@@ -122,7 +150,6 @@ export default function App() {
     setMenuOpen(false);
   }, []);
 
-  // Random composer
   const handleRandomComposer = useCallback(() => {
     const random = allComposers[Math.floor(Math.random() * allComposers.length)];
     handleSelectComposer(random);
@@ -130,6 +157,14 @@ export default function App() {
 
   return (
     <div className="app" data-theme={theme}>
+      {/* Loading intro */}
+      {!loaded && <LoadingScreen onDone={() => setLoaded(true)} />}
+
+      {/* Keyboard shortcuts modal */}
+      {shortcutsOpen && <ShortcutsModal onClose={() => setShortcutsOpen(false)} />}
+
+      {/* Toast notification */}
+      {toast && <div className="toast" key={toast.id}>{toast.msg}</div>}
 
       {/* ── Header ─────────────────────────────────────────────────────── */}
       <header className={`app-header${menuOpen ? ' menu-open' : ''}`}>
@@ -152,8 +187,8 @@ export default function App() {
 
         {/* Search */}
         <div className="search-container">
-          <button 
-            className="search-toggle" 
+          <button
+            className="search-toggle"
             onClick={(e) => { e.stopPropagation(); setSearchOpen(!searchOpen); setTimeout(() => searchRef.current?.focus(), 50); }}
             title="Search composers (Ctrl+K)"
           >
@@ -177,8 +212,8 @@ export default function App() {
               {searchResults.length > 0 && (
                 <div className="search-results">
                   {searchResults.map(c => (
-                    <div 
-                      key={c.id} 
+                    <div
+                      key={c.id}
                       className="search-result"
                       style={{ '--pc': PERIODS[c.period]?.color }}
                       onClick={() => handleSelectComposer(c)}
@@ -219,12 +254,38 @@ export default function App() {
         </nav>
 
         <div className="header-controls">
+          {/* Composer of the Day */}
+          {composerOfDay && (
+            <button
+              className="cotd-btn"
+              onClick={() => handleSelectComposer(composerOfDay)}
+              title={`Today's featured composer: ${composerOfDay.name}`}
+            >
+              ✨ {composerOfDay.name}
+            </button>
+          )}
           <button
             className="random-btn"
             onClick={handleRandomComposer}
             title="Discover a random composer"
           >
             🎲
+          </button>
+          {/* Share button */}
+          <button
+            className="share-btn"
+            onClick={handleShare}
+            title="Copy link to share"
+          >
+            🔗
+          </button>
+          {/* Shortcuts hint */}
+          <button
+            className="shortcuts-btn"
+            onClick={() => setShortcutsOpen(true)}
+            title="Keyboard shortcuts (?)"
+          >
+            ?
           </button>
           <a
             href="https://buymeacoffee.com/luisfcab"
@@ -233,7 +294,7 @@ export default function App() {
             className="bmc-btn"
             title="Buy me a coffee"
           >
-            ☕ Buy me a coffee
+            ☕ <span>Buy me a coffee</span>
           </a>
           <button
             className="theme-toggle"
