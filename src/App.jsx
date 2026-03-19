@@ -41,7 +41,7 @@ export default function App() {
             className="bmc-btn"
             title="Buy me a coffee"
           >
-            ☕
+            ☕ Buy me a coffee
           </a>
         </div>
         {/* Period Filters */}
