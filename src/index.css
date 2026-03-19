@@ -1049,7 +1049,8 @@ button {
   transition: all var(--transition);
 }
 
-.search-result:hover {
+.search-result:hover,
+.search-result.highlighted {
   background: var(--bg3);
 }
 
@@ -1630,6 +1631,12 @@ button {
 .wiki-loading {
   font-size: 12px;
   color: var(--text2);
+  font-style: italic;
+}
+
+.wiki-error {
+  font-size: 12px;
+  color: var(--text3);
   font-style: italic;
 }
 

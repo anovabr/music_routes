@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
+import { useState, useMemo, useCallback, useEffect, useRef, memo } from 'react';
 import { PERIODS, buildLineageTree, countDescendants, getWikipediaName } from '../data/composers';
 import VideoPlayer from './VideoPlayer';
 
@@ -13,7 +13,7 @@ function expandPath(node, targetId, ids) {
   return false;
 }
 
-function TreeNode({ node, selectedId, ancestorIds, expandedIds, onToggle, onSelect, onOpenVideo, depth = 0 }) {
+const TreeNode = memo(function TreeNode({ node, selectedId, ancestorIds, expandedIds, onToggle, onSelect, onOpenVideo, depth = 0 }) {
   if (!node || !node.period) return null;
 
   const period = PERIODS[node.period];
@@ -79,38 +79,63 @@ function TreeNode({ node, selectedId, ancestorIds, expandedIds, onToggle, onSele
       )}
     </div>
   );
-}
+});
 
 // ── Wikipedia quick-peek hook ──────────────────────────────────────────────────
+const wikiCache = {};
+
 function useWikipedia(composer) {
   const [wiki, setWiki] = useState(null);
   const [wikiLoading, setWikiLoading] = useState(false);
+  const [wikiError, setWikiError] = useState(false);
 
   useEffect(() => {
-    if (!composer) { setWiki(null); return; }
+    if (!composer) { setWiki(null); setWikiError(false); return; }
+
+    // Cache hit
+    if (wikiCache[composer.id] !== undefined) {
+      setWiki(wikiCache[composer.id]);
+      setWikiLoading(false);
+      setWikiError(false);
+      return;
+    }
+
     setWiki(null);
+    setWikiError(false);
     setWikiLoading(true);
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
     const name = getWikipediaName(composer);
-    fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(name)}`)
+
+    fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(name)}`, { signal: controller.signal })
       .then(r => r.ok ? r.json() : null)
       .then(data => {
+        clearTimeout(timeout);
         if (data?.extract) {
-          // Trim to ~200 chars ending at a sentence
           let text = data.extract;
           if (text.length > 240) {
             const cut = text.lastIndexOf('.', 240);
             text = cut > 60 ? text.slice(0, cut + 1) : text.slice(0, 240) + '…';
           }
-          setWiki({ text, url: data.content_urls?.desktop?.page });
+          const result = { text, url: data.content_urls?.desktop?.page };
+          wikiCache[composer.id] = result;
+          setWiki(result);
         } else {
+          wikiCache[composer.id] = null;
           setWiki(null);
         }
       })
-      .catch(() => setWiki(null))
+      .catch(err => {
+        clearTimeout(timeout);
+        if (err.name !== 'AbortError') setWikiError(true);
+      })
       .finally(() => setWikiLoading(false));
+
+    return () => { clearTimeout(timeout); controller.abort(); };
   }, [composer?.id]);
 
-  return { wiki, wikiLoading };
+  return { wiki, wikiLoading, wikiError };
 }
 
 // ── Build ordered path (root → selected) for lineage play ─────────────────────
@@ -187,7 +212,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
     setLineageIndex(0);
   }, [composer?.id, lineageTree]);
 
-  const { wiki, wikiLoading } = useWikipedia(composer);
+  const { wiki, wikiLoading, wikiError } = useWikipedia(composer);
 
   const influenceCount = useMemo(
     () => composer ? countDescendants(composer.id) : 0,
@@ -432,6 +457,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
 
               {/* Wikipedia snippet */}
               {wikiLoading && <p className="wiki-loading">Loading Wikipedia…</p>}
+              {wikiError && <p className="wiki-error">Wikipedia unavailable</p>}
               {wiki && (
                 <div className="wiki-snippet">
                   <span className="wiki-label">Wikipedia</span>

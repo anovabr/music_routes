@@ -26,11 +26,13 @@ export default function App() {
   const [activePeriods, setActivePeriods]       = useState(DEFAULT_PERIODS);
   const [searchQuery, setSearchQuery]   = useState('');
   const [searchOpen, setSearchOpen]     = useState(false);
+  const [searchHighlight, setSearchHighlight] = useState(0);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [mobileTab, setMobileTab] = useState('timeline');
   const [menuOpen, setMenuOpen]   = useState(false);
   const [toast, setToast]         = useState(null); // { msg, id }
   const searchRef = useRef(null);
+  const toastCounterRef = useRef(0);
   const clefClicksRef = useRef(0);
   const clefTimerRef  = useRef(null);
   const konamiRef     = useRef([]);
@@ -56,7 +58,7 @@ export default function App() {
 
   // Toast helper
   const showToast = useCallback((msg) => {
-    const id = Date.now();
+    const id = ++toastCounterRef.current;
     setToast({ msg, id });
     setTimeout(() => setToast(t => t?.id === id ? null : t), 2500);
   }, []);
@@ -235,19 +237,25 @@ export default function App() {
                 className="search-input"
                 placeholder="Search composers..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => { setSearchQuery(e.target.value); setSearchHighlight(0); }}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter' && searchResults.length > 0) {
-                    handleSelectComposer(searchResults[0]);
+                  if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    setSearchHighlight(h => Math.min(h + 1, searchResults.length - 1));
+                  } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    setSearchHighlight(h => Math.max(h - 1, 0));
+                  } else if (e.key === 'Enter' && searchResults.length > 0) {
+                    handleSelectComposer(searchResults[searchHighlight]);
                   }
                 }}
               />
               {searchResults.length > 0 && (
                 <div className="search-results">
-                  {searchResults.map(c => (
+                  {searchResults.map((c, i) => (
                     <div
                       key={c.id}
-                      className="search-result"
+                      className={`search-result${i === searchHighlight ? ' highlighted' : ''}`}
                       style={{ '--pc': PERIODS[c.period]?.color }}
                       onClick={() => handleSelectComposer(c)}
                     >

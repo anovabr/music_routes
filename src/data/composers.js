@@ -900,7 +900,7 @@ export function getWikipediaName(composer) {
     'debussy': 'Claude_Debussy',
     'ravel': 'Maurice_Ravel',
     'mahler': 'Gustav_Mahler',
-    'strauss-r': 'Richard_Strauss',
+    'rstrauss': 'Richard_Strauss',
     'schoenberg': 'Arnold_Schoenberg',
     'stravinsky': 'Igor_Stravinsky',
     'bartok': 'Béla_Bartók',
@@ -910,9 +910,9 @@ export function getWikipediaName(composer) {
     'puccini': 'Giacomo_Puccini',
     'verdi': 'Giuseppe_Verdi',
     'max-richter': 'Max_Richter',
-    'nils-frahm': 'Nils_Frahm',
-    'olafur-arnalds': 'Ólafur_Arnalds',
-    'glassp': 'Philip_Glass',
+    'frahm': 'Nils_Frahm',
+    'arnalds': 'Ólafur_Arnalds',
+    'glass': 'Philip_Glass',
   };
   if (overrides[composer.id]) return overrides[composer.id];
   return composer.name.replace(/ /g, '_');
