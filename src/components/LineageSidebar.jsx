@@ -347,7 +347,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
     : null;
 
   return (
-    <aside className="lineage-sidebar" ref={sidebarRef} style={{ width }}>
+    <aside className={`lineage-sidebar${activeVideo ? ' has-active-video' : ''}`} ref={sidebarRef} style={{ width }}>
       <div className="lineage-resize-handle" onMouseDown={handleMouseDown} />
 
       <div className="lineage-header">
