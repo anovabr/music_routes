@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { flatComposers, PERIODS, countDescendants } from '../data/composers';
 
-export default function TimelineView({ activePeriods, selectedComposer, onSelectComposer, onOpenVideo }) {
+export default function TimelineView({ activePeriods, selectedComposer, onSelectComposer }) {
   const all = useMemo(() => flatComposers(), []);
 
   const filtered = useMemo(() => {
@@ -49,17 +49,6 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
                       className={`timeline-card ${selectedComposer?.id === c.id ? 'is-selected' : ''}`}
                       onClick={() => onSelectComposer(c)}
                     >
-                      {/* Quick play button */}
-                      {c.videos?.length > 0 && (
-                        <button
-                          className="tcard-quick-play"
-                          onClick={e => { e.stopPropagation(); onOpenVideo(c.videos[0], c); }}
-                          title={`Play: ${c.videos[0].title}`}
-                        >
-                          ▶
-                        </button>
-                      )}
-
                       <div className="tcard-header">
                         <div className="tcard-dot" style={{ background: period.color }} />
                         <h4 className="tcard-name">{c.name}</h4>
