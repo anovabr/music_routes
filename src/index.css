@@ -96,6 +96,26 @@ button {
   gap: 10px;
 }
 
+.bmc-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: #ffdd00;
+  color: #000;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all var(--transition);
+  margin-left: 6px;
+}
+
+.bmc-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(255, 221, 0, 0.4);
+}
+
 .treble-clef {
   font-size: 28px;
   color: var(--accent);

@@ -34,6 +34,15 @@ export default function App() {
         <div className="header-logo">
           <span className="treble-clef">𝄞</span>
           <h1>Classical Music Neurotree</h1>
+          <a
+            href="https://buymeacoffee.com/luisfcab"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bmc-btn"
+            title="Buy me a coffee"
+          >
+            ☕
+          </a>
         </div>
         {/* Period Filters */}
         <div className="header-periods">
