@@ -1,7 +1,5 @@
-import { useState, useCallback, useMemo } from 'react';
-import MusicTree from './components/MusicTree';
+import { useState, useCallback } from 'react';
 import FilterPanel from './components/FilterPanel';
-import ComposerPanel from './components/ComposerPanel';
 import LineageSidebar from './components/LineageSidebar';
 import VideoModal from './components/VideoModal';
 import TimelineView from './components/TimelineView';
@@ -14,9 +12,8 @@ const DEFAULT_PERIODS = Object.keys(PERIODS).reduce(
 
 export default function App() {
   const [theme, setTheme] = useState('dark');
-  const [view, setView] = useState('timeline');
   const [selectedComposer, setSelectedComposer] = useState(null);
-  const [activeVideo, setActiveVideo] = useState(null);   // { video, composer }
+  const [activeVideo, setActiveVideo] = useState(null);
   const [activePeriods, setActivePeriods] = useState(DEFAULT_PERIODS);
 
   const togglePeriod = useCallback((id) =>
@@ -30,9 +27,6 @@ export default function App() {
 
   const handleSelectComposer = useCallback((c) => setSelectedComposer(c), []);
 
-  // Memoize to avoid passing new reference on every render
-  const treeKey = useMemo(() => theme, [theme]);
-
   return (
     <div className="app" data-theme={theme}>
 
@@ -44,21 +38,6 @@ export default function App() {
         </div>
 
         <div className="header-controls">
-          <div className="view-toggle">
-            <button
-              className={view === 'tree' ? 'active' : ''}
-              onClick={() => setView('tree')}
-            >
-              🌳 Tree
-            </button>
-            <button
-              className={view === 'timeline' ? 'active' : ''}
-              onClick={() => setView('timeline')}
-            >
-              📅 Timeline
-            </button>
-          </div>
-
           <button
             className="theme-toggle"
             onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
@@ -78,33 +57,14 @@ export default function App() {
         />
 
         <div className="app-content">
-          {view === 'tree' ? (
-            <MusicTree
-              key={treeKey}
-              theme={theme}
-              activePeriods={activePeriods}
-              onSelectComposer={handleSelectComposer}
-              onOpenVideo={handleOpenVideo}
-            />
-          ) : (
-            <TimelineView
-              activePeriods={activePeriods}
-              onSelectComposer={handleSelectComposer}
-              onOpenVideo={handleOpenVideo}
-            />
-          )}
+          <TimelineView
+            activePeriods={activePeriods}
+            onSelectComposer={handleSelectComposer}
+            onOpenVideo={handleOpenVideo}
+          />
         </div>
 
-        {selectedComposer && view === 'tree' && (
-          <ComposerPanel
-            composer={selectedComposer}
-            onClose={() => setSelectedComposer(null)}
-            onOpenVideo={handleOpenVideo}
-            onSelectComposer={handleSelectComposer}
-          />
-        )}
-
-        {selectedComposer && view === 'timeline' && (
+        {selectedComposer && (
           <LineageSidebar
             composer={selectedComposer}
             onClose={() => setSelectedComposer(null)}

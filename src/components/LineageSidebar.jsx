@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
-import { PERIODS, buildLineageTree, getComposerNode } from '../data/composers';
+import { PERIODS, buildLineageTree } from '../data/composers';
 
 function TreeNode({ node, selectedId, expandedIds, onToggle, onSelect, onOpenVideo, depth = 0, isLast = true }) {
   if (!node || !node.period) return null;
