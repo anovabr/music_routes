@@ -10,28 +10,34 @@ function TreeNode({ node, selectedId, expandedIds, onToggle, onSelect, onOpenVid
   const children = node.children?.filter(c => c.period) || [];
   const hasChildren = children.length > 0;
 
+  const handleBoxClick = () => {
+    onSelect(node);
+    if (hasChildren) {
+      onToggle(node.id);
+    }
+  };
+
   return (
     <div className={`tree-node-wrapper ${depth === 0 ? 'root' : ''}`} style={{ '--depth': depth }}>
       <div
         className={`tree-node ${isSelected ? 'selected' : ''}`}
         style={{ '--pc': period?.color }}
       >
-        {/* Expand/collapse toggle */}
-        <button
-          className={`tree-toggle ${hasChildren ? 'has-children' : ''}`}
-          onClick={(e) => { e.stopPropagation(); hasChildren && onToggle(node.id); }}
-          disabled={!hasChildren}
-        >
+        {/* Expand/collapse indicator */}
+        <span className={`tree-toggle-indicator ${hasChildren ? 'has-children' : ''}`}>
           {hasChildren ? (isExpanded ? '▾' : '▸') : '•'}
-        </button>
+        </span>
 
-        {/* Node content - clickable to select */}
-        <div className="tree-node-body" onClick={() => onSelect(node)}>
+        {/* Node content - clickable to select AND toggle */}
+        <div className="tree-node-body" onClick={handleBoxClick}>
           <div className="tree-node-accent" />
           <div className="tree-node-info">
             <span className="tree-node-name">{node.name}</span>
             <span className="tree-node-dates">{node.born}–{node.died || ''}</span>
           </div>
+          {hasChildren && (
+            <span className="tree-node-children-count">{children.length}</span>
+          )}
         </div>
 
         {/* Play button for selected */}
