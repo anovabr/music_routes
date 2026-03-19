@@ -816,11 +816,17 @@ export const treeData = {
 // ─── Flat list for timeline ────────────────────────────────────────────────────
 export function flatComposers() {
   const result = [];
-  function walk(node) {
-    if (node.period) result.push(node);
-    if (node.children) node.children.forEach(walk);
+  function walk(node, parentId = null) {
+    if (node.period) {
+      result.push({
+        ...node,
+        parentId,
+        childrenIds: (node.children || []).filter(c => c.period).map(c => c.id),
+      });
+    }
+    if (node.children) node.children.forEach(c => walk(c, node.period ? node.id : parentId));
   }
-  treeData.children.forEach(walk);
+  treeData.children.forEach(c => walk(c, null));
   return result.sort((a, b) => a.born - b.born);
 }
 
