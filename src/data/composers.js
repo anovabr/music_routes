@@ -559,3 +559,56 @@ export function getChildren(composerId) {
   }
   return [];
 }
+
+// ─── Get a composer node by ID (with full subtree) ─────────────────────────────
+export function getComposerNode(composerId) {
+  function find(node) {
+    if (node.id === composerId) return node;
+    if (node.children) {
+      for (const child of node.children) {
+        const found = find(child);
+        if (found) return found;
+      }
+    }
+    return null;
+  }
+  for (const child of treeData.children) {
+    const found = find(child);
+    if (found) return found;
+  }
+  return null;
+}
+
+// ─── Build lineage tree: ancestors path + selected + descendants ───────────────
+export function buildLineageTree(composerId) {
+  const ancestors = getAncestors(composerId);
+  const selected = getComposerNode(composerId);
+  if (!selected) return null;
+
+  // Build tree from top ancestor down to selected, then include selected's children
+  if (ancestors.length === 0) {
+    // No ancestors, just return selected with its children
+    return {
+      ...selected,
+      children: selected.children ? [...selected.children] : []
+    };
+  }
+
+  // Build from top ancestor
+  const root = { ...ancestors[0], children: [] };
+  let current = root;
+
+  for (let i = 1; i < ancestors.length; i++) {
+    const next = { ...ancestors[i], children: [] };
+    current.children = [next];
+    current = next;
+  }
+
+  // Add selected as child of last ancestor
+  current.children = [{
+    ...selected,
+    children: selected.children ? [...selected.children] : []
+  }];
+
+  return root;
+}

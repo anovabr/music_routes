@@ -1,86 +1,188 @@
-import { useMemo } from 'react';
-import { PERIODS, getAncestors, getChildren } from '../data/composers';
+import { useState, useMemo, useCallback, useEffect } from 'react';
+import { PERIODS, buildLineageTree, getComposerNode } from '../data/composers';
 
-export default function LineageSidebar({ composer, onClose, onSelectComposer, onOpenVideo }) {
-  if (!composer) return null;
+function TreeNode({ node, selectedId, expandedIds, onToggle, onSelect, onOpenVideo, depth = 0 }) {
+  if (!node || !node.period) return null;
 
-  const ancestors = useMemo(() => getAncestors(composer.id), [composer.id]);
-  const children = useMemo(() => getChildren(composer.id), [composer.id]);
+  const period = PERIODS[node.period];
+  const isSelected = node.id === selectedId;
+  const isExpanded = expandedIds.has(node.id);
+  const hasChildren = node.children?.filter(c => c.period)?.length > 0;
 
-  const ComposerNode = ({ c, isSelected = false, position = 'middle' }) => {
-    const period = PERIODS[c.period];
-    return (
+  return (
+    <div className="tree-node-wrapper" style={{ '--depth': depth }}>
       <div
-        className={`lineage-node ${isSelected ? 'selected' : ''} ${position}`}
+        className={`tree-node ${isSelected ? 'selected' : ''}`}
         style={{ '--pc': period?.color }}
-        onClick={() => !isSelected && onSelectComposer?.(c)}
       >
-        <div className="lineage-node-accent" />
-        <div className="lineage-node-content">
-          <span className="lineage-node-name">{c.name}</span>
-          <span className="lineage-node-dates">{c.born}–{c.died || ''}</span>
-          {isSelected && c.nationality && (
-            <span className="lineage-node-nat">{c.nationality}</span>
-          )}
+        {/* Expand/collapse toggle */}
+        <button
+          className={`tree-toggle ${hasChildren ? 'has-children' : ''}`}
+          onClick={(e) => { e.stopPropagation(); hasChildren && onToggle(node.id); }}
+          disabled={!hasChildren}
+        >
+          {hasChildren ? (isExpanded ? '▾' : '▸') : '•'}
+        </button>
+
+        {/* Node content - clickable to select */}
+        <div className="tree-node-body" onClick={() => onSelect(node)}>
+          <div className="tree-node-accent" />
+          <div className="tree-node-info">
+            <span className="tree-node-name">{node.name}</span>
+            <span className="tree-node-dates">{node.born}–{node.died || ''}</span>
+          </div>
         </div>
-        {isSelected && c.videos?.length > 0 && (
+
+        {/* Play button for selected */}
+        {isSelected && node.videos?.length > 0 && (
           <button
-            className="lineage-node-play"
-            onClick={(e) => { e.stopPropagation(); onOpenVideo(c.videos[0], c); }}
+            className="tree-node-play"
+            onClick={(e) => { e.stopPropagation(); onOpenVideo(node.videos[0], node); }}
             title="Play"
           >
             ▶
           </button>
         )}
       </div>
-    );
-  };
+
+      {/* Children */}
+      {hasChildren && isExpanded && (
+        <div className="tree-children">
+          {node.children.filter(c => c.period).map(child => (
+            <TreeNode
+              key={child.id}
+              node={child}
+              selectedId={selectedId}
+              expandedIds={expandedIds}
+              onToggle={onToggle}
+              onSelect={onSelect}
+              onOpenVideo={onOpenVideo}
+              depth={depth + 1}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default function LineageSidebar({ composer, onClose, onSelectComposer, onOpenVideo }) {
+  if (!composer) return null;
+
+  // Build the lineage tree with selected composer
+  const lineageTree = useMemo(() => buildLineageTree(composer.id), [composer.id]);
+
+  // Track expanded nodes - initially expand all ancestors and selected
+  const [expandedIds, setExpandedIds] = useState(() => {
+    const ids = new Set();
+    // Expand all nodes in the path to selected
+    function expandPath(node) {
+      if (!node) return false;
+      if (node.id === composer.id) {
+        ids.add(node.id);
+        return true;
+      }
+      if (node.children) {
+        for (const child of node.children) {
+          if (expandPath(child)) {
+            ids.add(node.id);
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+    if (lineageTree) expandPath(lineageTree);
+    return ids;
+  });
+
+  // When composer changes, update expanded to show path
+  useEffect(() => {
+    const ids = new Set();
+    function expandPath(node) {
+      if (!node) return false;
+      if (node.id === composer.id) {
+        ids.add(node.id);
+        return true;
+      }
+      if (node.children) {
+        for (const child of node.children) {
+          if (expandPath(child)) {
+            ids.add(node.id);
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+    if (lineageTree) expandPath(lineageTree);
+    setExpandedIds(ids);
+  }, [composer.id, lineageTree]);
+
+  const handleToggle = useCallback((id) => {
+    setExpandedIds(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }, []);
+
+  const handleExpandAll = useCallback(() => {
+    const ids = new Set();
+    function walk(node) {
+      if (node?.period) ids.add(node.id);
+      node?.children?.forEach(walk);
+    }
+    walk(lineageTree);
+    setExpandedIds(ids);
+  }, [lineageTree]);
+
+  const handleCollapseAll = useCallback(() => {
+    // Keep only path to selected expanded
+    const ids = new Set();
+    function expandPath(node) {
+      if (!node) return false;
+      if (node.id === composer.id) {
+        ids.add(node.id);
+        return true;
+      }
+      if (node.children) {
+        for (const child of node.children) {
+          if (expandPath(child)) {
+            ids.add(node.id);
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+    if (lineageTree) expandPath(lineageTree);
+    setExpandedIds(ids);
+  }, [composer.id, lineageTree]);
+
+  if (!lineageTree) return null;
 
   return (
     <aside className="lineage-sidebar">
       <div className="lineage-header">
         <h3 className="lineage-title">Lineage Tree</h3>
-        <button className="lineage-close" onClick={onClose} aria-label="Close">✕</button>
+        <div className="lineage-controls">
+          <button onClick={handleExpandAll} title="Expand all">⊞</button>
+          <button onClick={handleCollapseAll} title="Collapse">⊟</button>
+          <button className="lineage-close" onClick={onClose} aria-label="Close">✕</button>
+        </div>
       </div>
 
       <div className="lineage-tree">
-        {/* Ancestors (teachers) - top to bottom */}
-        {ancestors.length > 0 && (
-          <div className="lineage-section ancestors">
-            <div className="lineage-label">Teachers / Influences</div>
-            {ancestors.map((a, i) => (
-              <div key={a.id} className="lineage-item">
-                <ComposerNode c={a} position="ancestor" />
-                <div className="lineage-connector down" />
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Selected composer - center */}
-        <div className="lineage-section current">
-          <ComposerNode c={composer} isSelected position="current" />
-        </div>
-
-        {/* Children (students) - top to bottom */}
-        {children.length > 0 && (
-          <div className="lineage-section children">
-            <div className="lineage-connector-branch">
-              {children.map((_, i) => (
-                <div key={i} className="branch-line" />
-              ))}
-            </div>
-            <div className="lineage-label">Students / Influenced</div>
-            <div className="lineage-children-grid">
-              {children.map((c) => (
-                <div key={c.id} className="lineage-item child">
-                  <div className="lineage-connector up" />
-                  <ComposerNode c={c} position="child" />
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        <TreeNode
+          node={lineageTree}
+          selectedId={composer.id}
+          expandedIds={expandedIds}
+          onToggle={handleToggle}
+          onSelect={onSelectComposer}
+          onOpenVideo={onOpenVideo}
+        />
       </div>
 
       {/* Description at bottom */}
