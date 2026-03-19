@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 const TITLE = 'Classical Music';
-const SUBTITLE = 'Neurotree';
+const SUBTITLE = 'by Luis Anunciação';
 const STAFF_LINES = 5;
 const INTRO_MS = 2200;   // how long the intro shows
 const EXIT_MS  = 700;    // curtain exit duration

@@ -170,7 +170,7 @@ export default function App() {
       <header className={`app-header${menuOpen ? ' menu-open' : ''}`}>
         <div className="header-logo">
           <span className="treble-clef">𝄞</span>
-          <h1>Classical Music Neurotree</h1>
+          <h1>Classical Music</h1>
           <span className="byline">by Luis Anunciação</span>
         </div>
 
