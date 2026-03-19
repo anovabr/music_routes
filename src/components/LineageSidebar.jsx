@@ -75,18 +75,17 @@ function TreeNode({ node, selectedId, expandedIds, onToggle, onSelect, onOpenVid
 }
 
 export default function LineageSidebar({ composer, onClose, onSelectComposer, onOpenVideo }) {
-  if (!composer) return null;
-
   // Resize state
   const [width, setWidth] = useState(500);
   const isResizing = useRef(false);
   const sidebarRef = useRef(null);
 
-  // Build the lineage tree with selected composer
-  const lineageTree = useMemo(() => buildLineageTree(composer.id), [composer.id]);
+  // Build the lineage tree with selected composer (if any)
+  const lineageTree = useMemo(() => composer ? buildLineageTree(composer.id) : null, [composer?.id]);
 
   // Track expanded nodes - initially expand all ancestors and selected
   const [expandedIds, setExpandedIds] = useState(() => {
+    if (!composer) return new Set();
     const ids = new Set();
     // Expand all nodes in the path to selected
     function expandPath(node) {
@@ -111,6 +110,10 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
 
   // When composer changes, update expanded to show path
   useEffect(() => {
+    if (!composer) {
+      setExpandedIds(new Set());
+      return;
+    }
     const ids = new Set();
     function expandPath(node) {
       if (!node) return false;
@@ -130,7 +133,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
     }
     if (lineageTree) expandPath(lineageTree);
     setExpandedIds(ids);
-  }, [composer.id, lineageTree]);
+  }, [composer?.id, lineageTree]);
 
   // Resize handlers
   const handleMouseDown = useCallback((e) => {
@@ -181,6 +184,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
   }, [lineageTree]);
 
   const handleCollapseAll = useCallback(() => {
+    if (!composer) return;
     // Keep only path to selected expanded
     const ids = new Set();
     function expandPath(node) {
@@ -201,9 +205,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
     }
     if (lineageTree) expandPath(lineageTree);
     setExpandedIds(ids);
-  }, [composer.id, lineageTree]);
-
-  if (!lineageTree) return null;
+  }, [composer?.id, lineageTree]);
 
   return (
     <aside className="lineage-sidebar" ref={sidebarRef} style={{ width }}>
@@ -212,26 +214,35 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
       
       <div className="lineage-header">
         <h3 className="lineage-title">Lineage Tree</h3>
-        <div className="lineage-controls">
-          <button onClick={handleExpandAll} title="Expand all">⊞</button>
-          <button onClick={handleCollapseAll} title="Collapse">⊟</button>
-          <button className="lineage-close" onClick={onClose} aria-label="Close">✕</button>
-        </div>
+        {composer && (
+          <div className="lineage-controls">
+            <button onClick={handleExpandAll} title="Expand all">⊞</button>
+            <button onClick={handleCollapseAll} title="Collapse">⊟</button>
+            <button className="lineage-close" onClick={onClose} aria-label="Close">✕</button>
+          </div>
+        )}
       </div>
 
-      <div className="lineage-tree">
-        <TreeNode
-          node={lineageTree}
-          selectedId={composer.id}
-          expandedIds={expandedIds}
-          onToggle={handleToggle}
-          onSelect={onSelectComposer}
-          onOpenVideo={onOpenVideo}
-        />
-      </div>
+      {lineageTree ? (
+        <div className="lineage-tree">
+          <TreeNode
+            node={lineageTree}
+            selectedId={composer?.id}
+            expandedIds={expandedIds}
+            onToggle={handleToggle}
+            onSelect={onSelectComposer}
+            onOpenVideo={onOpenVideo}
+          />
+        </div>
+      ) : (
+        <div className="lineage-empty">
+          <span className="lineage-empty-icon">🎼</span>
+          <p>Select a composer to see their lineage</p>
+        </div>
+      )}
 
       {/* Description at bottom */}
-      {composer.description && (
+      {composer?.description && (
         <div className="lineage-description">
           <p>{composer.description}</p>
         </div>

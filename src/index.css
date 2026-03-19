@@ -131,6 +131,54 @@ button {
   border-color: var(--accent);
 }
 
+/* ── Header Period Filters ───────────────────────────────────────────────────── */
+.header-periods {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.period-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all var(--transition);
+  opacity: 0.5;
+}
+
+.period-btn.active {
+  opacity: 1;
+  border-color: var(--pc);
+  background: color-mix(in srgb, var(--pc) 15%, var(--surface));
+  color: var(--text);
+}
+
+.period-btn:hover {
+  border-color: var(--pc);
+  background: var(--surface2);
+}
+
+.period-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--pc);
+}
+
+.period-name {
+  white-space: nowrap;
+}
+
 /* ── Main ────────────────────────────────────────────────────────────────────── */
 .app-main {
   flex: 1;
@@ -139,176 +187,7 @@ button {
   min-height: 0;
 }
 
-/* ── Filter Panel ────────────────────────────────────────────────────────────── */
-.filter-panel {
-  flex-shrink: 0;
-  width: 200px;
-  background: var(--bg2);
-  border-right: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 10px 10px 16px;
-  gap: 0;
-  transition: width 0.22s ease, padding 0.22s ease;
-}
-
-.filter-panel.collapsed {
-  width: 36px;
-  padding: 10px 4px;
-  overflow: hidden;
-  align-items: center;
-}
-
-.filter-collapse-btn {
-  align-self: flex-end;
-  flex-shrink: 0;
-  width: 26px;
-  height: 26px;
-  border-radius: 6px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--text2);
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all var(--transition);
-  margin-bottom: 6px;
-}
-
-.filter-panel.collapsed .filter-collapse-btn {
-  align-self: center;
-  margin-bottom: 0;
-}
-
-.filter-collapse-btn:hover {
-  background: var(--surface2);
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.filter-body {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.filter-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text2);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border);
-}
-
-.filter-title-icon { color: var(--accent); font-size: 18px; }
-
-.filter-all-row { display: flex; }
-
-.filter-all-btn {
-  width: 100%;
-  padding: 7px 10px;
-  border-radius: 6px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text2);
-  transition: all var(--transition);
-}
-
-.filter-all-btn:hover, .filter-all-btn.active {
-  background: var(--surface2);
-  color: var(--text);
-  border-color: var(--accent);
-}
-
-.filter-list {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.filter-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  padding: 7px 8px;
-  border-radius: 7px;
-  border: 1px solid transparent;
-  text-align: left;
-  transition: all var(--transition);
-  flex-direction: column;
-  position: relative;
-}
-
-.filter-item.active {
-  background: color-mix(in srgb, var(--period-color) 10%, transparent);
-  border-color: color-mix(in srgb, var(--period-color) 30%, transparent);
-}
-
-.filter-item.inactive {
-  opacity: 0.45;
-}
-
-.filter-item:hover {
-  background: var(--surface);
-  opacity: 1;
-}
-
-.filter-item .filter-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--period-color);
-  flex-shrink: 0;
-  position: absolute;
-  top: 10px; left: 8px;
-}
-
-.filter-name {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text);
-  padding-left: 18px;
-}
-
-.filter-years {
-  font-size: 12px;
-  color: var(--text3);
-  padding-left: 18px;
-  font-style: italic;
-}
-
-.filter-legend {
-  margin-top: 8px;
-  padding-top: 10px;
-  border-top: 1px solid var(--border2);
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.legend-row {
-  font-size: 10.5px;
-  color: var(--text3);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.legend-icon { font-size: 11px; color: var(--text2); }
-.legend-icon.branch-icon { color: #7070b0; }
-.legend-icon.gold { color: var(--accent); }
-
-/* ── Content area ────────────────────────────────────────────────────────────── */
+/* ── Content area (50%) ──────────────────────────────────────────────────────── */
 .app-content {
   flex: 1;
   min-width: 0;
@@ -316,23 +195,44 @@ button {
   position: relative;
 }
 
-@keyframes slideIn {
-  from { transform: translateX(20px); opacity: 0; }
-  to   { transform: translateX(0);    opacity: 1; }
-}
-
-/* ── Lineage Sidebar (Tree view in Timeline) ─────────────────────────────────── */
+/* ── Lineage Sidebar (50%) ───────────────────────────────────────────────────── */
 .lineage-sidebar {
-  flex-shrink: 0;
+  flex: 1;
   background: var(--bg2);
   border-left: 1px solid var(--border);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  animation: slideIn 0.25s ease;
   position: relative;
   min-width: 300px;
-  max-width: 900px;
+}
+
+/* Empty state */
+.lineage-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--text3);
+  padding: 40px;
+  text-align: center;
+}
+
+.lineage-empty-icon {
+  font-size: 48px;
+  opacity: 0.4;
+}
+
+.lineage-empty p {
+  font-size: 14px;
+  margin: 0;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(20px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
 }
 
 /* Resize handle */

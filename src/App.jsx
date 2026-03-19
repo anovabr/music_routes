@@ -1,5 +1,4 @@
 import { useState, useCallback } from 'react';
-import FilterPanel from './components/FilterPanel';
 import LineageSidebar from './components/LineageSidebar';
 import VideoModal from './components/VideoModal';
 import TimelineView from './components/TimelineView';
@@ -36,7 +35,21 @@ export default function App() {
           <span className="treble-clef">𝄞</span>
           <h1>Classical Music Neurotree</h1>
         </div>
-
+        {/* Period Filters */}
+        <div className="header-periods">
+          {Object.values(PERIODS).map(p => (
+            <button
+              key={p.id}
+              className={`period-btn ${activePeriods[p.id] ? 'active' : ''}`}
+              onClick={() => togglePeriod(p.id)}
+              style={{ '--pc': p.color }}
+              title={`${p.name} (${p.years})`}
+            >
+              <span className="period-dot" />
+              <span className="period-name">{p.name}</span>
+            </button>
+          ))}
+        </div>
         <div className="header-controls">
           <button
             className="theme-toggle"
@@ -50,12 +63,6 @@ export default function App() {
 
       {/* ── Body ────────────────────────────────────────────────────────── */}
       <main className="app-main">
-        <FilterPanel
-          activePeriods={activePeriods}
-          onToggle={togglePeriod}
-          onToggleAll={toggleAllPeriods}
-        />
-
         <div className="app-content">
           <TimelineView
             activePeriods={activePeriods}
@@ -64,14 +71,12 @@ export default function App() {
           />
         </div>
 
-        {selectedComposer && (
-          <LineageSidebar
-            composer={selectedComposer}
-            onClose={() => setSelectedComposer(null)}
-            onOpenVideo={handleOpenVideo}
-            onSelectComposer={handleSelectComposer}
-          />
-        )}
+        <LineageSidebar
+          composer={selectedComposer}
+          onClose={() => setSelectedComposer(null)}
+          onOpenVideo={handleOpenVideo}
+          onSelectComposer={handleSelectComposer}
+        />
       </main>
 
       {/* ── Video Modal ─────────────────────────────────────────────────── */}
