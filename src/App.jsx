@@ -3,7 +3,6 @@ import LineageSidebar from './components/LineageSidebar';
 import TimelineView from './components/TimelineView';
 import LoadingScreen from './components/LoadingScreen';
 import ShortcutsModal from './components/ShortcutsModal';
-import VideoPlayer from './components/VideoPlayer';
 import { PERIODS, flatComposers } from './data/composers';
 
 const DEFAULT_PERIODS = Object.keys(PERIODS).reduce(
@@ -191,42 +190,6 @@ export default function App() {
 
       {/* Keyboard shortcuts modal */}
       {shortcutsOpen && <ShortcutsModal onClose={() => setShortcutsOpen(false)} />}
-
-      {/* Video modal */}
-      {activeVideo && (
-        <div className="modal-overlay" onClick={() => setActiveVideo(null)}>
-          <div className="modal-container" onClick={e => e.stopPropagation()}>
-            <div className="modal-header">
-              <div className="modal-title-group">
-                <span className="modal-composer">{activeVideo.composer?.name}</span>
-                <h2 className="modal-title">{activeVideo.video.title}</h2>
-                {activeVideo.video.performer && (
-                  <span className="modal-performer">{activeVideo.video.performer}</span>
-                )}
-              </div>
-              <button className="modal-close" onClick={() => setActiveVideo(null)}>✕</button>
-            </div>
-            <div className="modal-video-wrapper">
-              <VideoPlayer
-                youtubeId={activeVideo.video.youtubeId}
-                title={activeVideo.video.title}
-                composer={activeVideo.composer}
-              />
-            </div>
-            <div className="modal-footer">
-              <span className="modal-note">Press Esc to close</span>
-              <a
-                href={`https://www.youtube.com/watch?v=${activeVideo.video.youtubeId}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="modal-yt-link"
-              >
-                Open on YouTube ↗
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Toast notification */}
       {toast && <div className="toast" key={toast.id}>{toast.msg}</div>}
