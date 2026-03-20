@@ -248,7 +248,6 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
     onCloseVideo();
   }, [onCloseVideo]);
 
-  // Resize handlers
   const handleMouseDown = useCallback((e) => {
     isResizing.current = true;
     document.body.style.cursor = 'ew-resize';
@@ -439,14 +438,15 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
         <div className={`lineage-bottom ${activeVideo ? 'has-video' : ''}`}>
           {activeVideo ? (
             <div className={`lineage-video-section${videoFolded ? ' folded' : ''}`}>
-              <div className="lineage-video-header" onClick={() => setVideoFolded(f => !f)} style={{ cursor: 'pointer' }}>
-                <span className="lineage-video-playing">
-                  {videoFolded ? '▶' : '▼'} {activeVideo.video.title}
-                </span>
-                <button className="lineage-video-close" onClick={e => { e.stopPropagation(); onCloseVideo(); }} title="Close video">
-                  <span className="video-close-x">✕</span>
-                  <span className="video-close-back">← Back</span>
-                </button>
+              <div
+                className="lineage-video-header"
+                onClick={() => setVideoFolded(f => !f)}
+                role="button"
+                aria-expanded={!videoFolded}
+                title={videoFolded ? 'Expand video' : 'Collapse video'}
+              >
+                <span className="lineage-video-playing">▶ {activeVideo.video.title}</span>
+                <span className="video-chevron">{videoFolded ? '▲' : '▼'}</span>
               </div>
               {!videoFolded && (
                 <div className="lineage-video-container">
