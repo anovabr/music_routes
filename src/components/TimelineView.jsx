@@ -1,8 +1,10 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { flatComposers, PERIODS, countDescendants } from '../data/composers';
 
 export default function TimelineView({ activePeriods, selectedComposer, onSelectComposer, onOpenVideo }) {
   const all = useMemo(() => flatComposers(), []);
+  const [collapsed, setCollapsed] = useState({});
+  const togglePeriod = (pid) => setCollapsed(p => ({ ...p, [pid]: !p[pid] }));
 
   const filtered = useMemo(() => {
     return all.filter(c => activePeriods[c.period] !== false);
@@ -33,13 +35,18 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
               className="timeline-section"
               style={{ '--pc': period.color }}
             >
-              <div className="timeline-period-header">
+              <div
+                className="timeline-period-header"
+                onClick={() => togglePeriod(pid)}
+                style={{ cursor: 'pointer', userSelect: 'none' }}
+              >
                 <span className="timeline-period-dot" />
                 <h3 className="timeline-period-name">{period.name}</h3>
                 <span className="timeline-period-years">{period.years}</span>
                 <span className="timeline-period-count">{composers.length}</span>
+                <span className="timeline-period-chevron">{collapsed[pid] ? '▶' : '▼'}</span>
               </div>
-              <div className="timeline-grid">
+              {!collapsed[pid] && <div className="timeline-grid">
                 {composers.map(c => {
                   const isSelected = selectedComposer?.id === c.id;
                   const isTeacher  = selectedComposer && c.id === selectedComposer.parentId;
@@ -133,7 +140,7 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
                     </div>
                   );
                 })}
-              </div>
+              </div>}
             </section>
           );
         })}

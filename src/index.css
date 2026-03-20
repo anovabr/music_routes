@@ -805,6 +805,13 @@ button {
   letter-spacing: 0.06em;
 }
 
+.timeline-period-chevron {
+  font-size: 10px;
+  color: var(--text3);
+  margin-left: 8px;
+  flex-shrink: 0;
+}
+
 .timeline-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
