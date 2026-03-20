@@ -154,6 +154,7 @@ export default function App() {
     setSelectedComposer(c);
     setSearchOpen(false);
     setSearchQuery('');
+    setMobileTab('lineage');
     setMenuOpen(false);
   }, []);
 
