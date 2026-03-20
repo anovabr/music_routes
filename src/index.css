@@ -1773,25 +1773,6 @@ button {
     border-top: 1px solid var(--border);
   }
 
-  /* When a video is active on mobile, collapse the tree and fill with video */
-  .lineage-sidebar.has-active-video .lineage-tree,
-  .lineage-sidebar.has-active-video .lineage-empty {
-    display: none;
-  }
-  .lineage-sidebar.has-active-video .lineage-bottom {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  .lineage-sidebar.has-active-video .lineage-video-section {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  .lineage-sidebar.has-active-video .lineage-video-container {
-    flex: 1;
-    aspect-ratio: unset;
-  }
 
   .lineage-resize-handle {
     display: none;
