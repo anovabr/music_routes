@@ -287,7 +287,8 @@ export default function App() {
               title={`${p.name} (${p.years})`}
               onClick={(e) => {
                 e.preventDefault();
-                document.getElementById(`period-${p.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                setMenuOpen(false);
+                setTimeout(() => document.getElementById(`period-${p.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
               }}
             >
               <span className="period-dot" />

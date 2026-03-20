@@ -174,6 +174,10 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
   // Video bar fold state
   const [videoFolded, setVideoFolded] = useState(false);
 
+  // Track the currently-playing video (may auto-advance inside VideoPlayer)
+  const [playingVideo, setPlayingVideo] = useState(null);
+  useEffect(() => { setPlayingVideo(activeVideo?.video ?? null); }, [activeVideo]);
+
   const lineageTree = useMemo(() => composer ? buildLineageTree(composer.id) : null, [composer?.id]);
 
   const lineagePath = useMemo(
@@ -445,15 +449,16 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
                 aria-expanded={!videoFolded}
                 title={videoFolded ? 'Expand video' : 'Collapse video'}
               >
-                <span className="lineage-video-playing">▶ {activeVideo.video.title}</span>
+                <span className="lineage-video-playing">▶ {playingVideo?.title ?? activeVideo.video.title}</span>
                 <span className="video-chevron">{videoFolded ? '▲' : '▼'}</span>
               </div>
               {!videoFolded && (
                 <div className="lineage-video-container">
                   <VideoPlayer
-                    youtubeId={activeVideo.video.youtubeId}
-                    title={activeVideo.video.title}
+                    videos={activeVideo.composer.videos}
+                    startIndex={activeVideo.composer.videos.findIndex(v => v === activeVideo.video)}
                     composer={activeVideo.composer}
+                    onVideoChange={setPlayingVideo}
                   />
                 </div>
               )}

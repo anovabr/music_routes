@@ -1833,6 +1833,11 @@ button {
   .video-chevron {
     font-size: 13px;
   }
+
+  /* Keep video from dominating the screen on small phones */
+  .lineage-video-container {
+    max-height: 210px;
+  }
 }
 
 @media (max-width: 768px) {
