@@ -207,7 +207,32 @@ export const treeData = {
                                           [v('Violin Concerto', 'sbLAOFuN2NI'), v('Wozzeck — Opera', 'ohNLp0RKQrI')]),
                                         c('webern', 'Anton Webern', 1883, 1945, 'MODERN', 'Austrian',
                                           'Schoenberg\'s most radical pupil. His concentrated, pointillistic miniatures would detonate like a bomb on the post-war generation — Boulez, Stockhausen, Nono all came from Webern.',
-                                          [v('Five Pieces Op. 10', '9N-dvuHpMQI')]),
+                                          [v('Five Pieces Op. 10', '9N-dvuHpMQI')],
+                                          [
+                                            c('feldman', 'Morton Feldman', 1926, 1987, 'MODERN', 'American',
+                                              'Pioneer of indeterminate music and extended durations. His quiet, slowly evolving works — some lasting six hours — explored the threshold of audibility. His influence echoes through the ambient piano scene, notably Nils Frahm.',
+                                              [
+                                                v('Rothko Chapel', 'wJMVGYbBz8M'),
+                                                v('For Philip Guston', 'XHkKu5aVEgw'),
+                                                v('Triadic Memories', 'o4SzWBAGj1E'),
+                                              ],
+                                              [
+                                                c('frahm', 'Nils Frahm', 1982, null, 'CONTEMPORARY', 'German',
+                                                  'Berlin-based pianist and producer who merges acoustic piano with analogue synthesizers. His quiet, slowly evolving textures echo Morton Feldman\'s extended durations while his electronic experimentation channels Brian Eno\'s ambient vision.',
+                                                  [
+                                                    v('Says', 'xLNeZogTsK8'),
+                                                    v('Ambre', 'PtW1n1URWVM'),
+                                                    v('My Friend the Forest', 'BOZIe6eJbQU'),
+                                                  ]),
+                                              ]),
+                                          ]),
+                                        c('pollini', 'Maurizio Pollini', 1942, 2024, 'CONTEMPORARY', 'Italian',
+                                          'The supreme intellectual pianist. Crystal-clear technique and an architecture of steely logic made his Chopin and Beethoven benchmarks for all time. He championed the Schoenberg, Boulez, and Nono alongside the Classical canon.',
+                                          [
+                                            v('Chopin 24 Études', 'atXTEEFvFNA'),
+                                            v('Beethoven Piano Sonatas (late)', 'oZ-HxaMOm9w'),
+                                            v('Schoenberg Piano Suite Op. 25', 'kW5gP8dVMDs'),
+                                          ]),
                                       ]),
                                   ]),
 
@@ -305,62 +330,104 @@ export const treeData = {
                               ]),
                           ]),
                       ]),
+                    c('paganini', 'Niccolò Paganini', 1782, 1840, 'ROMANTIC', 'Italian',
+                      'The devil\'s violinist. His supernatural virtuosity so astonished Liszt that the young pianist vowed to become the Paganini of the piano — and did. Paganini later gave Berlioz 20,000 francs on hearing Harold in Italy — the most famous act of musical patronage of the era.',
+                      [
+                        v('24 Caprices — No. 24', 'OhVjS5Lraxc'),
+                        v('Violin Concerto No. 1', 'O9i1rfJOHngs'),
+                        v('La Campanella (original violin)', '4K0w6v7LNYQ'),
+                      ],
+                      [
+                        c('berlioz', 'Hector Berlioz', 1803, 1869, 'ROMANTIC', 'French',
+                          'The revolutionary orchestrator. His Symphonie fantastique (1830) invented program music. Paganini, overcome after hearing Harold in Italy, gave him 20,000 francs. His Treatise on Instrumentation taught generations how to write for orchestra.',
+                          [
+                            v('Symphonie fantastique', 'sK4dz6Gbcdk'),
+                            v('Harold in Italy', 'aV-XnB3j_Ko'),
+                            v('Roman Carnival Overture', 'zPxGnWnvdtE'),
+                            v('Requiem — Dies Irae', 'lCQwzFh0yxg'),
+                          ],
+                          [
+                            c('villa-lobos', 'Heitor Villa-Lobos', 1887, 1959, 'MODERN', 'Brazilian',
+                              'The voice of Brazil. Largely self-taught, he fused Brazilian folk music, Bach (in his Bachianas Brasileiras), and the orchestral grandeur of Berlioz and French Impressionism into over 2,000 works.',
+                              [
+                                v('Bachianas Brasileiras No. 5', 'jJo0FG1dR3o'),
+                                v('Bachianas Brasileiras No. 2 — Little Train', 'eQRoBdGpJ_I'),
+                                v('Guitar Concerto', 'PDTA9TjKXvk'),
+                                v('Prelude No. 1 for Guitar', '_9LFsqsn4Kg'),
+                              ]),
+                          ]),
+                      ]),
                   ]),
               ]),
           ]),
-      ]),
+        c('vivaldi', 'Antonio Vivaldi', 1678, 1741, 'BAROQUE', 'Italian',
+          'The Red Priest. He transformed the concerto into a dynamic vehicle of contrast. Bach transcribed at least six of his concertos note-for-note, absorbing his structural clarity and melodic vitality.',
+          [v('The Four Seasons', 'GRxofEmo3HA'), v('Gloria in D major', 'k1-FJbLkNwY')]),
 
-    // ── PACHELBEL ─────────────────────────────────────────────────────────────
-    c('pachelbel', 'Johann Pachelbel', 1653, 1706, 'BAROQUE', 'German',
-      'The master of the South German Baroque organ school. He taught Johann Christoph Bach — J.S. Bach\'s older brother and first teacher — directly transmitting the German contrapuntal tradition. His Canon in D is one of the most beloved works in all of classical music.',
-      [
-        v('Canon in D', 'NlprozGcs98'),
-        v('Chaconne in F minor', 'z4MhVFJYtE4'),
-        v('Hexachordum Apollinis', '0SYUljJZmOE'),
-      ]),
-
-    // ── VIVALDI → BACH ───────────────────────────────────────────────────────
-    c('vivaldi', 'Antonio Vivaldi', 1678, 1741, 'BAROQUE', 'Italian',
-      'The Red Priest. He transformed the concerto into a dynamic vehicle of contrast. Bach transcribed at least six of his concertos note-for-note, absorbing his structural clarity and melodic vitality.',
-      [v('The Four Seasons', 'GRxofEmo3HA'), v('Gloria in D major', 'k1-FJbLkNwY')],
-      [
-        c('bach', 'Johann Sebastian Bach', 1685, 1750, 'BAROQUE', 'German',
-          'The pinnacle of Baroque polyphony and perhaps the greatest composer who ever lived. He absorbed and transcended Vivaldi\'s concerto form, infusing it with incomparable counterpoint and harmonic invention.',
+        c('pachelbel', 'Johann Pachelbel', 1653, 1706, 'BAROQUE', 'German',
+          'The master of the South German Baroque organ school. He taught Johann Christoph Bach — J.S. Bach\'s older brother and first teacher — directly transmitting the German contrapuntal tradition. His Canon in D is one of the most beloved works in all of classical music.',
           [
-            v('Goldberg Variations (Glenn Gould, 1981)', 'Ah392lnFHxM', 'Glenn Gould'),
-            v('Brandenburg Concerto No. 3', 'zssQyiE4s1Y'),
-            v('The Well-Tempered Clavier Bk 1', 'EZ-NYKYD5MM', 'Glenn Gould'),
-            v('Cello Suite No. 1', '_YPzWFM7miE'),
-            v('St. Matthew Passion', 'G0JFqBz0FDg'),
+            v('Canon in D', 'NlprozGcs98'),
+            v('Chaconne in F minor', 'z4MhVFJYtE4'),
+            v('Hexachordum Apollinis', '0SYUljJZmOE'),
           ],
           [
-            c('cpe-bach', 'C.P.E. Bach', 1714, 1788, 'CLASSICAL', 'German',
-              'J.S. Bach\'s most famous son. His "empfindsamer Stil" (sensitive style) broke from Baroque formalism and was a direct bridge to the Classical style of Haydn and Mozart.',
-              [v('Prussian Sonata No. 1', 'YUVPBqXY3sc'), v('Symphony Wq 183 No. 1', 'p7zR9UrHqiA')]),
-
-            c('glass', 'Philip Glass', 1937, null, 'CONTEMPORARY', 'American',
-              'The defining figure of musical minimalism. Though formally trained by Boulanger, his hypnotic, cycling patterns draw deeply from Bach\'s contrapuntal techniques, creating a modern expression of Baroque structure.',
+            c('bach', 'Johann Sebastian Bach', 1685, 1750, 'BAROQUE', 'German',
+              'The pinnacle of Baroque polyphony and perhaps the greatest composer who ever lived. Taught through Pachelbel\'s tradition via his brother Johann Christoph, he also transcended Vivaldi\'s concerto form with incomparable counterpoint and harmonic invention.',
               [
-                v('Metamorphosis Two', 'FaovqbcSYqk'),
-                v('Koyaanisqatsi', 'jBzXqBJuBME'),
-                v('Violin Concerto No. 1', 'OtQOLw_I1LQ'),
-                v('Glassworks — Opening', 'n27pMwZ0cDM'),
+                v('Goldberg Variations (Glenn Gould, 1981)', 'Ah392lnFHxM', 'Glenn Gould'),
+                v('Brandenburg Concerto No. 3', 'zssQyiE4s1Y'),
+                v('The Well-Tempered Clavier Bk 1', 'EZ-NYKYD5MM', 'Glenn Gould'),
+                v('Cello Suite No. 1', '_YPzWFM7miE'),
+                v('St. Matthew Passion', 'G0JFqBz0FDg'),
               ],
               [
-                c('max-richter', 'Max Richter', 1966, null, 'CONTEMPORARY', 'German-British',
-                  'Neoclassical composer who recomposes the canon. His Recomposed Vivaldi and Sleep project brought classical music to new audiences. His work bridges Glass\'s minimalism with Pärt\'s spiritual tintinnabuli — a meditation on silence and sound.',
+                c('cpe-bach', 'C.P.E. Bach', 1714, 1788, 'CLASSICAL', 'German',
+                  'J.S. Bach\'s most famous son. His "empfindsamer Stil" (sensitive style) broke from Baroque formalism and was a direct bridge to the Classical style of Haydn and Mozart.',
+                  [v('Prussian Sonata No. 1', 'YUVPBqXY3sc'), v('Symphony Wq 183 No. 1', 'p7zR9UrHqiA')]),
+
+                c('glass', 'Philip Glass', 1937, null, 'CONTEMPORARY', 'American',
+                  'The defining figure of musical minimalism. Though formally trained by Boulanger, his hypnotic, cycling patterns draw deeply from Bach\'s contrapuntal techniques, creating a modern expression of Baroque structure.',
                   [
-                    v('On the Nature of Daylight', 'rVN1B-tUpgs'),
-                    v('Recomposed: Vivaldi - Spring 1', 'FAhSyMl2MjU'),
-                    v('Sleep - Dream 3', 'S3hBksAsLz8'),
-                  ]),
-                c('frahm', 'Nils Frahm', 1982, null, 'CONTEMPORARY', 'German',
-                  'Berlin-based pianist and producer who merges acoustic piano with analogue synthesizers. His quiet, slowly evolving textures echo Morton Feldman\'s extended durations while his electronic experimentation channels Brian Eno\'s ambient vision.',
+                    v('Metamorphosis Two', 'FaovqbcSYqk'),
+                    v('Koyaanisqatsi', 'jBzXqBJuBME'),
+                    v('Violin Concerto No. 1', 'OtQOLw_I1LQ'),
+                    v('Glassworks — Opening', 'n27pMwZ0cDM'),
+                  ],
                   [
-                    v('Says', 'xLNeZogTsK8'),
-                    v('Ambre', 'PtW1n1URWVM'),
-                    v('My Friend the Forest', 'BOZIe6eJbQU'),
+                    c('max-richter', 'Max Richter', 1966, null, 'CONTEMPORARY', 'German-British',
+                      'Neoclassical composer who recomposes the canon. His Recomposed Vivaldi and Sleep project brought classical music to new audiences. His work bridges Glass\'s minimalism with Pärt\'s spiritual tintinnabuli — a meditation on silence and sound.',
+                      [
+                        v('On the Nature of Daylight', 'rVN1B-tUpgs'),
+                        v('Recomposed: Vivaldi - Spring 1', 'FAhSyMl2MjU'),
+                        v('Sleep - Dream 3', 'S3hBksAsLz8'),
+                      ]),
                   ]),
+
+                c('gould', 'Glenn Gould', 1932, 1982, 'CONTEMPORARY', 'Canadian',
+                  'The most idiosyncratic and influential pianist of the 20th century. He retired from concert at 31, recording studio performances of uncanny intellectual depth. His 1981 Goldberg Variations is one of the great artistic farewells.',
+                  [
+                    v('Goldberg Variations 1981', 'Ah392lnFHxM'),
+                    v('Bach WTC Book 1', 'EZ-NYKYD5MM'),
+                    v('Beethoven Sonata Op. 109', 'xvlJMR-NLEI'),
+                  ]),
+              ]),
+          ]),
+
+        c('d-scarlatti', 'Domenico Scarlatti', 1685, 1757, 'BAROQUE', 'Italian',
+          'Contemporary of Bach and Handel but utterly unlike them. His 555 keyboard sonatas — written for the Spanish queen — are short, brilliant, and endlessly inventive, anticipating Romantic pianism by a century.',
+          [
+            v('Sonata K. 141 in D minor', '7bpqAGMO2tU'),
+            v('Sonata K. 380 in E major', 'K9Lm9D-xdMg'),
+            v('Sonata K. 9 (Pastoral)', 'z0a7VN7S5Ks'),
+            v('30 Sonatas (Horowitz)', 'jG5Xts-vwIY', 'Vladimir Horowitz'),
+          ],
+          [
+            c('gieseking', 'Walter Gieseking', 1895, 1956, 'CONTEMPORARY', 'German',
+              'Legendary for his feather-light touch and extraordinary tonal palette. His recordings of Debussy and Ravel remain unsurpassed.',
+              [
+                v('Debussy Préludes Book 1', 'G3-4VFkLUAY'),
+                v('Mozart Piano Sonatas', 'QCwHNiKWiGs'),
               ]),
           ]),
       ]),
@@ -449,28 +516,37 @@ export const treeData = {
             v('Le Bœuf sur le toit', 'kvRGSSiXoyo'),
           ]),
 
-        c('arnalds', 'Ólafur Arnalds', 1986, null, 'CONTEMPORARY', 'Icelandic',
-          'The foremost voice of Nordic neo-classical music. Satie\'s atmospheric simplicity echoes through his delicate fusion of strings, piano, and generative electronics. His music redefined contemporary classical for a new generation.',
+        c('eno', 'Brian Eno', 1948, null, 'CONTEMPORARY', 'British',
+          'Inventor of ambient music. Though rooted in rock and electronic experimentation, his Music for Airports (1978) created a new genre — quiet, texture-based, non-narrative — that profoundly shaped the contemporary neo-classical piano scene.',
           [
-            v('Near Light', 'UXNLNqHqkek'),
-            v('Only the Winds', 'GvoyPQDOgso'),
-            v('re:member — undone', 'rMzuBgSPh8Y'),
-            v('Saman', 'GYy_KzAn5vU'),
+            v('Music for Airports 1/1', 'vNwYtllyt3Q'),
+            v('An Ending (Ascent)', 'aKw5mbcE7VY'),
+            v('Deep Blue Day', 'nSKsWHzRsHw'),
           ],
           [
-            c('rani', 'Hania Rani', 1990, null, 'CONTEMPORARY', 'Polish',
-              'Warsaw-born pianist and composer whose introspective, minimalist works blend classical piano with electronic textures. Her atmospheric style continues Arnalds\'s fusion of acoustic and electronic worlds.',
+            c('arnalds', 'Ólafur Arnalds', 1986, null, 'CONTEMPORARY', 'Icelandic',
+              'The foremost voice of Nordic neo-classical music. Eno\'s ambient aesthetic and Satie\'s atmospheric simplicity converge in his delicate fusion of strings, piano, and generative electronics.',
               [
-                v('Eden', 'Nc-mYpOBkvY'),
-                v('Glass', 'P1-FkR24mMk'),
-                v('F Major', 'q8Y7-Nprlo8'),
-              ]),
-            c('cipa', 'Carlos Cipa', 1985, null, 'CONTEMPORARY', 'German',
-              'Munich-based pianist known for his ethereal, meditative compositions. His delicate touch and atmospheric soundscapes carry forward the neo-classical tradition of Arnalds.',
+                v('Near Light', 'UXNLNqHqkek'),
+                v('Only the Winds', 'GvoyPQDOgso'),
+                v('re:member — undone', 'rMzuBgSPh8Y'),
+                v('Saman', 'GYy_KzAn5vU'),
+              ],
               [
-                v('Correlations', 'HDq3j_H_K-0'),
-                v('The Raft', 'k9-_7HhBbsI'),
-                v('Debayashi', 'O3k7z3FHAX8'),
+                c('rani', 'Hania Rani', 1990, null, 'CONTEMPORARY', 'Polish',
+                  'Warsaw-born pianist and composer whose introspective, minimalist works blend classical piano with electronic textures. Her atmospheric style continues Arnalds\'s fusion of acoustic and electronic worlds.',
+                  [
+                    v('Eden', 'Nc-mYpOBkvY'),
+                    v('Glass', 'P1-FkR24mMk'),
+                    v('F Major', 'q8Y7-Nprlo8'),
+                  ]),
+                c('cipa', 'Carlos Cipa', 1985, null, 'CONTEMPORARY', 'German',
+                  'Munich-based pianist known for his ethereal, meditative compositions. His delicate touch and atmospheric soundscapes carry forward the neo-classical tradition of Arnalds.',
+                  [
+                    v('Correlations', 'HDq3j_H_K-0'),
+                    v('The Raft', 'k9-_7HhBbsI'),
+                    v('Debayashi', 'O3k7z3FHAX8'),
+                  ]),
               ]),
           ]),
       ]),
@@ -595,25 +671,6 @@ export const treeData = {
           ]),
       ]),
 
-    // ── PAGANINI (Virtuoso phenomenon) ───────────────────────────────────────
-    c('paganini', 'Niccolò Paganini', 1782, 1840, 'ROMANTIC', 'Italian',
-      'The devil\'s violinist. His supernatural virtuosity so astonished Liszt that the young pianist vowed to become the Paganini of the piano — and did. Schumann, Brahms, and Rachmaninoff all wrote variations on his themes.',
-      [
-        v('24 Caprices — No. 24', 'OhVjS5Lraxc'),
-        v('Violin Concerto No. 1', 'O9i1rfJOHngs'),
-        v('La Campanella (original violin)', '4K0w6v7LNYQ'),
-      ]),
-
-    // ── BERLIOZ (French Romantic orchestration) ──────────────────────────────
-    c('berlioz', 'Hector Berlioz', 1803, 1869, 'ROMANTIC', 'French',
-      'The revolutionary orchestrator. His Symphonie fantastique (1830) — written for a 150-piece orchestra — invented program music and modern orchestration simultaneously. His Treatise on Instrumentation taught generations how to write for orchestra.',
-      [
-        v('Symphonie fantastique', 'sK4dz6Gbcdk'),
-        v('Harold in Italy', 'aV-XnB3j_Ko'),
-        v('Roman Carnival Overture', 'zPxGnWnvdtE'),
-        v('Requiem — Dies Irae', 'lCQwzFh0yxg'),
-      ]),
-
     // ── AMERICAN SCHOOL: GERSHWIN → FILM COMPOSERS ───────────────────────────
     c('gershwin', 'George Gershwin', 1898, 1937, 'MODERN', 'American',
       'He made jazz symphonic. Rhapsody in Blue fused classical form with jazz harmony; Porgy and Bess is America\'s great opera. He died at 38 of a brain tumor, at the height of his powers.',
@@ -634,16 +691,6 @@ export const treeData = {
           ]),
       ]),
 
-    // ── VILLA-LOBOS (Brazil) ─────────────────────────────────────────────────
-    c('villa-lobos', 'Heitor Villa-Lobos', 1887, 1959, 'MODERN', 'Brazilian',
-      'The voice of Brazil. Largely self-taught, he fused Brazilian folk music, Bach (in his Bachianas Brasileiras), and French Impressionism into over 2,000 works. He made Brazil a presence on the world musical stage.',
-      [
-        v('Bachianas Brasileiras No. 5', 'jJo0FG1dR3o'),
-        v('Bachianas Brasileiras No. 2 — Little Train', 'eQRoBdGpJ_I'),
-        v('Guitar Concerto', 'PDTA9TjKXvk'),
-        v('Prelude No. 1 for Guitar', '_9LFsqsn4Kg'),
-      ]),
-
     // ── POLISH AVANT-GARDE: PENDERECKI & GÓRECKI ─────────────────────────────
     c('penderecki', 'Krzysztof Penderecki', 1933, 2020, 'CONTEMPORARY', 'Polish',
       'The master of controlled chaos. His Threnody for the Victims of Hiroshima (1960) opened new worlds of orchestral texture. Later works like the Polish Requiem returned to a more Romantic grandeur. Kubrick, Lynch, and Scorsese have used his music.',
@@ -659,16 +706,6 @@ export const treeData = {
             v('Symphony No. 3 — Mvt. 2', '_7qdFg4tGwg'),
             v('Totus Tuus', 'NDBj8NVP7EM'),
           ]),
-      ]),
-
-    // ── D. SCARLATTI (Baroque keyboard) ──────────────────────────────────────
-    c('d-scarlatti', 'Domenico Scarlatti', 1685, 1757, 'BAROQUE', 'Italian',
-      'Contemporary of Bach and Handel but utterly unlike them. His 555 keyboard sonatas — written for the Spanish queen — are short, brilliant, and endlessly inventive, anticipating Romantic pianism by a century.',
-      [
-        v('Sonata K. 141 in D minor', '7bpqAGMO2tU'),
-        v('Sonata K. 380 in E major', 'K9Lm9D-xdMg'),
-        v('Sonata K. 9 (Pastoral)', 'z0a7VN7S5Ks'),
-        v('30 Sonatas (Horowitz)', 'jG5Xts-vwIY', 'Vladimir Horowitz'),
       ]),
 
     // ── BARTÓK → LIGETI ──────────────────────────────────────────────────────
@@ -736,40 +773,6 @@ export const treeData = {
           ]),
       ]),
 
-    // ── FELDMAN (Experimental / Extended Duration) ───────────────────────────
-    c('feldman', 'Morton Feldman', 1926, 1987, 'MODERN', 'American',
-      'Pioneer of indeterminate music and extended durations. His quiet, slowly evolving works — some lasting six hours — explored the threshold of audibility. His influence echoes through the ambient piano scene, notably Nils Frahm.',
-      [
-        v('Rothko Chapel', 'wJMVGYbBz8M'),
-        v('For Philip Guston', 'XHkKu5aVEgw'),
-        v('Triadic Memories', 'o4SzWBAGj1E'),
-      ]),
-
-    // ── ENO (Ambient Pioneer) ────────────────────────────────────────────────
-    c('eno', 'Brian Eno', 1948, null, 'CONTEMPORARY', 'British',
-      'Inventor of ambient music. Though rooted in rock and electronic experimentation, his Music for Airports (1978) created a new genre that profoundly shaped the contemporary neo-classical piano scene.',
-      [
-        v('Music for Airports 1/1', 'vNwYtllyt3Q'),
-        v('An Ending (Ascent)', 'aKw5mbcE7VY'),
-        v('Deep Blue Day', 'nSKsWHzRsHw'),
-      ]),
-
-    // ── GREAT PERFORMERS ─────────────────────────────────────────────────────
-    c('gould', 'Glenn Gould', 1932, 1982, 'CONTEMPORARY', 'Canadian',
-      'The most idiosyncratic and influential pianist of the 20th century. He retired from concert at 31, recording studio performances of uncanny intellectual depth. His 1981 Goldberg Variations is one of the great artistic farewells.',
-      [
-        v('Goldberg Variations 1981', 'Ah392lnFHxM'),
-        v('Bach WTC Book 1', 'EZ-NYKYD5MM'),
-        v('Beethoven Sonata Op. 109', 'xvlJMR-NLEI'),
-      ]),
-
-    c('gieseking', 'Walter Gieseking', 1895, 1956, 'CONTEMPORARY', 'German',
-      'Legendary for his feather-light touch and extraordinary tonal palette. His recordings of Debussy and Ravel remain unsurpassed.',
-      [
-        v('Debussy Préludes Book 1', 'G3-4VFkLUAY'),
-        v('Mozart Piano Sonatas', 'QCwHNiKWiGs'),
-      ]),
-
     c('richter', 'Sviatoslav Richter', 1915, 1997, 'CONTEMPORARY', 'Russian',
       'Titan of 20th-century piano. A vast repertoire performed at the highest level. His student Zimerman represents the continuation of this uncompromising tradition.',
       [
@@ -803,13 +806,6 @@ export const treeData = {
           ]),
       ]),
 
-    c('pollini', 'Maurizio Pollini', 1942, 2024, 'CONTEMPORARY', 'Italian',
-      'The supreme intellectual pianist. Crystal-clear technique and an architecture of steely logic made his Chopin and Beethoven benchmarks for all time. He championed the Schoenberg, Boulez, and Nono alongside the Classical canon.',
-      [
-        v('Chopin 24 Études', 'atXTEEFvFNA'),
-        v('Beethoven Piano Sonatas (late)', 'oZ-HxaMOm9w'),
-        v('Schoenberg Piano Suite Op. 25', 'kW5gP8dVMDs'),
-      ]),
   ],
 };
 
