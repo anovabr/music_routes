@@ -147,6 +147,7 @@ export default function App() {
   const handleOpenVideo = useCallback((video, composer) => {
     setActiveVideo({ video, composer });
     setSelectedComposer(composer);
+    setMobileTab('lineage');
   }, []);
 
   const handleSelectComposer = useCallback((c) => {
