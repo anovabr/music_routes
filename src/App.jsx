@@ -13,6 +13,9 @@ const DEFAULT_PERIODS = Object.keys(PERIODS).reduce(
 
 export default function App() {
   const [loaded, setLoaded]       = useState(false);
+  const THEMES = ['dark', 'light', 'joby', 'jeton'];
+  const THEME_LABELS = { dark: '🌙', light: '☀', joby: '✈', jeton: '🟠' };
+  const THEME_TITLES = { dark: 'Classic dark', light: 'Classic light', joby: 'Joby — futuristic dark', jeton: 'Jeton — warm light' };
   const [theme, setTheme]         = useState('dark');
   const [selectedComposer, setSelectedComposer] = useState(null);
   const [activeVideo, setActiveVideo]           = useState(null);
@@ -324,10 +327,10 @@ export default function App() {
           </a>
           <button
             className="theme-toggle"
-            onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
-            title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+            onClick={() => setTheme(t => THEMES[(THEMES.indexOf(t) + 1) % THEMES.length])}
+            title={`Theme: ${THEME_TITLES[theme]} — click to switch`}
           >
-            {theme === 'dark' ? '☀' : '🌙'}
+            {THEME_LABELS[theme]}
           </button>
         </div>
       </header>
