@@ -5,10 +5,10 @@ export const PERIODS = {
   LATE_ROMANTIC:  { id: 'LATE_ROMANTIC',  name: 'Late Romantic',   years: '1870–1920',    color: '#D0506A' },
   IMPRESSIONIST:  { id: 'IMPRESSIONIST',  name: 'Impressionist',   years: '1880–1920',    color: '#7090D0' },
   MODERN:         { id: 'MODERN',         name: 'Modern',          years: '1900–1950',    color: '#9060C0' },
-  AVANT_GARDE:    { id: 'AVANT_GARDE',    name: 'Avant-garde',     years: '1945–1975',    color: '#C04888' },
-  MINIMALISM:     { id: 'MINIMALISM',     name: 'Minimalism',      years: '1960–1990',    color: '#38A878' },
-  NEW_SIMPLICITY: { id: 'NEW_SIMPLICITY', name: 'New Simplicity',  years: '1975–2000',    color: '#7888CC' },
-  CONTEMPORARY:   { id: 'CONTEMPORARY',   name: 'Contemporary',    years: '1990–present', color: '#50A0A0' },
+  AVANT_GARDE:    { id: 'AVANT_GARDE',    name: 'Contemporary · Avant-garde',    years: '1945–1975', color: '#C04888' },
+  MINIMALISM:     { id: 'MINIMALISM',     name: 'Contemporary · Minimalism',     years: '1960–1990', color: '#38A878' },
+  NEW_SIMPLICITY: { id: 'NEW_SIMPLICITY', name: 'Contemporary · New Simplicity', years: '1975–2000', color: '#7888CC' },
+  CONTEMPORARY:   { id: 'CONTEMPORARY',   name: 'Contemporary',                  years: '1950–present', color: '#50A0A0' },
 };
 
 function c(id, name, born, died, period, nationality, description, videos, children = []) {
