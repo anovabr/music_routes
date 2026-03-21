@@ -221,6 +221,9 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
   // Reset fold whenever a new video opens
   useEffect(() => { setVideoFolded(false); }, [activeVideo?.video?.youtubeId]);
 
+  // Reset info fold whenever the selected composer changes
+  useEffect(() => { setInfoFolded(false); }, [composer?.id]);
+
   const { wiki, wikiLoading, wikiError } = useWikipedia(composer);
 
   const influenceCount = useMemo(
