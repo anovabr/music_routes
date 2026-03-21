@@ -781,6 +781,29 @@ a:focus:not(:focus-visible) {
   gap: 16px;
 }
 
+.timeline-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 4px 8px;
+}
+
+.timeline-toggle-all {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.timeline-toggle-all:hover {
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+
 .timeline-period-header {
   display: flex;
   align-items: baseline;

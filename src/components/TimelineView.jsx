@@ -23,9 +23,21 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
   }, [filtered]);
 
   const periodOrder = Object.keys(PERIODS);
+  const visiblePeriods = periodOrder.filter(pid => grouped[pid]?.length);
+  const allCollapsed = visiblePeriods.length > 0 && visiblePeriods.every(pid => !!collapsedPeriods[pid]);
+
+  const toggleAll = useCallback(() => {
+    const next = !allCollapsed;
+    setCollapsedPeriods(visiblePeriods.reduce((acc, pid) => ({ ...acc, [pid]: next }), {}));
+  }, [allCollapsed, visiblePeriods]);
 
   return (
     <div className="timeline-view">
+      <div className="timeline-toolbar">
+        <button className="timeline-toggle-all" onClick={toggleAll}>
+          {allCollapsed ? '▶ Expand all' : '▼ Fold all'}
+        </button>
+      </div>
       <div className="timeline-content">
         {periodOrder.map(pid => {
           const composers = grouped[pid];
