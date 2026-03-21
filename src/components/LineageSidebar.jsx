@@ -219,6 +219,23 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
     setLineageIndex(0);
   }, [composer?.id, lineageTree]);
 
+  // After the tree renders, center the selected node so parents sit above and children below
+  useEffect(() => {
+    if (!composer?.id) return;
+    const timer = setTimeout(() => {
+      const container = treeContainerRef.current;
+      if (!container) return;
+      const selectedEl = container.querySelector('.tree-node.is-selected');
+      if (!selectedEl) return;
+      const containerRect = container.getBoundingClientRect();
+      const nodeRect = selectedEl.getBoundingClientRect();
+      const dx = containerRect.left + containerRect.width  / 2 - (nodeRect.left + nodeRect.width  / 2);
+      const dy = containerRect.top  + containerRect.height * 0.35 - (nodeRect.top  + nodeRect.height / 2);
+      setPan(p => ({ x: p.x + dx, y: p.y + dy }));
+    }, 60);
+    return () => clearTimeout(timer);
+  }, [composer?.id]);
+
   // Reset fold whenever a new video opens
   useEffect(() => { setVideoFolded(false); }, [activeVideo?.video?.youtubeId]);
 
