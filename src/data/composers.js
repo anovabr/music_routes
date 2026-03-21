@@ -1,4 +1,6 @@
 export const PERIODS = {
+  MEDIEVAL:       { id: 'MEDIEVAL',       name: 'Medieval',        years: '500–1400',     color: '#8B7355' },
+  RENAISSANCE:    { id: 'RENAISSANCE',    name: 'Renaissance',     years: '1400–1600',    color: '#5C8A5A' },
   BAROQUE:        { id: 'BAROQUE',        name: 'Baroque',         years: '1600–1750',    color: '#C9A84C' },
   CLASSICAL:      { id: 'CLASSICAL',      name: 'Classical',       years: '1750–1820',    color: '#4CAF7D' },
   ROMANTIC:       { id: 'ROMANTIC',       name: 'Romantic',        years: '1820–1900',    color: '#E07040' },
@@ -26,6 +28,24 @@ export const treeData = {
   type: 'root',
   children: [
 
+    // ── MEDIEVAL ──────────────────────────────────────────────────────────────
+    c('hildegard', 'Hildegard von Bingen', 1098, 1179, 'MEDIEVAL', 'German',
+      'The first composer whose biography is known to history. Her visionary plainchant and the morality play Ordo Virtutum — the earliest surviving musical drama — combine soaring melodic arches with a mystical authority unlike anything before or since.',
+      [v('O Virtus Sapientiae', 'nRpHUBGBB0k'), v('Ordo Virtutum — excerpts', 'RzEfFBBkrQM')]),
+
+    c('machaut', 'Guillaume de Machaut', 1300, 1377, 'MEDIEVAL', 'French',
+      'The towering figure of the Ars Nova. His Messe de Nostre Dame is the first complete polyphonic Mass setting by a single known composer — a watershed in Western music. Equally celebrated as poet, he bound lyric and musical craft more tightly than anyone before him.',
+      [v('Messe de Nostre Dame', 'SIQjwbPp6XQ'), v('Ma fin est mon commencement', 'UNe2RiL5VlI')]),
+
+    // ── RENAISSANCE → BAROQUE ─────────────────────────────────────────────────
+    c('josquin', 'Josquin des Prez', 1450, 1521, 'RENAISSANCE', 'Franco-Flemish',
+      '"The best of composers," Martin Luther called him. His mastery of imitative counterpoint — voices entering in strict canon — set the template for all Renaissance polyphony and directly shaped the sacred language of Palestrina and the Venetian school.',
+      [v('Ave Maria… virgo serena', 'EMSe7TmJYiA'), v('Missa Pange Lingua — Kyrie', 'P7W5GF-SluE')],
+      [
+        c('palestrina', 'Giovanni Palestrina', 1525, 1594, 'RENAISSANCE', 'Italian',
+          'The supreme master of Renaissance polyphony. Pope Gregory XIII charged him with reforming Catholic sacred music; his Missa Papae Marcelli became the model of pure, text-illuminating counterpoint — a touchstone studied by Bach, Mozart, and Beethoven alike.',
+          [v('Missa Papae Marcelli — Kyrie', '7OGgQMJUR5s'), v('Sicut cervus', 'I3PDFnSBbK0')],
+          [
     // ── ITALIAN OPERA: MONTEVERDI → BEL CANTO → VERDI → PUCCINI ───────────────
     c('monteverdi', 'Claudio Monteverdi', 1567, 1643, 'BAROQUE', 'Italian',
       'The inventor of opera. His L\'Orfeo (1607) launched an entirely new art form. His radical text-setting and harmonic daring mark the birth of the Baroque era.',
@@ -255,6 +275,15 @@ export const treeData = {
                                           ]),
                                       ]),
                                   ]),
+                              ]),
+
+                            c('jobim', 'Antônio Carlos Jobim', 1927, 1994, 'CONTEMPORARY', 'Brazilian',
+                              'The father of Bossa Nova. Jobim openly credited Chopin\'s harmonic poetry and melodic lyricism as a primary influence on his language. His sophisticated chord voicings and languid melodic invention in The Girl from Ipanema and Corcovado brought Brazilian music to the world stage and changed jazz harmony forever.',
+                              [
+                                v('The Girl from Ipanema', 'ykd6loaknlQ'),
+                                v('Corcovado (Quiet Nights)', 'AOmDm7WQXMI'),
+                                v('Wave', 'mFd0QLhB1M4'),
+                                v('Águas de Março', 'B6YGo1AIJYU'),
                               ]),
                           ]),
 
@@ -598,6 +627,18 @@ export const treeData = {
               [
                 v('Debussy Préludes Book 1', 'G3-4VFkLUAY'),
                 v('Mozart Piano Sonatas', 'QCwHNiKWiGs'),
+              ]),
+          ]),
+      ]),
+
+            // ── VENETIAN SCHOOL: GABRIELI → SCHÜTZ ────────────────────────────────
+            c('gabrieli', 'Giovanni Gabrieli', 1557, 1612, 'RENAISSANCE', 'Italian',
+              'The master of Venetian polychoral music. As organist at St Mark\'s Basilica, he pioneered cori spezzati — multiple choirs placed spatially through the basilica, creating the earliest spatial audio. His direct student Heinrich Schütz carried this revolution north, seeding the entire German Baroque.',
+              [v('In Ecclesiis', 'OMNPPAeJYrc'), v('Canzon per sonar No. 1', 'iOvUF8d0P-E')],
+              [
+                c('schutz', 'Heinrich Schütz', 1585, 1672, 'BAROQUE', 'German',
+                  'The most important German composer before Bach. After studying directly with Gabrieli in Venice, Schütz brought Italian polychoral mastery and expressive text-setting to Germany — the decisive bridge between Renaissance Italy and the Lutheran Baroque that culminated in Bach.',
+                  [v('Musikalische Exequien', 'ILxXwnHizls'), v('Saul, Saul, was verfolgst du mich', 'eSFBGm2OQTM')]),
               ]),
           ]),
       ]),
