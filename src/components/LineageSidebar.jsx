@@ -355,7 +355,8 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
     });
   }, [setZoom]);
 
-  const handleWheel = useCallback((e) => {
+  const handleWheelRef = useRef(null);
+  handleWheelRef.current = (e) => {
     e.preventDefault();
     const container = treeContainerRef.current;
     if (!container) return;
@@ -367,7 +368,15 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
     const newZoom = setZoom(oldZoom + delta);
     const scale = newZoom / oldZoom;
     setPan(p => ({ x: mouseX - scale * (mouseX - p.x), y: mouseY - scale * (mouseY - p.y) }));
-  }, [setZoom]);
+  };
+
+  useEffect(() => {
+    const container = treeContainerRef.current;
+    if (!container) return;
+    const onWheel = (e) => handleWheelRef.current(e);
+    container.addEventListener('wheel', onWheel, { passive: false });
+    return () => container.removeEventListener('wheel', onWheel);
+  }, []);
 
   const handlePanStart = useCallback((e) => {
     if (e.button !== 0) return;
@@ -487,7 +496,6 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
         <div
           className="lineage-tree"
           ref={treeContainerRef}
-          onWheel={handleWheel}
           onMouseDown={handlePanStart}
           onMouseMove={handlePanMove}
           onMouseUp={handlePanEnd}

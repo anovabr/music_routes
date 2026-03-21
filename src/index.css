@@ -1273,58 +1273,48 @@ a:focus:not(:focus-visible) {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: var(--surface);
-  overflow: hidden;
-}
-
-.video-unavailable-header {
-  display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--border2);
-  flex-shrink: 0;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  background: var(--surface);
+  text-align: center;
 }
 
-.video-unavailable-icon {
-  font-size: 20px;
-  flex-shrink: 0;
-}
+.video-unavailable-icon { font-size: 32px; opacity: 0.5; }
 
 .video-unavailable-title {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--text);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .video-unavailable-msg {
-  font-size: 11px;
-  color: var(--text3);
-}
-
-.video-unavailable-link--yt {
-  margin-left: auto;
-  flex-shrink: 0;
-  padding: 5px 10px;
-  border-radius: 6px;
   font-size: 12px;
-  font-weight: 600;
-  text-decoration: none;
   color: var(--text2);
-  border: 1px solid var(--border);
-  transition: color var(--transition), border-color var(--transition);
 }
-.video-unavailable-link--yt:hover { color: var(--accent); border-color: var(--accent); }
 
-.spotify-embed {
-  flex: 1;
-  width: 100%;
-  border: none;
-  min-height: 160px;
+.video-unavailable-links {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 4px;
 }
+
+.video-unavailable-link {
+  padding: 9px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity var(--transition);
+}
+.video-unavailable-link:hover { opacity: 0.82; }
+
+.video-unavailable-link--spotify { background: #1DB954; color: #000; }
+.video-unavailable-link--apple   { background: #fc3c44; color: #fff; }
+.video-unavailable-link--yt      { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
 
 /* ── Lineage Highlight ──────────────────────────────────────────────────────── */
 .tree-node.is-ancestor > .tree-node-body,
