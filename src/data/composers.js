@@ -1,11 +1,14 @@
 export const PERIODS = {
-  BAROQUE:       { id: 'BAROQUE',       name: 'Baroque',        years: '1600–1750',    color: '#C9A84C' },
-  CLASSICAL:     { id: 'CLASSICAL',     name: 'Classical',      years: '1750–1820',    color: '#4CAF7D' },
-  ROMANTIC:      { id: 'ROMANTIC',      name: 'Romantic',       years: '1820–1900',    color: '#E07040' },
-  LATE_ROMANTIC: { id: 'LATE_ROMANTIC', name: 'Late Romantic',  years: '1870–1920',    color: '#D0506A' },
-  IMPRESSIONIST: { id: 'IMPRESSIONIST', name: 'Impressionist',  years: '1880–1920',    color: '#7090D0' },
-  MODERN:        { id: 'MODERN',        name: 'Modern',         years: '1900–1950',    color: '#9060C0' },
-  CONTEMPORARY:  { id: 'CONTEMPORARY',  name: 'Contemporary',   years: '1950–present', color: '#50A0A0' },
+  BAROQUE:        { id: 'BAROQUE',        name: 'Baroque',         years: '1600–1750',    color: '#C9A84C' },
+  CLASSICAL:      { id: 'CLASSICAL',      name: 'Classical',       years: '1750–1820',    color: '#4CAF7D' },
+  ROMANTIC:       { id: 'ROMANTIC',       name: 'Romantic',        years: '1820–1900',    color: '#E07040' },
+  LATE_ROMANTIC:  { id: 'LATE_ROMANTIC',  name: 'Late Romantic',   years: '1870–1920',    color: '#D0506A' },
+  IMPRESSIONIST:  { id: 'IMPRESSIONIST',  name: 'Impressionist',   years: '1880–1920',    color: '#7090D0' },
+  MODERN:         { id: 'MODERN',         name: 'Modern',          years: '1900–1950',    color: '#9060C0' },
+  AVANT_GARDE:    { id: 'AVANT_GARDE',    name: 'Avant-garde',     years: '1945–1975',    color: '#C04888' },
+  MINIMALISM:     { id: 'MINIMALISM',     name: 'Minimalism',      years: '1960–1990',    color: '#38A878' },
+  NEW_SIMPLICITY: { id: 'NEW_SIMPLICITY', name: 'New Simplicity',  years: '1975–2000',    color: '#7888CC' },
+  CONTEMPORARY:   { id: 'CONTEMPORARY',   name: 'Contemporary',    years: '1990–present', color: '#50A0A0' },
 };
 
 function c(id, name, born, died, period, nationality, description, videos, children = []) {
@@ -158,7 +161,7 @@ export const treeData = {
                                     v('Le Bœuf sur le toit', 'kvRGSSiXoyo'),
                                   ],
                                   [
-                                    c('reich', 'Steve Reich', 1936, null, 'CONTEMPORARY', 'American',
+                                    c('reich', 'Steve Reich', 1936, null, 'MINIMALISM', 'American',
                                       'Studied with Milhaud at Mills College. Pioneer of phasing and process music — his tape-loop experiments evolved into a rigorous compositional method. He directly taught and inspired John Adams, the most-performed living American composer.',
                                       [
                                         v('Music for 18 Musicians', 'PBiU1wMEPNk'),
@@ -166,7 +169,7 @@ export const treeData = {
                                         v('Electric Counterpoint', 'vugqRAX7xQE'),
                                       ],
                                       [
-                                        c('adams', 'John Adams', 1947, null, 'CONTEMPORARY', 'American',
+                                        c('adams', 'John Adams', 1947, null, 'MINIMALISM', 'American',
                                           'Post-minimalist. He brought narrative, lyricism, and harmonic richness back to a language stripped bare by Reich and Glass. Nixon in China and Doctor Atomic are landmarks of late 20th-century opera.',
                                           [
                                             v('Shaker Loops', 'eiLyfZR1wnI'),
@@ -193,7 +196,7 @@ export const treeData = {
                                         v('Vingt Regards — Regard de l\'Enfant-Jésus', 'Dau5jLWzRY8'),
                                       ],
                                       [
-                                        c('boulez', 'Pierre Boulez', 1925, 2016, 'CONTEMPORARY', 'French',
+                                        c('boulez', 'Pierre Boulez', 1925, 2016, 'AVANT_GARDE', 'French',
                                           'Messiaen\'s most famous student. He pushed serialism to its extreme limit in works of icy complexity, then became the dominant conductor of his era — reshaping how orchestras performed the 20th-century repertoire.',
                                           [
                                             v('Le Marteau sans maître', 'iDMDFZVmQUE'),
@@ -461,7 +464,7 @@ export const treeData = {
                                             v('Four Seasons of Buenos Aires', 'TadxLCMq-2U'),
                                           ]),
 
-                                        c('glass', 'Philip Glass', 1937, null, 'CONTEMPORARY', 'American',
+                                        c('glass', 'Philip Glass', 1937, null, 'MINIMALISM', 'American',
                                           'The defining figure of musical minimalism. Formally trained by Boulanger in Paris (1964–66), his hypnotic, cycling patterns also draw deeply from Bach\'s contrapuntal techniques, creating a modern expression of Baroque structure.',
                                           [
                                             v('Metamorphosis Two', 'FaovqbcSYqk'),
@@ -505,7 +508,7 @@ export const treeData = {
                                 v('String Quartet No. 4', 'a4dCGKdU8_4'),
                               ],
                               [
-                                c('ligeti', 'György Ligeti', 1923, 2006, 'CONTEMPORARY', 'Hungarian',
+                                c('ligeti', 'György Ligeti', 1923, 2006, 'AVANT_GARDE', 'Hungarian',
                                   'The great colouristic innovator. Escaping Hungary after 1956, he created micropolyphony — dense clouds of sound where rhythm and harmony blur. Kubrick used his music in 2001: A Space Odyssey. His piano Études are among the most demanding ever written.',
                                   [
                                     v('Atmosphères', 'sjDfBLwJjZQ'),
@@ -590,7 +593,7 @@ export const treeData = {
             v('30 Sonatas (Horowitz)', 'jG5Xts-vwIY', 'Vladimir Horowitz'),
           ],
           [
-            c('gieseking', 'Walter Gieseking', 1895, 1956, 'CONTEMPORARY', 'German',
+            c('gieseking', 'Walter Gieseking', 1895, 1956, 'MODERN', 'German',
               'Legendary for his feather-light touch and extraordinary tonal palette. His recordings of Debussy and Ravel remain unsurpassed.',
               [
                 v('Debussy Préludes Book 1', 'G3-4VFkLUAY'),
@@ -723,7 +726,7 @@ export const treeData = {
       ]),
 
     // ── POLISH AVANT-GARDE: PENDERECKI & GÓRECKI ─────────────────────────────
-    c('penderecki', 'Krzysztof Penderecki', 1933, 2020, 'CONTEMPORARY', 'Polish',
+    c('penderecki', 'Krzysztof Penderecki', 1933, 2020, 'AVANT_GARDE', 'Polish',
       'The master of controlled chaos. His Threnody for the Victims of Hiroshima (1960) opened new worlds of orchestral texture. Later works like the Polish Requiem returned to a more Romantic grandeur. Kubrick, Lynch, and Scorsese have used his music.',
       [
         v('Threnody for Hiroshima', 'Dp3BlFZWJNA'),
@@ -731,7 +734,7 @@ export const treeData = {
         v('Polymorphia', 'BLvFZrSP8zE'),
       ],
       [
-        c('gorecki', 'Henryk Górecki', 1933, 2010, 'CONTEMPORARY', 'Polish',
+        c('gorecki', 'Henryk Górecki', 1933, 2010, 'NEW_SIMPLICITY', 'Polish',
           'From avant-garde to holy minimalism. His Symphony No. 3 (Symphony of Sorrowful Songs) became a phenomenon in 1992, reaching millions with its meditative simplicity on the theme of maternal loss.',
           [
             v('Symphony No. 3 — Mvt. 2', '_7qdFg4tGwg'),
@@ -740,7 +743,7 @@ export const treeData = {
       ]),
 
     // ── ARVO PÄRT → DUSTIN O'HALLORAN ─────────────────────────────────────────
-    c('part', 'Arvo Pärt', 1935, null, 'CONTEMPORARY', 'Estonian',
+    c('part', 'Arvo Pärt', 1935, null, 'NEW_SIMPLICITY', 'Estonian',
       'Creator of tintinnabuli — a technique of monastic simplicity where a melody voice and a triad voice move in strict counterpoint. After years of silence, his music of spiritual stillness speaks directly to the soul.',
       [
         v('Spiegel im Spiegel', 'TJ6Mzvh3XCc'),
