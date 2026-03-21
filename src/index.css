@@ -285,7 +285,7 @@ a:focus:not(:focus-visible) {
   display: flex;
   flex-direction: column;
   position: relative;
-  min-width: 300px;
+  min-width: 0;
 }
 
 /* Empty state */
@@ -682,6 +682,68 @@ a:focus:not(:focus-visible) {
 }
 
 /* Desktop: show ✕, hide "← Back" */
+
+.lineage-video-body {
+  display: flex;
+  flex-direction: row;
+  height: 220px;
+}
+
+.lineage-video-pane-left {
+  flex: 3;
+  position: relative;
+  background: #000;
+  overflow: hidden;
+}
+
+.lineage-video-pane-right {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 10px;
+  background: var(--bg3);
+  border-left: 1px solid var(--border2);
+}
+
+.streaming-panel-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text2);
+  font-weight: 600;
+}
+
+.streaming-panel-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity var(--transition), transform 0.1s;
+  justify-content: center;
+}
+
+.streaming-panel-btn:hover {
+  opacity: 0.85;
+  transform: scale(1.02);
+}
+
+.streaming-panel-spotify {
+  background: #1DB954;
+  color: #000;
+}
+
+.streaming-panel-apple {
+  background: #fc3c44;
+  color: #fff;
+}
 
 .lineage-video-container {
   position: relative;
@@ -2147,6 +2209,35 @@ a:focus:not(:focus-visible) {
 
   .video-chevron {
     font-size: 13px;
+  }
+
+  .lineage-video-body {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .lineage-video-pane-left {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    flex: none;
+  }
+
+  .lineage-video-pane-right {
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px 12px;
+    border-left: none;
+    border-top: 1px solid var(--border2);
+    flex: none;
+  }
+
+  .streaming-panel-label {
+    display: none;
+  }
+
+  .streaming-panel-btn {
+    flex: 1;
+    max-width: 160px;
   }
 
   /* Taller info header bar for easy tap on mobile */

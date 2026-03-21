@@ -293,7 +293,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (!isResizing.current) return;
-      setWidth(Math.max(300, Math.min(900, window.innerWidth - e.clientX)));
+      setWidth(Math.max(200, window.innerWidth - e.clientX));
     };
     const handleMouseUp = () => {
       isResizing.current = false;
@@ -450,6 +450,13 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
     ? `https://open.spotify.com/search/${encodeURIComponent(composer.name)}`
     : null;
 
+  const videoSearchQuery = activeVideo
+    ? `${activeVideo.composer?.name ?? ''} ${activeVideo.video?.title ?? ''}`.trim()
+    : '';
+  const encodedVideoQuery = encodeURIComponent(videoSearchQuery);
+  const videoSpotifyUrl  = `https://open.spotify.com/search/${encodedVideoQuery}`;
+  const videoAppleUrl    = `https://music.apple.com/search?term=${encodedVideoQuery}`;
+
   return (
     <aside className={`lineage-sidebar${activeVideo ? ' has-active-video' : ''}`} ref={sidebarRef} style={{ width }}>
       <div className="lineage-resize-handle" onMouseDown={handleMouseDown} />
@@ -543,12 +550,33 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
                 <span className="video-chevron">{videoFolded ? '▲' : '▼'}</span>
               </div>
               {!videoFolded && (
-                <div className="lineage-video-container">
-                  <VideoPlayer
-                    youtubeId={activeVideo.video.youtubeId}
-                    title={activeVideo.video.title}
-                    composer={activeVideo.composer}
-                  />
+                <div className="lineage-video-body">
+                  <div className="lineage-video-pane-left">
+                    <VideoPlayer
+                      youtubeId={activeVideo.video.youtubeId}
+                      title={activeVideo.video.title}
+                      composer={activeVideo.composer}
+                    />
+                  </div>
+                  <div className="lineage-video-pane-right">
+                    <span className="streaming-panel-label">Listen on</span>
+                    <a
+                      className="streaming-panel-btn streaming-panel-spotify"
+                      href={videoSpotifyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span>🎵</span> Spotify
+                    </a>
+                    <a
+                      className="streaming-panel-btn streaming-panel-apple"
+                      href={videoAppleUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span>🎧</span> Apple Music
+                    </a>
+                  </div>
                 </div>
               )}
             </div>

@@ -299,13 +299,6 @@ export default function App() {
         </nav>
 
         <div className="header-controls">
-          <button
-            className="random-btn"
-            onClick={handleRandomComposer}
-            title="Discover a random composer"
-          >
-            🎲
-          </button>
           {/* Share button */}
           <button
             className="share-btn"
