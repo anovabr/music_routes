@@ -772,6 +772,15 @@ button {
   gap: 14px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--border2);
+  cursor: pointer;
+  user-select: none;
+}
+
+.timeline-period-chevron {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--text2);
+  align-self: center;
 }
 
 .timeline-period-dot {
