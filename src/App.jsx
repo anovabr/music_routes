@@ -10,13 +10,6 @@ const DEFAULT_PERIODS = Object.keys(PERIODS).reduce(
   {}
 );
 
-// Deterministic "composer of the day" based on UTC date
-function getComposerOfDay(composers) {
-  if (!composers.length) return null;
-  const d = new Date();
-  const seed = d.getUTCFullYear() * 10000 + (d.getUTCMonth() + 1) * 100 + d.getUTCDate();
-  return composers[seed % composers.length];
-}
 
 export default function App() {
   const [loaded, setLoaded]       = useState(false);
@@ -38,7 +31,6 @@ export default function App() {
   const konamiRef     = useRef([]);
 
   const allComposers = useMemo(() => flatComposers(), []);
-  const composerOfDay = useMemo(() => getComposerOfDay(allComposers), [allComposers]);
 
   const periodCounts = useMemo(() => {
     const counts = {};
@@ -297,16 +289,6 @@ export default function App() {
         </nav>
 
         <div className="header-controls">
-          {/* Composer of the Day */}
-          {composerOfDay && (
-            <button
-              className="cotd-btn"
-              onClick={() => handleSelectComposer(composerOfDay)}
-              title={`Today's featured composer: ${composerOfDay.name}`}
-            >
-              ✨ {composerOfDay.name}
-            </button>
-          )}
           <button
             className="random-btn"
             onClick={handleRandomComposer}

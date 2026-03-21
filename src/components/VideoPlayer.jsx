@@ -23,10 +23,17 @@ export default function VideoPlayer({ youtubeId, title, composer }) {
   const playerDivRef = useRef(null);
   const playerRef = useRef(null);
   const [unavailable, setUnavailable] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
     setUnavailable(false);
+    setLoading(true);
+
+    // Fallback: if still loading after 8 s, treat as unavailable
+    const timeout = setTimeout(() => {
+      if (!cancelled) setUnavailable(true);
+    }, 8000);
 
     loadYTApi(() => {
       if (cancelled || !playerDivRef.current) return;
@@ -34,9 +41,17 @@ export default function VideoPlayer({ youtubeId, title, composer }) {
         videoId: youtubeId,
         playerVars: { autoplay: 1, rel: 0 },
         events: {
+          onStateChange: (e) => {
+            // PLAYING = 1, BUFFERING = 3 — video is actually running
+            if (!cancelled && [1, 3].includes(e.data)) {
+              clearTimeout(timeout);
+              setLoading(false);
+            }
+          },
           onError: (e) => {
             // 100: video not found/removed, 101/150: embedding disabled by owner
             if (!cancelled && [100, 101, 150].includes(e.data)) {
+              clearTimeout(timeout);
               try { playerRef.current?.destroy(); } catch {}
               setUnavailable(true);
             }
@@ -47,6 +62,7 @@ export default function VideoPlayer({ youtubeId, title, composer }) {
 
     return () => {
       cancelled = true;
+      clearTimeout(timeout);
       try { playerRef.current?.destroy(); } catch {}
       playerRef.current = null;
     };
@@ -72,5 +88,19 @@ export default function VideoPlayer({ youtubeId, title, composer }) {
     );
   }
 
-  return <div ref={playerDivRef} style={{ width: '100%', height: '100%' }} />;
+  return (
+    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+      <div ref={playerDivRef} style={{ width: '100%', height: '100%' }} />
+      {loading && (
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: '#000',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          color: '#888', fontSize: '13px', letterSpacing: '0.05em',
+        }}>
+          Loading…
+        </div>
+      )}
+    </div>
+  );
 }
