@@ -58,11 +58,11 @@
   --bg3:        #131820;
   --surface:    #191e28;
   --surface2:   #202733;
-  --border:     rgba(0, 210, 255, 0.14);
-  --border2:    rgba(0, 210, 255, 0.07);
-  --text:       #e2eff8;
-  --text2:      #7aaabf;
-  --text3:      #3d6a88;
+  --border:     rgba(0, 210, 255, 0.18);
+  --border2:    rgba(0, 210, 255, 0.09);
+  --text:       #eaf4fb;
+  --text2:      #a8cfe0;
+  --text3:      #6898b8;
   --accent:     #00d2ff;
   --accent2:    #40e4ff;
   --red:        #ff4466;
@@ -77,20 +77,20 @@
   /* Jeton — warm white, orange-red fintech */
   --bg:         #ffffff;
   --bg2:        #fff6f5;
-  --bg3:        #f6f0ee;
+  --bg3:        #f0eae8;
   --surface:    #ffffff;
   --surface2:   #fff0ed;
-  --border:     rgba(247, 59, 32, 0.12);
-  --border2:    rgba(247, 59, 32, 0.06);
-  --text:       #360802;
-  --text2:      #7a3520;
-  --text3:      #b07060;
+  --border:     rgba(247, 59, 32, 0.15);
+  --border2:    rgba(247, 59, 32, 0.07);
+  --text:       #1a0800;
+  --text2:      #5c1e0a;
+  --text3:      #8a4030;
   --accent:     #f73b20;
   --accent2:    #d42e15;
   --red:        #c0392b;
   --shadow:     0 4px 28px rgba(247,59,32,0.08);
   --shadow-sm:  0 2px 8px rgba(0,0,0,0.06);
-  --shadow-card: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(247,59,32,0.07);
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(247,59,32,0.07);
   --color-teacher: #9b59b6;
   --color-student: #27ae60;
 }
@@ -236,10 +236,10 @@ a:focus:not(:focus-visible) {
   border-radius: 3px;
   background: transparent;
   border: none;
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.08em;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--text2);
   cursor: pointer;
@@ -344,9 +344,9 @@ a:focus:not(:focus-visible) {
 }
 
 .lineage-title {
-  font-family: 'Playfair Display', serif;
+  font-family: inherit;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text);
   letter-spacing: -0.01em;
 }
@@ -375,15 +375,15 @@ a:focus:not(:focus-visible) {
 }
 
 .zoom-level {
-  font-family: var(--mono);
-  font-size: 10px;
+  font-family: inherit;
+  font-size: 11px;
   color: var(--text3);
   min-width: 32px;
   text-align: center;
   cursor: pointer;
   padding: 2px 4px;
   border-radius: 3px;
-  letter-spacing: 0.04em;
+  font-weight: 600;
   transition: color var(--transition);
 }
 .zoom-level:hover { color: var(--accent); }
@@ -477,9 +477,9 @@ a:focus:not(:focus-visible) {
 .tree-node-accent { display: none; }
 
 .tree-node-name {
-  font-family: 'Playfair Display', serif;
+  font-family: inherit;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text);
   white-space: nowrap;
   overflow: hidden;
@@ -489,10 +489,10 @@ a:focus:not(:focus-visible) {
 }
 
 .tree-node-dates {
-  font-family: var(--mono);
-  font-size: 11px;
+  font-family: inherit;
+  font-size: 12px;
   color: var(--text2);
-  letter-spacing: 0.04em;
+  font-weight: 500;
 }
 
 .tree-node-play {
@@ -619,10 +619,9 @@ a:focus:not(:focus-visible) {
 }
 
 .lineage-description p {
-  font-size: 13px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.65;
   color: var(--text2);
-  font-style: italic;
   margin: 0;
 }
 
@@ -750,23 +749,23 @@ a:focus:not(:focus-visible) {
 }
 
 .modal-composer {
-  font-size: 11px;
+  font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   color: var(--accent);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .modal-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 18px;
-  font-weight: 600;
+  font-family: inherit;
+  font-size: 19px;
+  font-weight: 700;
   color: var(--text);
   line-height: 1.3;
 }
 
 .modal-performer {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text2);
   font-style: italic;
 }
@@ -812,7 +811,7 @@ a:focus:not(:focus-visible) {
 }
 
 .modal-note {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text3);
   font-style: italic;
 }
@@ -860,12 +859,12 @@ a:focus:not(:focus-visible) {
 .timeline-toggle-all {
   background: none;
   border: 1px solid var(--border);
-  color: var(--text-muted);
-  font-size: 11px;
-  padding: 4px 10px;
+  color: var(--text3);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
   border-radius: 4px;
   cursor: pointer;
-  letter-spacing: 0.03em;
   transition: color 0.15s, border-color 0.15s;
 }
 
@@ -901,26 +900,26 @@ a:focus:not(:focus-visible) {
 }
 
 .timeline-period-name {
-  font-family: 'Playfair Display', serif;
+  font-family: inherit;
   font-size: 22px;
-  font-weight: 600;
+  font-weight: 800;
   color: var(--text);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 .timeline-period-years {
-  font-family: var(--mono);
-  font-size: 12px;
+  font-family: inherit;
+  font-size: 13px;
   color: var(--text2);
-  letter-spacing: 0.04em;
+  font-weight: 500;
 }
 
 .timeline-period-count {
   margin-left: auto;
-  font-family: var(--mono);
-  font-size: 11px;
+  font-family: inherit;
+  font-size: 12px;
   color: var(--text3);
-  letter-spacing: 0.06em;
+  font-weight: 600;
 }
 
 .timeline-grid {
@@ -969,9 +968,9 @@ a:focus:not(:focus-visible) {
 .tcard--teacher::before {
   content: '↑ Teacher';
   display: block;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: .06em;
+  letter-spacing: .04em;
   color: var(--color-teacher);
   margin-bottom: 4px;
 }
@@ -984,9 +983,9 @@ a:focus:not(:focus-visible) {
 .tcard--student::before {
   content: '↓ Student';
   display: block;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: .06em;
+  letter-spacing: .04em;
   color: var(--color-student);
   margin-bottom: 4px;
 }
@@ -1009,9 +1008,9 @@ a:focus:not(:focus-visible) {
 }
 
 .tcard-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 18px;
-  font-weight: 600;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 700;
   color: var(--text);
   line-height: 1.25;
   flex: 1;
@@ -1025,22 +1024,23 @@ a:focus:not(:focus-visible) {
 }
 
 .tcard-dates {
-  font-family: var(--mono);
-  font-size: 12px;
+  font-family: inherit;
+  font-size: 13px;
   color: var(--text2);
-  letter-spacing: 0.04em;
+  font-weight: 500;
 }
 
 .tcard-nat {
-  font-family: var(--mono);
-  font-size: 10px;
+  font-family: inherit;
+  font-size: 12px;
   color: var(--text3);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
+  font-weight: 500;
 }
 
 .tcard-desc {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.65;
   color: var(--text2);
   margin-left: 16px;
@@ -1060,7 +1060,7 @@ a:focus:not(:focus-visible) {
   align-items: center;
   gap: 8px;
   padding: 4px 0;
-  font-size: 12px;
+  font-size: 13px;
   text-align: left;
   transition: color var(--transition);
   width: 100%;
