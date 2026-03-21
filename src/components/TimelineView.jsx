@@ -1,4 +1,4 @@
-import { useMemo, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
 import { flatComposers, PERIODS, countDescendants } from '../data/composers';
 
 export default function TimelineView({ activePeriods, selectedComposer, onSelectComposer, onOpenVideo }) {
@@ -31,6 +31,29 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
     setCollapsedPeriods(visiblePeriods.reduce((acc, pid) => ({ ...acc, [pid]: next }), {}));
   }, [allCollapsed, visiblePeriods]);
 
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    const container = contentRef.current;
+    if (!container) return;
+    const ratioMap = new Map();
+    let currentPid = null;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        const pid = e.target.dataset.period;
+        if (pid) ratioMap.set(pid, e.intersectionRatio);
+      });
+      let bestPid = null, bestRatio = -1;
+      ratioMap.forEach((r, p) => { if (r > bestRatio) { bestRatio = r; bestPid = p; } });
+      if (bestPid && bestPid !== currentPid) {
+        currentPid = bestPid;
+        document.documentElement.style.setProperty('--period-glow', PERIODS[bestPid].color);
+      }
+    }, { root: container, threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] });
+    container.querySelectorAll('[data-period]').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, [visiblePeriods]);
+
   return (
     <div className="timeline-view">
       <div className="timeline-toolbar">
@@ -38,7 +61,7 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
           {allCollapsed ? '▶ Expand all' : '▼ Fold all'}
         </button>
       </div>
-      <div className="timeline-content">
+      <div className="timeline-content" ref={contentRef}>
         {periodOrder.map(pid => {
           const composers = grouped[pid];
           if (!composers?.length) return null;
@@ -48,6 +71,7 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
             <section
               key={pid}
               id={`period-${pid}`}
+              data-period={pid}
               className="timeline-section"
               style={{ '--pc': period.color }}
             >
