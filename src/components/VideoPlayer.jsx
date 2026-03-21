@@ -69,23 +69,28 @@ export default function VideoPlayer({ youtubeId, title, composer }) {
   }, [youtubeId]);
 
   const query = encodeURIComponent(`${composer?.name ?? ''} ${title}`);
-  const spotifyUrl = `https://open.spotify.com/search/${query}`;
   const youtubeUrl = `https://www.youtube.com/results?search_query=${query}`;
 
   if (unavailable) {
     return (
       <div className="video-unavailable">
-        <div className="video-unavailable-icon">🎵</div>
-        <p className="video-unavailable-title">{title}</p>
-        <p className="video-unavailable-msg">Video unavailable — listen here:</p>
-        <div className="video-unavailable-links">
-          <a href={spotifyUrl} target="_blank" rel="noopener noreferrer" className="video-unavailable-link video-unavailable-link--spotify">
-            Spotify
-          </a>
-          <a href={youtubeUrl} target="_blank" rel="noopener noreferrer" className="video-unavailable-link video-unavailable-link--yt">
-            YouTube
+        <div className="video-unavailable-header">
+          <span className="video-unavailable-icon">🎵</span>
+          <div>
+            <p className="video-unavailable-title">{title}</p>
+            <p className="video-unavailable-msg">Video unavailable — playing on Spotify</p>
+          </div>
+          <a href={youtubeUrl} target="_blank" rel="noopener noreferrer" className="video-unavailable-link--yt">
+            YT ↗
           </a>
         </div>
+        <iframe
+          className="spotify-embed"
+          src={`https://open.spotify.com/embed/search/${query}`}
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+          title={`${title} on Spotify`}
+        />
       </div>
     );
   }

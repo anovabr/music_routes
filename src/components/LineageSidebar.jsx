@@ -161,12 +161,22 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
   const isResizing = useRef(false);
   const sidebarRef = useRef(null);
 
-  const [zoom, setZoom] = useState(1);
+  const [zoom, setZoomState] = useState(1);
+  const zoomRef = useRef(1);
+  const setZoom = useCallback((v) => {
+    const next = typeof v === 'function' ? v(zoomRef.current) : v;
+    const clamped = Math.max(0.12, Math.min(3, next));
+    zoomRef.current = clamped;
+    setZoomState(clamped);
+    return clamped;
+  }, []);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const treeContainerRef = useRef(null);
   const isPanning = useRef(false);
   const panStart = useRef({ x: 0, y: 0 });
   const panOrigin = useRef({ x: 0, y: 0 });
+  const lastPinchDist = useRef(null);
+  const lastPinchMid = useRef({ x: 0, y: 0 });
 
   // Lineage play state
   const [lineagePlaying, setLineagePlaying] = useState(false);
@@ -323,16 +333,41 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
     setExpandedIds(ids);
   }, [composer?.id, lineageTree]);
 
-  const handleZoomIn  = useCallback(() => setZoom(z => Math.min(2, z + 0.1)), []);
-  const handleZoomOut = useCallback(() => setZoom(z => Math.max(0.4, z - 0.1)), []);
-  const handleZoomReset = useCallback(() => { setZoom(1); setPan({ x: 0, y: 0 }); }, []);
+  const handleZoomIn    = useCallback(() => setZoom(z => z + 0.15), [setZoom]);
+  const handleZoomOut   = useCallback(() => setZoom(z => z - 0.15), [setZoom]);
+  const handleZoomReset = useCallback(() => { setZoom(1); setPan({ x: 0, y: 0 }); }, [setZoom]);
+
+  const handleFitAll = useCallback(() => {
+    const container = treeContainerRef.current;
+    if (!container) return;
+    const inner = container.querySelector('.lineage-tree-inner');
+    if (!inner) return;
+    const saved = inner.style.transform;
+    inner.style.transform = 'none';
+    const iRect = inner.getBoundingClientRect();
+    const cRect = container.getBoundingClientRect();
+    inner.style.transform = saved;
+    if (!iRect.width || !iRect.height) return;
+    const newZoom = setZoom(Math.min((cRect.width - 32) / iRect.width, (cRect.height - 32) / iRect.height));
+    setPan({
+      x: (cRect.width  - iRect.width  * newZoom) / 2,
+      y: (cRect.height - iRect.height * newZoom) / 2,
+    });
+  }, [setZoom]);
 
   const handleWheel = useCallback((e) => {
-    if (e.ctrlKey || e.metaKey) {
-      e.preventDefault();
-      setZoom(z => Math.max(0.4, Math.min(2, z + (e.deltaY > 0 ? -0.1 : 0.1))));
-    }
-  }, []);
+    e.preventDefault();
+    const container = treeContainerRef.current;
+    if (!container) return;
+    const rect = container.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const delta = e.deltaY > 0 ? -0.12 : 0.12;
+    const oldZoom = zoomRef.current;
+    const newZoom = setZoom(oldZoom + delta);
+    const scale = newZoom / oldZoom;
+    setPan(p => ({ x: mouseX - scale * (mouseX - p.x), y: mouseY - scale * (mouseY - p.y) }));
+  }, [setZoom]);
 
   const handlePanStart = useCallback((e) => {
     if (e.button !== 0) return;
@@ -357,6 +392,17 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
   }, []);
 
   const handleTouchStart = useCallback((e) => {
+    if (e.touches.length === 2) {
+      isPanning.current = false;
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      lastPinchDist.current = Math.hypot(dx, dy);
+      lastPinchMid.current = {
+        x: (e.touches[0].clientX + e.touches[1].clientX) / 2,
+        y: (e.touches[0].clientY + e.touches[1].clientY) / 2,
+      };
+      return;
+    }
     if (e.touches.length !== 1) return;
     const t = e.touches[0];
     isPanning.current = true;
@@ -365,12 +411,31 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
   }, [pan]);
 
   const handleTouchMove = useCallback((e) => {
+    if (e.touches.length === 2 && lastPinchDist.current !== null) {
+      e.preventDefault();
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      const newDist = Math.hypot(dx, dy);
+      const container = treeContainerRef.current;
+      const rect = container?.getBoundingClientRect();
+      const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2 - (rect?.left ?? 0);
+      const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2 - (rect?.top ?? 0);
+      const oldZoom = zoomRef.current;
+      const newZoom = setZoom(oldZoom * (newDist / lastPinchDist.current));
+      const scale = newZoom / oldZoom;
+      setPan(p => ({ x: midX - scale * (midX - p.x), y: midY - scale * (midY - p.y) }));
+      lastPinchDist.current = newDist;
+      return;
+    }
     if (!isPanning.current || e.touches.length !== 1) return;
     const t = e.touches[0];
     setPan({ x: panOrigin.current.x + (t.clientX - panStart.current.x), y: panOrigin.current.y + (t.clientY - panStart.current.y) });
-  }, []);
+  }, [setZoom]);
 
-  const handleTouchEnd = useCallback(() => { isPanning.current = false; }, []);
+  const handleTouchEnd = useCallback((e) => {
+    if (e.touches.length < 2) lastPinchDist.current = null;
+    if (e.touches.length === 0) isPanning.current = false;
+  }, []);
 
   const spotifyUrl = composer
     ? `https://open.spotify.com/search/${encodeURIComponent(composer.name)}`
@@ -394,6 +459,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
             <button onClick={handleZoomOut} title="Zoom out">−</button>
             <span className="zoom-level" onClick={handleZoomReset} title="Reset view">{Math.round(zoom * 100)}%</span>
             <button onClick={handleZoomIn} title="Zoom in">+</button>
+            <button onClick={handleFitAll} title="Fit entire tree in view">⤢</button>
             <button onClick={handleExpandAll} title="Expand all">⊞</button>
             <button onClick={handleCollapseAll} title="Collapse">⊟</button>
             <button className="lineage-close" onClick={onClose} aria-label="Close">✕</button>
