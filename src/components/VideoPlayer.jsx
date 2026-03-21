@@ -68,22 +68,24 @@ export default function VideoPlayer({ youtubeId, title, composer }) {
     };
   }, [youtubeId]);
 
-  const searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(`${composer?.name ?? ''} ${title}`)}`;
+  const query = encodeURIComponent(`${composer?.name ?? ''} ${title}`);
+  const spotifyUrl = `https://open.spotify.com/search/${query}`;
+  const youtubeUrl = `https://www.youtube.com/results?search_query=${query}`;
 
   if (unavailable) {
     return (
       <div className="video-unavailable">
-        <div className="video-unavailable-icon">▶</div>
+        <div className="video-unavailable-icon">🎵</div>
         <p className="video-unavailable-title">{title}</p>
-        <p className="video-unavailable-msg">This video is unavailable for embedding.</p>
-        <a
-          href={searchUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="video-unavailable-link"
-        >
-          Search on YouTube →
-        </a>
+        <p className="video-unavailable-msg">Video unavailable — listen here:</p>
+        <div className="video-unavailable-links">
+          <a href={spotifyUrl} target="_blank" rel="noopener noreferrer" className="video-unavailable-link video-unavailable-link--spotify">
+            Spotify
+          </a>
+          <a href={youtubeUrl} target="_blank" rel="noopener noreferrer" className="video-unavailable-link video-unavailable-link--yt">
+            YouTube
+          </a>
+        </div>
       </div>
     );
   }
