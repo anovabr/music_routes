@@ -52,7 +52,6 @@
 
 html, body, #root {
   width: 100%; height: 100%;
-  overflow: hidden;
 }
 
 body {
@@ -531,6 +530,7 @@ button {
   flex-shrink: 0;
   max-height: 140px;
   overflow-y: auto;
+  overscroll-behavior-y: contain;
 }
 
 .lineage-description p {
@@ -753,6 +753,7 @@ button {
 .timeline-content {
   flex: 1;
   overflow-y: auto;
+  overscroll-behavior-y: contain;
   padding: 32px 32px;
   display: flex;
   flex-direction: column;
@@ -1044,6 +1045,7 @@ button {
 .search-results {
   max-height: 300px;
   overflow-y: auto;
+  overscroll-behavior-y: contain;
 }
 
 .search-result {
@@ -1777,10 +1779,6 @@ button {
 }
 
 @media (max-width: 1024px) {
-  html, body, #root {
-    overflow: hidden;
-  }
-
   .app {
     height: 100dvh;
   }
