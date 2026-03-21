@@ -68,28 +68,28 @@ export default function VideoPlayer({ youtubeId, title, composer }) {
     };
   }, [youtubeId]);
 
-  const query = encodeURIComponent(`${composer?.name ?? ''} ${title}`);
-  const spotifyUrl = `https://open.spotify.com/search/${query}`;
-  const youtubeUrl = `https://www.youtube.com/results?search_query=${query}`;
-  const appleMusicUrl = `https://music.apple.com/search?term=${query}`;
+  const searchQuery = `${composer?.name ?? ''} ${title}`;
+  const encodedQuery = encodeURIComponent(searchQuery);
+  const spotifyUrl   = `https://open.spotify.com/search/${encodedQuery}`;
+  const appleMusicUrl = `https://music.apple.com/search?term=${encodedQuery}`;
 
   if (unavailable) {
     return (
       <div className="video-unavailable">
-        <div className="video-unavailable-icon">🎵</div>
-        <p className="video-unavailable-title">{title}</p>
-        <p className="video-unavailable-msg">Video unavailable — listen on:</p>
-        <div className="video-unavailable-links">
-          <a href={spotifyUrl} target="_blank" rel="noopener noreferrer" className="video-unavailable-link video-unavailable-link--spotify">
-            Spotify
-          </a>
-          <a href={appleMusicUrl} target="_blank" rel="noopener noreferrer" className="video-unavailable-link video-unavailable-link--apple">
-            Apple Music
-          </a>
-          <a href={youtubeUrl} target="_blank" rel="noopener noreferrer" className="video-unavailable-link video-unavailable-link--yt">
-            YouTube
-          </a>
+        <div className="video-unavailable-bar">
+          <span className="video-unavailable-title">{title}</span>
+          <div className="video-unavailable-links">
+            <a href={spotifyUrl} target="_blank" rel="noopener noreferrer" className="video-unavailable-link video-unavailable-link--spotify">Spotify ↗</a>
+            <a href={appleMusicUrl} target="_blank" rel="noopener noreferrer" className="video-unavailable-link video-unavailable-link--apple">Apple ↗</a>
+          </div>
         </div>
+        <iframe
+          className="yt-search-embed"
+          src={`https://www.youtube.com/embed?listType=search&list=${encodedQuery}&autoplay=0`}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          title={`Search: ${searchQuery}`}
+        />
       </div>
     );
   }
