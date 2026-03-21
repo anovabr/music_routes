@@ -19,17 +19,18 @@ const TreeNode = memo(function TreeNode({ node, selectedId, ancestorIds, expande
   const period = PERIODS[node.period];
   const isSelected = node.id === selectedId;
   const isAncestor = ancestorIds.has(node.id) && !isSelected;
+  const isSibling = !!node.isSibling;
   const isExpanded = expandedIds.has(node.id);
   const children = node.children?.filter(c => c.period) || [];
   const hasChildren = children.length > 0;
 
   const handleBoxClick = () => {
     onSelect(node);
-    if (hasChildren) onToggle(node.id);
+    if (hasChildren && !isSibling) onToggle(node.id);
   };
 
   return (
-    <div className={`tree-node-wrapper ${depth === 0 ? 'root' : ''}`} style={{ '--depth': depth }}>
+    <div className={`tree-node-wrapper ${depth === 0 ? 'root' : ''} ${isSibling ? 'is-sibling' : ''}`} style={{ '--depth': depth }}>
       <div
         className={`tree-node ${isSelected ? 'selected is-selected' : ''} ${isAncestor ? 'is-ancestor' : ''} ${hasChildren ? 'expandable' : ''}`}
         style={{ '--pc': period?.color }}
@@ -60,7 +61,7 @@ const TreeNode = memo(function TreeNode({ node, selectedId, ancestorIds, expande
             {children.map((child) => (
               <div key={child.id} className="tree-child-wrapper">
                 {children.length > 1 && (
-                  <div className="tree-connector-down" style={{ '--pc': PERIODS[child.period]?.color }} />
+                  <div className={`tree-connector-down${child.isSibling ? ' is-sibling' : ''}`} style={{ '--pc': PERIODS[child.period]?.color }} />
                 )}
                 <TreeNode
                   node={child}

@@ -918,30 +918,32 @@ export function buildLineageTree(composerId) {
   const selected = getComposerNode(composerId);
   if (!selected) return null;
 
-  // Build tree from top ancestor down to selected, then include selected's children
+  const chainIds = new Set([...ancestors.map(a => a.id), composerId]);
+
+  const siblings = (parent) =>
+    (parent?.children || [])
+      .filter(c => c.period && !chainIds.has(c.id))
+      .map(s => ({ ...s, isSibling: true, children: [] }));
+
   if (ancestors.length === 0) {
-    // No ancestors, just return selected with its children
-    return {
-      ...selected,
-      children: selected.children ? [...selected.children] : []
-    };
+    return { ...selected, children: selected.children ? [...selected.children] : [] };
   }
 
-  // Build from top ancestor
   const root = { ...ancestors[0], children: [] };
   let current = root;
 
   for (let i = 1; i < ancestors.length; i++) {
     const next = { ...ancestors[i], children: [] };
-    current.children = [next];
+    const parentFull = getComposerNode(ancestors[i - 1].id);
+    current.children = [next, ...siblings(parentFull)];
     current = next;
   }
 
-  // Add selected as child of last ancestor
-  current.children = [{
-    ...selected,
-    children: selected.children ? [...selected.children] : []
-  }];
+  const lastAncestorFull = getComposerNode(ancestors[ancestors.length - 1].id);
+  current.children = [
+    { ...selected, children: selected.children ? [...selected.children] : [] },
+    ...siblings(lastAncestorFull),
+  ];
 
   return root;
 }

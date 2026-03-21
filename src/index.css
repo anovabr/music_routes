@@ -534,6 +534,27 @@ a:focus:not(:focus-visible) {
   opacity: 0.5;
 }
 
+/* Dashed connector for horizontal-influence siblings */
+.tree-connector-down.is-sibling {
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--pc, var(--border)) 0px,
+    var(--pc, var(--border)) 3px,
+    transparent 3px,
+    transparent 6px
+  );
+  opacity: 0.6;
+}
+
+/* Sibling node cards — visually receded */
+.tree-node-wrapper.is-sibling > .tree-node > .tree-node-body {
+  border-left-style: dashed;
+  opacity: 0.65;
+}
+.tree-node-wrapper.is-sibling > .tree-node > .tree-node-body:hover {
+  opacity: 1;
+}
+
 /* Calculate horizontal connector width based on children */
 .tree-children.siblings .tree-connector-horizontal {
   width: calc(100% - 60px);
