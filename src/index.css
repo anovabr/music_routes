@@ -215,6 +215,7 @@ a:focus:not(:focus-visible) {
   white-space: nowrap;
 }
 .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.theme-toggle--mobile { display: none; }
 
 /* ── Header Period Filters ───────────────────────────────────────────────────── */
 .header-periods {
@@ -2152,6 +2153,8 @@ a:focus:not(:focus-visible) {
 }
 
 @media (max-width: 768px) {
+  .theme-toggle--mobile { display: flex; }
+
   /* ── Compact header: only logo + hamburger visible ── */
   .app-header {
     flex-wrap: nowrap;

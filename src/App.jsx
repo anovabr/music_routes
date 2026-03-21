@@ -208,6 +208,13 @@ export default function App() {
 
         {/* Hamburger button — mobile only */}
         <button
+          className="theme-toggle theme-toggle--mobile"
+          onClick={() => setTheme(t => THEMES[(THEMES.indexOf(t) + 1) % THEMES.length])}
+          title={`Theme: ${THEME_TITLES[theme]} — tap to switch`}
+        >
+          {THEME_LABELS[theme]}
+        </button>
+        <button
           className="hamburger-btn"
           onClick={(e) => { e.stopPropagation(); setMenuOpen(m => !m); }}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
