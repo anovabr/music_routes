@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 const TITLE = 'Classical Music';
 const SUBTITLE = 'by Luis Anunciação';
 const STAFF_LINES = 5;
-const INTRO_MS = 2200;   // how long the intro shows
-const EXIT_MS  = 700;    // curtain exit duration
+const INTRO_MS = 733;    // how long the intro shows
+const EXIT_MS  = 233;    // curtain exit duration
 
 export default function LoadingScreen({ onDone }) {
   const [phase, setPhase] = useState('in'); // 'in' | 'out' | 'done'
