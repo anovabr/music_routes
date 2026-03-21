@@ -156,7 +156,7 @@ function buildLineagePath(lineageTree, targetId) {
 }
 
 export default function LineageSidebar({ composer, onClose, onSelectComposer, onOpenVideo, activeVideo, onCloseVideo }) {
-  const [width, setWidth] = useState(500);
+  const [width, setWidth] = useState(() => Math.round(window.innerWidth * 0.5));
   const [bottomHeight, setBottomHeight] = useState(240);
   const isResizing = useRef(false);
   const isResizingBottom = useRef(false);
