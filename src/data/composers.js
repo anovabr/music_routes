@@ -134,6 +134,125 @@ export const treeData = {
                                     v('Ab Ovo', 'W0txKNHqZPk'),
                                   ]),
                               ]),
+
+                            c('satie', 'Erik Satie', 1866, 1925, 'IMPRESSIONIST', 'French',
+                              'The great iconoclast. Trained at the Paris Conservatoire under Émile Decombes and Georges Mathias — both direct pupils of Chopin — he then renounced that tradition entirely, dissolving Romantic rhetoric into pure atmosphere with the Gymnopédies (1888). He championed simplicity and irony against Wagnerian excess and directly inspired Debussy, Poulenc, Milhaud, and through them the entire French 20th-century tradition.',
+                              [
+                                v('Gymnopédies No. 1', 'S-Xm7s9eGxU'),
+                                v('Gnossiennes No. 1', 'ka6uDPMCVlw'),
+                                v('Gymnopédies Nos. 1–3', 'TLNnDmdGBBg'),
+                              ],
+                              [
+                                c('poulenc', 'Francis Poulenc', 1899, 1963, 'MODERN', 'French',
+                                  'The wittiest and most beloved of Les Six, shaped by Satie\'s irreverence and economy. His music swings between sparkling wit and unexpected depth — the Gloria and Stabat Mater are among the most moving choral works of the 20th century.',
+                                  [
+                                    v('Gloria', 'jB5AJ1dB27c'),
+                                    v('Stabat Mater', '0m4kFYiBqgE'),
+                                    v('Concerto for Two Pianos', 'SgHCHibQSmk'),
+                                  ]),
+
+                                c('milhaud', 'Darius Milhaud', 1892, 1974, 'MODERN', 'French',
+                                  'The most prolific of Les Six. His jazz-inflected polytonality — as in La Création du monde — was revolutionary. He later taught at Mills College in California where he influenced a generation of American composers.',
+                                  [
+                                    v('La Création du monde', 'LfruHYcnFwM'),
+                                    v('Le Bœuf sur le toit', 'kvRGSSiXoyo'),
+                                  ],
+                                  [
+                                    c('reich', 'Steve Reich', 1936, null, 'CONTEMPORARY', 'American',
+                                      'Studied with Milhaud at Mills College. Pioneer of phasing and process music — his tape-loop experiments evolved into a rigorous compositional method. He directly taught and inspired John Adams, the most-performed living American composer.',
+                                      [
+                                        v('Music for 18 Musicians', 'PBiU1wMEPNk'),
+                                        v('Different Trains', 'tCpxC8lmkT0'),
+                                        v('Electric Counterpoint', 'vugqRAX7xQE'),
+                                      ],
+                                      [
+                                        c('adams', 'John Adams', 1947, null, 'CONTEMPORARY', 'American',
+                                          'Post-minimalist. He brought narrative, lyricism, and harmonic richness back to a language stripped bare by Reich and Glass. Nixon in China and Doctor Atomic are landmarks of late 20th-century opera.',
+                                          [
+                                            v('Shaker Loops', 'eiLyfZR1wnI'),
+                                            v('Short Ride in a Fast Machine', 'dpUyQkxD09A'),
+                                            v('Doctor Atomic Symphony', 'XNzRMZflbNE'),
+                                          ]),
+                                      ]),
+                                  ]),
+
+                                c('debussy', 'Claude Debussy', 1862, 1918, 'IMPRESSIONIST', 'French',
+                                  'The founder of musical Impressionism. Trained at the Paris Conservatoire under Ernest Guiraud, he was profoundly shaped by Satie\'s simplicity, Wagner\'s harmony, and Javanese gamelan. He dissolved the iron structures of tonal harmony in favour of colour, atmosphere, and suggestion — opening the door to everything that followed.',
+                                  [
+                                    v('Clair de Lune', 'CvFH_6DNRCY'),
+                                    v('La Mer', 'j5oJt6FVilQ'),
+                                    v('Prélude à l\'après-midi d\'un faune', 'tKVmKgvSCIE'),
+                                    v('Préludes Book 1 (Gieseking)', 'G3-4VFkLUAY', 'Walter Gieseking'),
+                                  ],
+                                  [
+                                    c('messiaen', 'Olivier Messiaen', 1908, 1992, 'MODERN', 'French',
+                                      'The great mystic of 20th-century music. Debussy\'s harmonic colour merged with Catholic theology, birdsong, and Hindu rhythms to create a wholly unique language. His teaching at the Paris Conservatoire shaped the entire post-war avant-garde.',
+                                      [
+                                        v('Quartet for the End of Time', 'meNuFgOq9rs'),
+                                        v('Turangalîla Symphony', 'ZLJtVuWvD7w'),
+                                        v('Vingt Regards — Regard de l\'Enfant-Jésus', 'Dau5jLWzRY8'),
+                                      ],
+                                      [
+                                        c('boulez', 'Pierre Boulez', 1925, 2016, 'CONTEMPORARY', 'French',
+                                          'Messiaen\'s most famous student. He pushed serialism to its extreme limit in works of icy complexity, then became the dominant conductor of his era — reshaping how orchestras performed the 20th-century repertoire.',
+                                          [
+                                            v('Le Marteau sans maître', 'iDMDFZVmQUE'),
+                                            v('Notations I–IV (conductor)', 'QE4MBFDwRgA'),
+                                          ]),
+                                      ]),
+
+                                    c('tiersen', 'Yann Tiersen', 1970, null, 'CONTEMPORARY', 'French',
+                                      'Breton composer best known for the Amélie soundtrack. His impressionistic piano miniatures and layered orchestrations carry forward Debussy\'s atmospheric sensibility into contemporary film and concert music.',
+                                      [
+                                        v('Comptine d\'un autre été', 'H2-1u8xvk54'),
+                                        v('La Valse d\'Amélie', 'WPjMTr6wuSM'),
+                                        v('Sur le fil', 'cvYYqT_uP-w'),
+                                        v('Porz Goret', '6GnLa0K5vc0'),
+                                      ],
+                                      [
+                                        c('rakotondrabe', 'Gaël Rakotondrabe', 1982, null, 'CONTEMPORARY', 'French-Malagasy',
+                                          'Paris-based pianist and composer known for his introspective, minimalist pieces. His atmospheric works continue Tiersen\'s blend of classical and cinematic sensibilities.',
+                                          [
+                                            v('Notre-Dame', 'J8c7K1QmRQo'),
+                                            v('Clair-Obscur', 'mlADwxhT8Zs'),
+                                          ]),
+                                      ]),
+                                  ]),
+
+                                c('eno', 'Brian Eno', 1948, null, 'CONTEMPORARY', 'British',
+                                  'Inventor of ambient music. Though rooted in rock and electronic experimentation, his Music for Airports (1978) created a new genre — quiet, texture-based, non-narrative — that profoundly shaped the contemporary neo-classical piano scene.',
+                                  [
+                                    v('Music for Airports 1/1', 'vNwYtllyt3Q'),
+                                    v('An Ending (Ascent)', 'aKw5mbcE7VY'),
+                                    v('Deep Blue Day', 'nSKsWHzRsHw'),
+                                  ],
+                                  [
+                                    c('arnalds', 'Ólafur Arnalds', 1986, null, 'CONTEMPORARY', 'Icelandic',
+                                      'The foremost voice of Nordic neo-classical music. Eno\'s ambient aesthetic and Satie\'s atmospheric simplicity converge in his delicate fusion of strings, piano, and generative electronics.',
+                                      [
+                                        v('Near Light', 'UXNLNqHqkek'),
+                                        v('Only the Winds', 'GvoyPQDOgso'),
+                                        v('re:member — undone', 'rMzuBgSPh8Y'),
+                                        v('Saman', 'GYy_KzAn5vU'),
+                                      ],
+                                      [
+                                        c('rani', 'Hania Rani', 1990, null, 'CONTEMPORARY', 'Polish',
+                                          'Warsaw-born pianist and composer whose introspective, minimalist works blend classical piano with electronic textures. Her atmospheric style continues Arnalds\'s fusion of acoustic and electronic worlds.',
+                                          [
+                                            v('Eden', 'Nc-mYpOBkvY'),
+                                            v('Glass', 'P1-FkR24mMk'),
+                                            v('F Major', 'q8Y7-Nprlo8'),
+                                          ]),
+                                        c('cipa', 'Carlos Cipa', 1985, null, 'CONTEMPORARY', 'German',
+                                          'Munich-based pianist known for his ethereal, meditative compositions. His delicate touch and atmospheric soundscapes carry forward the neo-classical tradition of Arnalds.',
+                                          [
+                                            v('Correlations', 'HDq3j_H_K-0'),
+                                            v('The Raft', 'k9-_7HhBbsI'),
+                                            v('Debayashi', 'O3k7z3FHAX8'),
+                                          ]),
+                                      ]),
+                                  ]),
+                              ]),
                           ]),
 
                         c('mendelssohn', 'Felix Mendelssohn', 1809, 1847, 'ROMANTIC', 'German',
@@ -476,126 +595,6 @@ export const treeData = {
               [
                 v('Debussy Préludes Book 1', 'G3-4VFkLUAY'),
                 v('Mozart Piano Sonatas', 'QCwHNiKWiGs'),
-              ]),
-          ]),
-      ]),
-
-    // ── SATIE → LES SIX ──────────────────────────────────────────────────────
-    c('satie', 'Erik Satie', 1866, 1925, 'IMPRESSIONIST', 'French',
-      'The great iconoclast. His Gymnopédies dissolved Romantic rhetoric into pure atmosphere a full decade before Debussy. He championed simplicity and irony against Wagnerian excess and directly inspired the group of young French composers who called themselves Les Six.',
-      [
-        v('Gymnopédies No. 1', 'S-Xm7s9eGxU'),
-        v('Gnossiennes No. 1', 'ka6uDPMCVlw'),
-        v('Gymnopédies Nos. 1–3', 'TLNnDmdGBBg'),
-      ],
-      [
-        c('poulenc', 'Francis Poulenc', 1899, 1963, 'MODERN', 'French',
-          'The wittiest and most beloved of Les Six, shaped by Satie\'s irreverence and economy. His music swings between sparkling wit and unexpected depth — the Gloria and Stabat Mater are among the most moving choral works of the 20th century.',
-          [
-            v('Gloria', 'jB5AJ1dB27c'),
-            v('Stabat Mater', '0m4kFYiBqgE'),
-            v('Concerto for Two Pianos', 'SgHCHibQSmk'),
-          ]),
-
-        c('milhaud', 'Darius Milhaud', 1892, 1974, 'MODERN', 'French',
-          'The most prolific of Les Six. His jazz-inflected polytonality — as in La Création du monde — was revolutionary. He later taught at Mills College in California where he influenced a generation of American composers.',
-          [
-            v('La Création du monde', 'LfruHYcnFwM'),
-            v('Le Bœuf sur le toit', 'kvRGSSiXoyo'),
-          ],
-          [
-            c('reich', 'Steve Reich', 1936, null, 'CONTEMPORARY', 'American',
-              'Studied with Milhaud at Mills College. Pioneer of phasing and process music — his tape-loop experiments evolved into a rigorous compositional method. He directly taught and inspired John Adams, the most-performed living American composer.',
-              [
-                v('Music for 18 Musicians', 'PBiU1wMEPNk'),
-                v('Different Trains', 'tCpxC8lmkT0'),
-                v('Electric Counterpoint', 'vugqRAX7xQE'),
-              ],
-              [
-                c('adams', 'John Adams', 1947, null, 'CONTEMPORARY', 'American',
-                  'Post-minimalist. He brought narrative, lyricism, and harmonic richness back to a language stripped bare by Reich and Glass. Nixon in China and Doctor Atomic are landmarks of late 20th-century opera.',
-                  [
-                    v('Shaker Loops', 'eiLyfZR1wnI'),
-                    v('Short Ride in a Fast Machine', 'dpUyQkxD09A'),
-                    v('Doctor Atomic Symphony', 'XNzRMZflbNE'),
-                  ]),
-              ]),
-          ]),
-
-        c('debussy', 'Claude Debussy', 1862, 1918, 'IMPRESSIONIST', 'French',
-          'The founder of musical Impressionism. Trained at the Paris Conservatoire under Ernest Guiraud, he was profoundly shaped by Satie\'s simplicity, Wagner\'s harmony, and Javanese gamelan. He dissolved the iron structures of tonal harmony in favour of colour, atmosphere, and suggestion — opening the door to everything that followed.',
-          [
-            v('Clair de Lune', 'CvFH_6DNRCY'),
-            v('La Mer', 'j5oJt6FVilQ'),
-            v('Prélude à l\'après-midi d\'un faune', 'tKVmKgvSCIE'),
-            v('Préludes Book 1 (Gieseking)', 'G3-4VFkLUAY', 'Walter Gieseking'),
-          ],
-          [
-            c('messiaen', 'Olivier Messiaen', 1908, 1992, 'MODERN', 'French',
-              'The great mystic of 20th-century music. Debussy\'s harmonic colour merged with Catholic theology, birdsong, and Hindu rhythms to create a wholly unique language. His teaching at the Paris Conservatoire shaped the entire post-war avant-garde.',
-              [
-                v('Quartet for the End of Time', 'meNuFgOq9rs'),
-                v('Turangalîla Symphony', 'ZLJtVuWvD7w'),
-                v('Vingt Regards — Regard de l\'Enfant-Jésus', 'Dau5jLWzRY8'),
-              ],
-              [
-                c('boulez', 'Pierre Boulez', 1925, 2016, 'CONTEMPORARY', 'French',
-                  'Messiaen\'s most famous student. He pushed serialism to its extreme limit in works of icy complexity, then became the dominant conductor of his era — reshaping how orchestras performed the 20th-century repertoire.',
-                  [
-                    v('Le Marteau sans maître', 'iDMDFZVmQUE'),
-                    v('Notations I–IV (conductor)', 'QE4MBFDwRgA'),
-                  ]),
-              ]),
-
-            c('tiersen', 'Yann Tiersen', 1970, null, 'CONTEMPORARY', 'French',
-              'Breton composer best known for the Amélie soundtrack. His impressionistic piano miniatures and layered orchestrations carry forward Debussy\'s atmospheric sensibility into contemporary film and concert music.',
-              [
-                v('Comptine d\'un autre été', 'H2-1u8xvk54'),
-                v('La Valse d\'Amélie', 'WPjMTr6wuSM'),
-                v('Sur le fil', 'cvYYqT_uP-w'),
-                v('Porz Goret', '6GnLa0K5vc0'),
-              ],
-              [
-                c('rakotondrabe', 'Gaël Rakotondrabe', 1982, null, 'CONTEMPORARY', 'French-Malagasy',
-                  'Paris-based pianist and composer known for his introspective, minimalist pieces. His atmospheric works continue Tiersen\'s blend of classical and cinematic sensibilities.',
-                  [
-                    v('Notre-Dame', 'J8c7K1QmRQo'),
-                    v('Clair-Obscur', 'mlADwxhT8Zs'),
-                  ]),
-              ]),
-          ]),
-
-        c('eno', 'Brian Eno', 1948, null, 'CONTEMPORARY', 'British',
-          'Inventor of ambient music. Though rooted in rock and electronic experimentation, his Music for Airports (1978) created a new genre — quiet, texture-based, non-narrative — that profoundly shaped the contemporary neo-classical piano scene.',
-          [
-            v('Music for Airports 1/1', 'vNwYtllyt3Q'),
-            v('An Ending (Ascent)', 'aKw5mbcE7VY'),
-            v('Deep Blue Day', 'nSKsWHzRsHw'),
-          ],
-          [
-            c('arnalds', 'Ólafur Arnalds', 1986, null, 'CONTEMPORARY', 'Icelandic',
-              'The foremost voice of Nordic neo-classical music. Eno\'s ambient aesthetic and Satie\'s atmospheric simplicity converge in his delicate fusion of strings, piano, and generative electronics.',
-              [
-                v('Near Light', 'UXNLNqHqkek'),
-                v('Only the Winds', 'GvoyPQDOgso'),
-                v('re:member — undone', 'rMzuBgSPh8Y'),
-                v('Saman', 'GYy_KzAn5vU'),
-              ],
-              [
-                c('rani', 'Hania Rani', 1990, null, 'CONTEMPORARY', 'Polish',
-                  'Warsaw-born pianist and composer whose introspective, minimalist works blend classical piano with electronic textures. Her atmospheric style continues Arnalds\'s fusion of acoustic and electronic worlds.',
-                  [
-                    v('Eden', 'Nc-mYpOBkvY'),
-                    v('Glass', 'P1-FkR24mMk'),
-                    v('F Major', 'q8Y7-Nprlo8'),
-                  ]),
-                c('cipa', 'Carlos Cipa', 1985, null, 'CONTEMPORARY', 'German',
-                  'Munich-based pianist known for his ethereal, meditative compositions. His delicate touch and atmospheric soundscapes carry forward the neo-classical tradition of Arnalds.',
-                  [
-                    v('Correlations', 'HDq3j_H_K-0'),
-                    v('The Raft', 'k9-_7HhBbsI'),
-                    v('Debayashi', 'O3k7z3FHAX8'),
-                  ]),
               ]),
           ]),
       ]),
