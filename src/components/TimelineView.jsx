@@ -1,8 +1,13 @@
-import { useMemo } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import { flatComposers, PERIODS, countDescendants } from '../data/composers';
 
 export default function TimelineView({ activePeriods, selectedComposer, onSelectComposer, onOpenVideo }) {
   const all = useMemo(() => flatComposers(), []);
+  const [collapsedPeriods, setCollapsedPeriods] = useState({});
+
+  const togglePeriodCollapse = useCallback((pid) => {
+    setCollapsedPeriods(prev => ({ ...prev, [pid]: !prev[pid] }));
+  }, []);
 
   const filtered = useMemo(() => {
     return all.filter(c => activePeriods[c.period] !== false);
@@ -18,14 +23,27 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
   }, [filtered]);
 
   const periodOrder = Object.keys(PERIODS);
+  const visiblePeriods = periodOrder.filter(pid => grouped[pid]?.length);
+  const allCollapsed = visiblePeriods.length > 0 && visiblePeriods.every(pid => !!collapsedPeriods[pid]);
+
+  const toggleAll = useCallback(() => {
+    const next = !allCollapsed;
+    setCollapsedPeriods(visiblePeriods.reduce((acc, pid) => ({ ...acc, [pid]: next }), {}));
+  }, [allCollapsed, visiblePeriods]);
 
   return (
     <div className="timeline-view">
+      <div className="timeline-toolbar">
+        <button className="timeline-toggle-all" onClick={toggleAll}>
+          {allCollapsed ? '▶ Expand all' : '▼ Fold all'}
+        </button>
+      </div>
       <div className="timeline-content">
         {periodOrder.map(pid => {
           const composers = grouped[pid];
           if (!composers?.length) return null;
           const period = PERIODS[pid];
+          const isCollapsed = !!collapsedPeriods[pid];
           return (
             <section
               key={pid}
@@ -33,13 +51,20 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
               className="timeline-section"
               style={{ '--pc': period.color }}
             >
-              <div className="timeline-period-header">
+              <div
+                className="timeline-period-header"
+                onClick={() => togglePeriodCollapse(pid)}
+                role="button"
+                aria-expanded={!isCollapsed}
+                title={isCollapsed ? `Expand ${period.name}` : `Collapse ${period.name}`}
+              >
                 <span className="timeline-period-dot" />
                 <h3 className="timeline-period-name">{period.name}</h3>
                 <span className="timeline-period-years">{period.years}</span>
                 <span className="timeline-period-count">{composers.length}</span>
+                <span className="timeline-period-chevron">{isCollapsed ? '▶' : '▼'}</span>
               </div>
-              <div className="timeline-grid">
+              {!isCollapsed && <div className="timeline-grid">
                 {composers.map(c => {
                   const isSelected = selectedComposer?.id === c.id;
                   const isTeacher  = selectedComposer && c.id === selectedComposer.parentId;
@@ -133,7 +158,7 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
                     </div>
                   );
                 })}
-              </div>
+              </div>}
             </section>
           );
         })}

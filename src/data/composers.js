@@ -1,11 +1,16 @@
 export const PERIODS = {
-  BAROQUE:       { id: 'BAROQUE',       name: 'Baroque',        years: '1600–1750',    color: '#C9A84C' },
-  CLASSICAL:     { id: 'CLASSICAL',     name: 'Classical',      years: '1750–1820',    color: '#4CAF7D' },
-  ROMANTIC:      { id: 'ROMANTIC',      name: 'Romantic',       years: '1820–1900',    color: '#E07040' },
-  LATE_ROMANTIC: { id: 'LATE_ROMANTIC', name: 'Late Romantic',  years: '1870–1920',    color: '#D0506A' },
-  IMPRESSIONIST: { id: 'IMPRESSIONIST', name: 'Impressionist',  years: '1880–1920',    color: '#7090D0' },
-  MODERN:        { id: 'MODERN',        name: 'Modern',         years: '1900–1950',    color: '#9060C0' },
-  CONTEMPORARY:  { id: 'CONTEMPORARY',  name: 'Contemporary',   years: '1950–present', color: '#50A0A0' },
+  MEDIEVAL:       { id: 'MEDIEVAL',       name: 'Medieval',        years: '500–1400',     color: '#8B7355' },
+  RENAISSANCE:    { id: 'RENAISSANCE',    name: 'Renaissance',     years: '1400–1600',    color: '#5C8A5A' },
+  BAROQUE:        { id: 'BAROQUE',        name: 'Baroque',         years: '1600–1750',    color: '#C9A84C' },
+  CLASSICAL:      { id: 'CLASSICAL',      name: 'Classical',       years: '1750–1820',    color: '#4CAF7D' },
+  ROMANTIC:       { id: 'ROMANTIC',       name: 'Romantic',        years: '1820–1900',    color: '#E07040' },
+  LATE_ROMANTIC:  { id: 'LATE_ROMANTIC',  name: 'Late Romantic',   years: '1870–1920',    color: '#D0506A' },
+  IMPRESSIONIST:  { id: 'IMPRESSIONIST',  name: 'Impressionist',   years: '1880–1920',    color: '#7090D0' },
+  MODERN:         { id: 'MODERN',         name: 'Modern',          years: '1900–1950',    color: '#9060C0' },
+  AVANT_GARDE:    { id: 'AVANT_GARDE',    name: 'Contemporary · Avant-garde',    years: '1945–1975', color: '#C04888' },
+  MINIMALISM:     { id: 'MINIMALISM',     name: 'Contemporary · Minimalism',     years: '1960–1990', color: '#38A878' },
+  NEW_SIMPLICITY: { id: 'NEW_SIMPLICITY', name: 'Contemporary · New Simplicity', years: '1975–2000', color: '#7888CC' },
+  CONTEMPORARY:   { id: 'CONTEMPORARY',   name: 'Contemporary',                  years: '1950–present', color: '#50A0A0' },
 };
 
 function c(id, name, born, died, period, nationality, description, videos, children = []) {
@@ -23,6 +28,24 @@ export const treeData = {
   type: 'root',
   children: [
 
+    // ── MEDIEVAL ──────────────────────────────────────────────────────────────
+    c('hildegard', 'Hildegard von Bingen', 1098, 1179, 'MEDIEVAL', 'German',
+      'The first composer whose biography is known to history. Her visionary plainchant and the morality play Ordo Virtutum — the earliest surviving musical drama — combine soaring melodic arches with a mystical authority unlike anything before or since.',
+      [v('O Virtus Sapientiae', 'nRpHUBGBB0k'), v('Ordo Virtutum — excerpts', 'RzEfFBBkrQM')]),
+
+    c('machaut', 'Guillaume de Machaut', 1300, 1377, 'MEDIEVAL', 'French',
+      'The towering figure of the Ars Nova. His Messe de Nostre Dame is the first complete polyphonic Mass setting by a single known composer — a watershed in Western music. Equally celebrated as poet, he bound lyric and musical craft more tightly than anyone before him.',
+      [v('Messe de Nostre Dame', 'SIQjwbPp6XQ'), v('Ma fin est mon commencement', 'UNe2RiL5VlI')]),
+
+    // ── RENAISSANCE → BAROQUE ─────────────────────────────────────────────────
+    c('josquin', 'Josquin des Prez', 1450, 1521, 'RENAISSANCE', 'Franco-Flemish',
+      '"The best of composers," Martin Luther called him. His mastery of imitative counterpoint — voices entering in strict canon — set the template for all Renaissance polyphony and directly shaped the sacred language of Palestrina and the Venetian school.',
+      [v('Ave Maria… virgo serena', 'EMSe7TmJYiA'), v('Missa Pange Lingua — Kyrie', 'P7W5GF-SluE')],
+      [
+        c('palestrina', 'Giovanni Palestrina', 1525, 1594, 'RENAISSANCE', 'Italian',
+          'The supreme master of Renaissance polyphony. Pope Gregory XIII charged him with reforming Catholic sacred music; his Missa Papae Marcelli became the model of pure, text-illuminating counterpoint — a touchstone studied by Bach, Mozart, and Beethoven alike.',
+          [v('Missa Papae Marcelli — Kyrie', '7OGgQMJUR5s'), v('Sicut cervus', 'I3PDFnSBbK0')],
+          [
     // ── ITALIAN OPERA: MONTEVERDI → BEL CANTO → VERDI → PUCCINI ───────────────
     c('monteverdi', 'Claudio Monteverdi', 1567, 1643, 'BAROQUE', 'Italian',
       'The inventor of opera. His L\'Orfeo (1607) launched an entirely new art form. His radical text-setting and harmonic daring mark the birth of the Baroque era.',
@@ -134,6 +157,134 @@ export const treeData = {
                                     v('Ab Ovo', 'W0txKNHqZPk'),
                                   ]),
                               ]),
+
+                            c('satie', 'Erik Satie', 1866, 1925, 'IMPRESSIONIST', 'French',
+                              'The great iconoclast. Trained at the Paris Conservatoire under Émile Decombes and Georges Mathias — both direct pupils of Chopin — he then renounced that tradition entirely, dissolving Romantic rhetoric into pure atmosphere with the Gymnopédies (1888). He championed simplicity and irony against Wagnerian excess and directly inspired Debussy, Poulenc, Milhaud, and through them the entire French 20th-century tradition.',
+                              [
+                                v('Gymnopédies No. 1', 'S-Xm7s9eGxU'),
+                                v('Gnossiennes No. 1', 'ka6uDPMCVlw'),
+                                v('Gymnopédies Nos. 1–3', 'TLNnDmdGBBg'),
+                              ],
+                              [
+                                c('poulenc', 'Francis Poulenc', 1899, 1963, 'MODERN', 'French',
+                                  'The wittiest and most beloved of Les Six, shaped by Satie\'s irreverence and economy. His music swings between sparkling wit and unexpected depth — the Gloria and Stabat Mater are among the most moving choral works of the 20th century.',
+                                  [
+                                    v('Gloria', 'jB5AJ1dB27c'),
+                                    v('Stabat Mater', '0m4kFYiBqgE'),
+                                    v('Concerto for Two Pianos', 'SgHCHibQSmk'),
+                                  ]),
+
+                                c('milhaud', 'Darius Milhaud', 1892, 1974, 'MODERN', 'French',
+                                  'The most prolific of Les Six. His jazz-inflected polytonality — as in La Création du monde — was revolutionary. He later taught at Mills College in California where he influenced a generation of American composers.',
+                                  [
+                                    v('La Création du monde', 'LfruHYcnFwM'),
+                                    v('Le Bœuf sur le toit', 'kvRGSSiXoyo'),
+                                  ],
+                                  [
+                                    c('reich', 'Steve Reich', 1936, null, 'MINIMALISM', 'American',
+                                      'Studied with Milhaud at Mills College. Pioneer of phasing and process music — his tape-loop experiments evolved into a rigorous compositional method. He directly taught and inspired John Adams, the most-performed living American composer.',
+                                      [
+                                        v('Music for 18 Musicians', 'PBiU1wMEPNk'),
+                                        v('Different Trains', 'tCpxC8lmkT0'),
+                                        v('Electric Counterpoint', 'vugqRAX7xQE'),
+                                      ],
+                                      [
+                                        c('adams', 'John Adams', 1947, null, 'MINIMALISM', 'American',
+                                          'Post-minimalist. He brought narrative, lyricism, and harmonic richness back to a language stripped bare by Reich and Glass. Nixon in China and Doctor Atomic are landmarks of late 20th-century opera.',
+                                          [
+                                            v('Shaker Loops', 'eiLyfZR1wnI'),
+                                            v('Short Ride in a Fast Machine', 'dpUyQkxD09A'),
+                                            v('Doctor Atomic Symphony', 'XNzRMZflbNE'),
+                                          ]),
+                                      ]),
+                                  ]),
+
+                                c('debussy', 'Claude Debussy', 1862, 1918, 'IMPRESSIONIST', 'French',
+                                  'The founder of musical Impressionism. Trained at the Paris Conservatoire under Ernest Guiraud, he was profoundly shaped by Satie\'s simplicity, Wagner\'s harmony, and Javanese gamelan. He dissolved the iron structures of tonal harmony in favour of colour, atmosphere, and suggestion — opening the door to everything that followed.',
+                                  [
+                                    v('Clair de Lune', 'CvFH_6DNRCY'),
+                                    v('La Mer', 'j5oJt6FVilQ'),
+                                    v('Prélude à l\'après-midi d\'un faune', 'tKVmKgvSCIE'),
+                                    v('Préludes Book 1 (Gieseking)', 'G3-4VFkLUAY', 'Walter Gieseking'),
+                                  ],
+                                  [
+                                    c('messiaen', 'Olivier Messiaen', 1908, 1992, 'MODERN', 'French',
+                                      'The great mystic of 20th-century music. Debussy\'s harmonic colour merged with Catholic theology, birdsong, and Hindu rhythms to create a wholly unique language. His teaching at the Paris Conservatoire shaped the entire post-war avant-garde.',
+                                      [
+                                        v('Quartet for the End of Time', 'meNuFgOq9rs'),
+                                        v('Turangalîla Symphony', 'ZLJtVuWvD7w'),
+                                        v('Vingt Regards — Regard de l\'Enfant-Jésus', 'Dau5jLWzRY8'),
+                                      ],
+                                      [
+                                        c('boulez', 'Pierre Boulez', 1925, 2016, 'AVANT_GARDE', 'French',
+                                          'Messiaen\'s most famous student. He pushed serialism to its extreme limit in works of icy complexity, then became the dominant conductor of his era — reshaping how orchestras performed the 20th-century repertoire.',
+                                          [
+                                            v('Le Marteau sans maître', 'iDMDFZVmQUE'),
+                                            v('Notations I–IV (conductor)', 'QE4MBFDwRgA'),
+                                          ]),
+                                      ]),
+
+                                    c('tiersen', 'Yann Tiersen', 1970, null, 'CONTEMPORARY', 'French',
+                                      'Breton composer best known for the Amélie soundtrack. His impressionistic piano miniatures and layered orchestrations carry forward Debussy\'s atmospheric sensibility into contemporary film and concert music.',
+                                      [
+                                        v('Comptine d\'un autre été', 'H2-1u8xvk54'),
+                                        v('La Valse d\'Amélie', 'WPjMTr6wuSM'),
+                                        v('Sur le fil', 'cvYYqT_uP-w'),
+                                        v('Porz Goret', '6GnLa0K5vc0'),
+                                      ],
+                                      [
+                                        c('rakotondrabe', 'Gaël Rakotondrabe', 1982, null, 'CONTEMPORARY', 'French-Malagasy',
+                                          'Paris-based pianist and composer known for his introspective, minimalist pieces. His atmospheric works continue Tiersen\'s blend of classical and cinematic sensibilities.',
+                                          [
+                                            v('Notre-Dame', 'J8c7K1QmRQo'),
+                                            v('Clair-Obscur', 'mlADwxhT8Zs'),
+                                          ]),
+                                      ]),
+                                  ]),
+
+                                c('eno', 'Brian Eno', 1948, null, 'CONTEMPORARY', 'British',
+                                  'Inventor of ambient music. Though rooted in rock and electronic experimentation, his Music for Airports (1978) created a new genre — quiet, texture-based, non-narrative — that profoundly shaped the contemporary neo-classical piano scene.',
+                                  [
+                                    v('Music for Airports 1/1', 'vNwYtllyt3Q'),
+                                    v('An Ending (Ascent)', 'aKw5mbcE7VY'),
+                                    v('Deep Blue Day', 'nSKsWHzRsHw'),
+                                  ],
+                                  [
+                                    c('arnalds', 'Ólafur Arnalds', 1986, null, 'CONTEMPORARY', 'Icelandic',
+                                      'The foremost voice of Nordic neo-classical music. Eno\'s ambient aesthetic and Satie\'s atmospheric simplicity converge in his delicate fusion of strings, piano, and generative electronics.',
+                                      [
+                                        v('Near Light', 'UXNLNqHqkek'),
+                                        v('Only the Winds', 'GvoyPQDOgso'),
+                                        v('re:member — undone', 'rMzuBgSPh8Y'),
+                                        v('Saman', 'GYy_KzAn5vU'),
+                                      ],
+                                      [
+                                        c('rani', 'Hania Rani', 1990, null, 'CONTEMPORARY', 'Polish',
+                                          'Warsaw-born pianist and composer whose introspective, minimalist works blend classical piano with electronic textures. Her atmospheric style continues Arnalds\'s fusion of acoustic and electronic worlds.',
+                                          [
+                                            v('Eden', 'Nc-mYpOBkvY'),
+                                            v('Glass', 'P1-FkR24mMk'),
+                                            v('F Major', 'q8Y7-Nprlo8'),
+                                          ]),
+                                        c('cipa', 'Carlos Cipa', 1985, null, 'CONTEMPORARY', 'German',
+                                          'Munich-based pianist known for his ethereal, meditative compositions. His delicate touch and atmospheric soundscapes carry forward the neo-classical tradition of Arnalds.',
+                                          [
+                                            v('Correlations', 'HDq3j_H_K-0'),
+                                            v('The Raft', 'k9-_7HhBbsI'),
+                                            v('Debayashi', 'O3k7z3FHAX8'),
+                                          ]),
+                                      ]),
+                                  ]),
+                              ]),
+
+                            c('jobim', 'Antônio Carlos Jobim', 1927, 1994, 'CONTEMPORARY', 'Brazilian',
+                              'The father of Bossa Nova. Jobim openly credited Chopin\'s harmonic poetry and melodic lyricism as a primary influence on his language. His sophisticated chord voicings and languid melodic invention in The Girl from Ipanema and Corcovado brought Brazilian music to the world stage and changed jazz harmony forever.',
+                              [
+                                v('The Girl from Ipanema', 'ykd6loaknlQ'),
+                                v('Corcovado (Quiet Nights)', 'AOmDm7WQXMI'),
+                                v('Wave', 'mFd0QLhB1M4'),
+                                v('Águas de Março', 'B6YGo1AIJYU'),
+                              ]),
                           ]),
 
                         c('mendelssohn', 'Felix Mendelssohn', 1809, 1847, 'ROMANTIC', 'German',
@@ -158,12 +309,43 @@ export const treeData = {
                   ],
                   [
                     c('schubert', 'Franz Schubert', 1797, 1828, 'ROMANTIC', 'Austrian',
-                      'Beethoven\'s neighbour and greatest admirer. Extraordinarily prolific despite dying at 31, leaving over 600 songs, the unfinished 8th Symphony, and devastating late chamber works.',
+                      'Beethoven\'s neighbour and greatest admirer. Extraordinarily prolific despite dying at 31, leaving over 600 songs, the unfinished 8th Symphony, and devastating late chamber works. Schumann discovered and championed his posthumous music, absorbing his lyrical style into the Romantic tradition.',
                       [
                         v('Ave Maria', 'BZVYW39YH_U'),
                         v('Symphony No. 8 "Unfinished"', 'uPSBMkVCQaY'),
                         v('String Quintet in C — Adagio', 'HLMGDyWKPms'),
                         v('Winterreise (Fischer-Dieskau)', 'EsZGBYpYqkQ', 'Fischer-Dieskau'),
+                      ],
+                      [
+                        c('schumann', 'Robert Schumann', 1810, 1856, 'ROMANTIC', 'German',
+                          'Devoted admirer of Schubert, whose posthumous Great C major Symphony he discovered and organised the premiere of. A poet of the piano miniature and the song cycle, he was also the greatest music critic of his age — in 1853 he heard the 20-year-old Brahms and immediately declared him "the one who had to come."',
+                          [
+                            v('Piano Concerto in A minor', 'Kqpnpf1MDKA'),
+                            v('Kinderszenen Op. 15', 'CqFJJJVsXaE'),
+                            v('Dichterliebe Song Cycle', 'k2yNMWf8yiw'),
+                          ],
+                          [
+                            c('brahms', 'Johannes Brahms', 1833, 1897, 'ROMANTIC', 'German',
+                              'Discovered and championed by Schumann. The great conservative of the 19th century — where Wagner pushed into the future, Brahms looked back to Bach and Beethoven, producing symphonies and chamber music of extraordinary depth.',
+                              [
+                                v('Symphony No. 4', 'N3K_kCjhFkE'),
+                                v('Piano Concerto No. 2', 'WBMRLO_Ymd4'),
+                                v('Violin Concerto', 'pR9fkTiCkE8'),
+                                v('Intermezzo Op. 118 No. 2', 'bE5ROgqNVkA'),
+                              ],
+                              [
+                                c('dvorak', 'Antonín Dvořák', 1841, 1904, 'ROMANTIC', 'Czech',
+                                  'Brahms\'s closest friend and greatest advocate. Fused Bohemian folk elements with the Germanic tradition, famously visiting America and composing the "New World" Symphony.',
+                                  [
+                                    v('Symphony No. 9 "New World"', '_WXHkIAeChQ'),
+                                    v('Cello Concerto', 'NqkBIJRrIaI'),
+                                    v('String Quartet "American"', 'sBp2-fHRDcI'),
+                                  ]),
+                                c('clara-schumann', 'Clara Schumann', 1819, 1896, 'ROMANTIC', 'German',
+                                  'Robert\'s wife and the foremost pianist of the Romantic era. Brahms loved her deeply for decades. A gifted composer herself, largely overlooked until recent scholarship restored her rightful place.',
+                                  [v('Piano Concerto in A minor', 'ZR3ycLhEgAQ'), v('Piano Sonata in G minor', 'k10jGGxGkIo')]),
+                              ]),
+                          ]),
                       ]),
 
                     c('czerny', 'Carl Czerny', 1791, 1857, 'ROMANTIC', 'Austrian',
@@ -310,6 +492,24 @@ export const treeData = {
                                             v('Adiós Nonino', 'VTPec8z5vXk'),
                                             v('Four Seasons of Buenos Aires', 'TadxLCMq-2U'),
                                           ]),
+
+                                        c('glass', 'Philip Glass', 1937, null, 'MINIMALISM', 'American',
+                                          'The defining figure of musical minimalism. Formally trained by Boulanger in Paris (1964–66), his hypnotic, cycling patterns also draw deeply from Bach\'s contrapuntal techniques, creating a modern expression of Baroque structure.',
+                                          [
+                                            v('Metamorphosis Two', 'FaovqbcSYqk'),
+                                            v('Koyaanisqatsi', 'jBzXqBJuBME'),
+                                            v('Violin Concerto No. 1', 'OtQOLw_I1LQ'),
+                                            v('Glassworks — Opening', 'n27pMwZ0cDM'),
+                                          ],
+                                          [
+                                            c('max-richter', 'Max Richter', 1966, null, 'CONTEMPORARY', 'German-British',
+                                              'Neoclassical composer who recomposes the canon. His Recomposed Vivaldi and Sleep project brought classical music to new audiences. His work bridges Glass\'s minimalism with Pärt\'s spiritual tintinnabuli — a meditation on silence and sound.',
+                                              [
+                                                v('On the Nature of Daylight', 'rVN1B-tUpgs'),
+                                                v('Recomposed: Vivaldi - Spring 1', 'FAhSyMl2MjU'),
+                                                v('Sleep - Dream 3', 'S3hBksAsLz8'),
+                                              ]),
+                                          ]),
                                       ]),
                                   ]),
                               ]),
@@ -327,6 +527,23 @@ export const treeData = {
                                 v('Violin Concerto', 'tBx31CIkE74'),
                                 v('Symphony No. 2', 'WNTMFy_Lr-A'),
                                 v('Finlandia', 'I8ctfFs_WKQ'),
+                              ]),
+
+                            c('bartok', 'Béla Bartók', 1881, 1945, 'MODERN', 'Hungarian',
+                              'Studied piano with István Thomán, Liszt\'s direct pupil, at the Budapest Royal Academy. He fused Hungarian and Romanian folk music with advanced modernist techniques, creating a uniquely personal language. Ligeti, his fellow Hungarian, explicitly named him as a primary influence.',
+                              [
+                                v('Piano Concerto No. 3', 'YcnX8GhVBDk'),
+                                v('Music for Strings, Percussion & Celesta', 'DixMhDsRxG8'),
+                                v('String Quartet No. 4', 'a4dCGKdU8_4'),
+                              ],
+                              [
+                                c('ligeti', 'György Ligeti', 1923, 2006, 'AVANT_GARDE', 'Hungarian',
+                                  'The great colouristic innovator. Escaping Hungary after 1956, he created micropolyphony — dense clouds of sound where rhythm and harmony blur. Kubrick used his music in 2001: A Space Odyssey. His piano Études are among the most demanding ever written.',
+                                  [
+                                    v('Atmosphères', 'sjDfBLwJjZQ'),
+                                    v('Piano Études — Désordre', 'Ol7pFpjxfEo'),
+                                    v('Lontano', 'kB3RZCZEqo8'),
+                                  ]),
                               ]),
                           ]),
                       ]),
@@ -386,24 +603,6 @@ export const treeData = {
                   'J.S. Bach\'s most famous son. His "empfindsamer Stil" (sensitive style) broke from Baroque formalism and was a direct bridge to the Classical style of Haydn and Mozart.',
                   [v('Prussian Sonata No. 1', 'YUVPBqXY3sc'), v('Symphony Wq 183 No. 1', 'p7zR9UrHqiA')]),
 
-                c('glass', 'Philip Glass', 1937, null, 'CONTEMPORARY', 'American',
-                  'The defining figure of musical minimalism. Though formally trained by Boulanger, his hypnotic, cycling patterns draw deeply from Bach\'s contrapuntal techniques, creating a modern expression of Baroque structure.',
-                  [
-                    v('Metamorphosis Two', 'FaovqbcSYqk'),
-                    v('Koyaanisqatsi', 'jBzXqBJuBME'),
-                    v('Violin Concerto No. 1', 'OtQOLw_I1LQ'),
-                    v('Glassworks — Opening', 'n27pMwZ0cDM'),
-                  ],
-                  [
-                    c('max-richter', 'Max Richter', 1966, null, 'CONTEMPORARY', 'German-British',
-                      'Neoclassical composer who recomposes the canon. His Recomposed Vivaldi and Sleep project brought classical music to new audiences. His work bridges Glass\'s minimalism with Pärt\'s spiritual tintinnabuli — a meditation on silence and sound.',
-                      [
-                        v('On the Nature of Daylight', 'rVN1B-tUpgs'),
-                        v('Recomposed: Vivaldi - Spring 1', 'FAhSyMl2MjU'),
-                        v('Sleep - Dream 3', 'S3hBksAsLz8'),
-                      ]),
-                  ]),
-
                 c('gould', 'Glenn Gould', 1932, 1982, 'CONTEMPORARY', 'Canadian',
                   'The most idiosyncratic and influential pianist of the 20th century. He retired from concert at 31, recording studio performances of uncanny intellectual depth. His 1981 Goldberg Variations is one of the great artistic farewells.',
                   [
@@ -423,7 +622,7 @@ export const treeData = {
             v('30 Sonatas (Horowitz)', 'jG5Xts-vwIY', 'Vladimir Horowitz'),
           ],
           [
-            c('gieseking', 'Walter Gieseking', 1895, 1956, 'CONTEMPORARY', 'German',
+            c('gieseking', 'Walter Gieseking', 1895, 1956, 'MODERN', 'German',
               'Legendary for his feather-light touch and extraordinary tonal palette. His recordings of Debussy and Ravel remain unsurpassed.',
               [
                 v('Debussy Préludes Book 1', 'G3-4VFkLUAY'),
@@ -432,165 +631,14 @@ export const treeData = {
           ]),
       ]),
 
-    // ── SCHUMANN → BRAHMS ────────────────────────────────────────────────────
-    c('schumann', 'Robert Schumann', 1810, 1856, 'ROMANTIC', 'German',
-      'Poet of the Romantic piano miniature. In 1853 he heard the 20-year-old Brahms and immediately declared him "the one who had to come" — the most celebrated discovery in music history.',
-      [
-        v('Piano Concerto in A minor', 'Kqpnpf1MDKA'),
-        v('Kinderszenen Op. 15', 'CqFJJJVsXaE'),
-        v('Dichterliebe Song Cycle', 'k2yNMWf8yiw'),
-      ],
-      [
-        c('brahms', 'Johannes Brahms', 1833, 1897, 'ROMANTIC', 'German',
-          'Discovered and championed by Schumann. The great conservative of the 19th century — where Wagner pushed into the future, Brahms looked back to Bach and Beethoven, producing symphonies and chamber music of extraordinary depth.',
-          [
-            v('Symphony No. 4', 'N3K_kCjhFkE'),
-            v('Piano Concerto No. 2', 'WBMRLO_Ymd4'),
-            v('Violin Concerto', 'pR9fkTiCkE8'),
-            v('Intermezzo Op. 118 No. 2', 'bE5ROgqNVkA'),
-          ],
-          [
-            c('dvorak', 'Antonín Dvořák', 1841, 1904, 'ROMANTIC', 'Czech',
-              'Brahms\'s closest friend and greatest advocate. Fused Bohemian folk elements with the Germanic tradition, famously visiting America and composing the "New World" Symphony.',
+            // ── VENETIAN SCHOOL: GABRIELI → SCHÜTZ ────────────────────────────────
+            c('gabrieli', 'Giovanni Gabrieli', 1557, 1612, 'RENAISSANCE', 'Italian',
+              'The master of Venetian polychoral music. As organist at St Mark\'s Basilica, he pioneered cori spezzati — multiple choirs placed spatially through the basilica, creating the earliest spatial audio. His direct student Heinrich Schütz carried this revolution north, seeding the entire German Baroque.',
+              [v('In Ecclesiis', 'OMNPPAeJYrc'), v('Canzon per sonar No. 1', 'iOvUF8d0P-E')],
               [
-                v('Symphony No. 9 "New World"', '_WXHkIAeChQ'),
-                v('Cello Concerto', 'NqkBIJRrIaI'),
-                v('String Quartet "American"', 'sBp2-fHRDcI'),
-              ]),
-            c('clara-schumann', 'Clara Schumann', 1819, 1896, 'ROMANTIC', 'German',
-              'Robert\'s wife and the foremost pianist of the Romantic era. Brahms loved her deeply for decades. A gifted composer herself, largely overlooked until recent scholarship restored her rightful place.',
-              [v('Piano Concerto in A minor', 'ZR3ycLhEgAQ'), v('Piano Sonata in G minor', 'k10jGGxGkIo')]),
-          ]),
-      ]),
-
-
-    // ── TCHAIKOVSKY → PROKOFIEV ──────────────────────────────────────────────
-    c('tchaikovsky', 'Pyotr Tchaikovsky', 1840, 1893, 'ROMANTIC', 'Russian',
-      'Russia\'s most beloved composer. His gift for soaring melody and rich orchestration defined Russian Romanticism and set the standard that Prokofiev and Shostakovich would later react against and build upon.',
-      [
-        v('Piano Concerto No. 1', 'AAMPuRU4BFU'),
-        v('Violin Concerto', 'KDntuhCqNW4'),
-        v('Swan Lake — Ballet', 'gG5RmfxVLa0'),
-        v('1812 Overture', 'VbM4EIEQb6Q'),
-      ],
-      [
-        c('prokofiev', 'Sergei Prokofiev', 1891, 1953, 'MODERN', 'Russian',
-          'Heir to Tchaikovsky\'s Russian nationalism and lyrical gift. Crisp, sardonic, and deeply lyrical, he wrote under Soviet repression yet produced some of the most vital and inventive music of the 20th century.',
-          [
-            v('Piano Concerto No. 3', 'fnmUvSEPOuY'),
-            v('Romeo and Juliet — Dance of the Knights', 'rvqKl8ERnW4'),
-            v('Symphony No. 1 "Classical"', 'F7kmJBwLGVU'),
-          ],
-          [
-            c('shostakovich', 'Dmitri Shostakovich', 1906, 1975, 'MODERN', 'Russian',
-              'The great voice of the Soviet era. His music is a coded record of suffering and survival — alternating between biting satire and the deepest tragedy. Prokofiev was his direct predecessor and rival.',
-              [
-                v('Symphony No. 5', 'mP-gnCzuapk'),
-                v('String Quartet No. 8', 'RXBmKhBjlqo'),
-                v('Piano Concerto No. 2', 'e5l5UzuHEMk'),
-              ]),
-          ]),
-      ]),
-
-    // ── SATIE → LES SIX ──────────────────────────────────────────────────────
-    c('satie', 'Erik Satie', 1866, 1925, 'IMPRESSIONIST', 'French',
-      'The great iconoclast. His Gymnopédies dissolved Romantic rhetoric into pure atmosphere a full decade before Debussy. He championed simplicity and irony against Wagnerian excess and directly inspired the group of young French composers who called themselves Les Six.',
-      [
-        v('Gymnopédies No. 1', 'S-Xm7s9eGxU'),
-        v('Gnossiennes No. 1', 'ka6uDPMCVlw'),
-        v('Gymnopédies Nos. 1–3', 'TLNnDmdGBBg'),
-      ],
-      [
-        c('poulenc', 'Francis Poulenc', 1899, 1963, 'MODERN', 'French',
-          'The wittiest and most beloved of Les Six, shaped by Satie\'s irreverence and economy. His music swings between sparkling wit and unexpected depth — the Gloria and Stabat Mater are among the most moving choral works of the 20th century.',
-          [
-            v('Gloria', 'jB5AJ1dB27c'),
-            v('Stabat Mater', '0m4kFYiBqgE'),
-            v('Concerto for Two Pianos', 'SgHCHibQSmk'),
-          ]),
-
-        c('milhaud', 'Darius Milhaud', 1892, 1974, 'MODERN', 'French',
-          'The most prolific of Les Six. His jazz-inflected polytonality — as in La Création du monde — was revolutionary. He later taught at Mills College in California where he influenced a generation of American composers.',
-          [
-            v('La Création du monde', 'LfruHYcnFwM'),
-            v('Le Bœuf sur le toit', 'kvRGSSiXoyo'),
-          ]),
-
-        c('eno', 'Brian Eno', 1948, null, 'CONTEMPORARY', 'British',
-          'Inventor of ambient music. Though rooted in rock and electronic experimentation, his Music for Airports (1978) created a new genre — quiet, texture-based, non-narrative — that profoundly shaped the contemporary neo-classical piano scene.',
-          [
-            v('Music for Airports 1/1', 'vNwYtllyt3Q'),
-            v('An Ending (Ascent)', 'aKw5mbcE7VY'),
-            v('Deep Blue Day', 'nSKsWHzRsHw'),
-          ],
-          [
-            c('arnalds', 'Ólafur Arnalds', 1986, null, 'CONTEMPORARY', 'Icelandic',
-              'The foremost voice of Nordic neo-classical music. Eno\'s ambient aesthetic and Satie\'s atmospheric simplicity converge in his delicate fusion of strings, piano, and generative electronics.',
-              [
-                v('Near Light', 'UXNLNqHqkek'),
-                v('Only the Winds', 'GvoyPQDOgso'),
-                v('re:member — undone', 'rMzuBgSPh8Y'),
-                v('Saman', 'GYy_KzAn5vU'),
-              ],
-              [
-                c('rani', 'Hania Rani', 1990, null, 'CONTEMPORARY', 'Polish',
-                  'Warsaw-born pianist and composer whose introspective, minimalist works blend classical piano with electronic textures. Her atmospheric style continues Arnalds\'s fusion of acoustic and electronic worlds.',
-                  [
-                    v('Eden', 'Nc-mYpOBkvY'),
-                    v('Glass', 'P1-FkR24mMk'),
-                    v('F Major', 'q8Y7-Nprlo8'),
-                  ]),
-                c('cipa', 'Carlos Cipa', 1985, null, 'CONTEMPORARY', 'German',
-                  'Munich-based pianist known for his ethereal, meditative compositions. His delicate touch and atmospheric soundscapes carry forward the neo-classical tradition of Arnalds.',
-                  [
-                    v('Correlations', 'HDq3j_H_K-0'),
-                    v('The Raft', 'k9-_7HhBbsI'),
-                    v('Debayashi', 'O3k7z3FHAX8'),
-                  ]),
-              ]),
-          ]),
-      ]),
-
-    // ── DEBUSSY → MESSIAEN → BOULEZ ──────────────────────────────────────────
-    c('debussy', 'Claude Debussy', 1862, 1918, 'IMPRESSIONIST', 'French',
-      'The founder of musical Impressionism. Trained at the Paris Conservatoire under Ernest Guiraud, he was profoundly shaped by Satie\'s simplicity, Wagner\'s harmony, and Javanese gamelan. He dissolved the iron structures of tonal harmony in favour of colour, atmosphere, and suggestion — opening the door to everything that followed.',
-      [
-        v('Clair de Lune', 'CvFH_6DNRCY'),
-        v('La Mer', 'j5oJt6FVilQ'),
-        v('Prélude à l\'après-midi d\'un faune', 'tKVmKgvSCIE'),
-        v('Préludes Book 1 (Gieseking)', 'G3-4VFkLUAY', 'Walter Gieseking'),
-      ],
-      [
-        c('messiaen', 'Olivier Messiaen', 1908, 1992, 'MODERN', 'French',
-          'The great mystic of 20th-century music. Debussy\'s harmonic colour merged with Catholic theology, birdsong, and Hindu rhythms to create a wholly unique language. His teaching at the Paris Conservatoire shaped the entire post-war avant-garde.',
-          [
-            v('Quartet for the End of Time', 'meNuFgOq9rs'),
-            v('Turangalîla Symphony', 'ZLJtVuWvD7w'),
-            v('Vingt Regards — Regard de l\'Enfant-Jésus', 'Dau5jLWzRY8'),
-          ],
-          [
-            c('boulez', 'Pierre Boulez', 1925, 2016, 'CONTEMPORARY', 'French',
-              'Messiaen\'s most famous student. He pushed serialism to its extreme limit in works of icy complexity, then became the dominant conductor of his era — reshaping how orchestras performed the 20th-century repertoire.',
-              [
-                v('Le Marteau sans maître', 'iDMDFZVmQUE'),
-                v('Notations I–IV (conductor)', 'QE4MBFDwRgA'),
-              ]),
-          ]),
-
-        c('tiersen', 'Yann Tiersen', 1970, null, 'CONTEMPORARY', 'French',
-          'Breton composer best known for the Amélie soundtrack. His impressionistic piano miniatures and layered orchestrations carry forward Debussy\'s atmospheric sensibility into contemporary film and concert music.',
-          [
-            v('Comptine d\'un autre été', 'H2-1u8xvk54'),
-            v('La Valse d\'Amélie', 'WPjMTr6wuSM'),
-            v('Sur le fil', 'cvYYqT_uP-w'),
-            v('Porz Goret', '6GnLa0K5vc0'),
-          ],
-          [
-            c('rakotondrabe', 'Gaël Rakotondrabe', 1982, null, 'CONTEMPORARY', 'French-Malagasy',
-              'Paris-based pianist and composer known for his introspective, minimalist pieces. His atmospheric works continue Tiersen\'s blend of classical and cinematic sensibilities.',
-              [
-                v('Notre-Dame', 'J8c7K1QmRQo'),
-                v('Clair-Obscur', 'mlADwxhT8Zs'),
+                c('schutz', 'Heinrich Schütz', 1585, 1672, 'BAROQUE', 'German',
+                  'The most important German composer before Bach. After studying directly with Gabrieli in Venice, Schütz brought Italian polychoral mastery and expressive text-setting to Germany — the decisive bridge between Renaissance Italy and the Lutheran Baroque that culminated in Bach.',
+                  [v('Musikalische Exequien', 'ILxXwnHizls'), v('Saul, Saul, was verfolgst du mich', 'eSFBGm2OQTM')]),
               ]),
           ]),
       ]),
@@ -632,6 +680,33 @@ export const treeData = {
                 v('The Firebird Suite', '3tqhBCM6HxE'),
                 v('Petrushka', 'cEfHe8_wd4k'),
                 v('Symphony of Psalms', 'FGNBrHFQJtY'),
+              ]),
+          ]),
+
+        c('tchaikovsky', 'Pyotr Tchaikovsky', 1840, 1893, 'ROMANTIC', 'Russian',
+          'Russia\'s most beloved composer. Though from the conservatory tradition rather than The Five, Balakirev directly shaped his Romeo and Juliet fantasy overture — providing the programme and demanding revisions until it was right. His gift for soaring melody and rich orchestration set the standard that Prokofiev and Shostakovich would react against and build upon.',
+          [
+            v('Piano Concerto No. 1', 'AAMPuRU4BFU'),
+            v('Violin Concerto', 'KDntuhCqNW4'),
+            v('Swan Lake — Ballet', 'gG5RmfxVLa0'),
+            v('1812 Overture', 'VbM4EIEQb6Q'),
+          ],
+          [
+            c('prokofiev', 'Sergei Prokofiev', 1891, 1953, 'MODERN', 'Russian',
+              'Heir to Tchaikovsky\'s Russian nationalism and lyrical gift. Crisp, sardonic, and deeply lyrical, he wrote under Soviet repression yet produced some of the most vital and inventive music of the 20th century.',
+              [
+                v('Piano Concerto No. 3', 'fnmUvSEPOuY'),
+                v('Romeo and Juliet — Dance of the Knights', 'rvqKl8ERnW4'),
+                v('Symphony No. 1 "Classical"', 'F7kmJBwLGVU'),
+              ],
+              [
+                c('shostakovich', 'Dmitri Shostakovich', 1906, 1975, 'MODERN', 'Russian',
+                  'The great voice of the Soviet era. His music is a coded record of suffering and survival — alternating between biting satire and the deepest tragedy. Prokofiev was his direct predecessor and rival.',
+                  [
+                    v('Symphony No. 5', 'mP-gnCzuapk'),
+                    v('String Quartet No. 8', 'RXBmKhBjlqo'),
+                    v('Piano Concerto No. 2', 'e5l5UzuHEMk'),
+                  ]),
               ]),
           ]),
       ]),
@@ -692,7 +767,7 @@ export const treeData = {
       ]),
 
     // ── POLISH AVANT-GARDE: PENDERECKI & GÓRECKI ─────────────────────────────
-    c('penderecki', 'Krzysztof Penderecki', 1933, 2020, 'CONTEMPORARY', 'Polish',
+    c('penderecki', 'Krzysztof Penderecki', 1933, 2020, 'AVANT_GARDE', 'Polish',
       'The master of controlled chaos. His Threnody for the Victims of Hiroshima (1960) opened new worlds of orchestral texture. Later works like the Polish Requiem returned to a more Romantic grandeur. Kubrick, Lynch, and Scorsese have used his music.',
       [
         v('Threnody for Hiroshima', 'Dp3BlFZWJNA'),
@@ -700,7 +775,7 @@ export const treeData = {
         v('Polymorphia', 'BLvFZrSP8zE'),
       ],
       [
-        c('gorecki', 'Henryk Górecki', 1933, 2010, 'CONTEMPORARY', 'Polish',
+        c('gorecki', 'Henryk Górecki', 1933, 2010, 'NEW_SIMPLICITY', 'Polish',
           'From avant-garde to holy minimalism. His Symphony No. 3 (Symphony of Sorrowful Songs) became a phenomenon in 1992, reaching millions with its meditative simplicity on the theme of maternal loss.',
           [
             v('Symphony No. 3 — Mvt. 2', '_7qdFg4tGwg'),
@@ -708,26 +783,8 @@ export const treeData = {
           ]),
       ]),
 
-    // ── BARTÓK → LIGETI ──────────────────────────────────────────────────────
-    c('bartok', 'Béla Bartók', 1881, 1945, 'MODERN', 'Hungarian',
-      'The great ethnomusicologist-composer. He fused Hungarian and Romanian folk music with the most advanced modernist techniques of his time. Ligeti, his fellow Hungarian, explicitly named him as a primary influence.',
-      [
-        v('Piano Concerto No. 3', 'YcnX8GhVBDk'),
-        v('Music for Strings, Percussion & Celesta', 'DixMhDsRxG8'),
-        v('String Quartet No. 4', 'a4dCGKdU8_4'),
-      ],
-      [
-        c('ligeti', 'György Ligeti', 1923, 2006, 'CONTEMPORARY', 'Hungarian',
-          'The great colouristic innovator. Escaping Hungary after 1956, he created micropolyphony — dense clouds of sound where rhythm and harmony blur. Kubrick used his music in 2001: A Space Odyssey. His piano Études are among the most demanding ever written.',
-          [
-            v('Atmosphères', 'sjDfBLwJjZQ'),
-            v('Piano Études — Désordre', 'Ol7pFpjxfEo'),
-            v('Lontano', 'kB3RZCZEqo8'),
-          ]),
-      ]),
-
     // ── ARVO PÄRT → DUSTIN O'HALLORAN ─────────────────────────────────────────
-    c('part', 'Arvo Pärt', 1935, null, 'CONTEMPORARY', 'Estonian',
+    c('part', 'Arvo Pärt', 1935, null, 'NEW_SIMPLICITY', 'Estonian',
       'Creator of tintinnabuli — a technique of monastic simplicity where a melody voice and a triad voice move in strict counterpoint. After years of silence, his music of spiritual stillness speaks directly to the soul.',
       [
         v('Spiegel im Spiegel', 'TJ6Mzvh3XCc'),
@@ -752,24 +809,6 @@ export const treeData = {
                 v('Atlas', 'kj0i8E6vC5g'),
                 v('The Sand That Ate The Sea', 'sDXKiVs8LxY'),
               ]),
-          ]),
-      ]),
-
-    // ── REICH → ADAMS ────────────────────────────────────────────────────────
-    c('reich', 'Steve Reich', 1936, null, 'CONTEMPORARY', 'American',
-      'Pioneer of phasing and process music. His tape-loop experiments evolved into a rigorous compositional method. He directly taught and inspired John Adams, the most-performed living American composer.',
-      [
-        v('Music for 18 Musicians', 'PBiU1wMEPNk'),
-        v('Different Trains', 'tCpxC8lmkT0'),
-        v('Electric Counterpoint', 'vugqRAX7xQE'),
-      ],
-      [
-        c('adams', 'John Adams', 1947, null, 'CONTEMPORARY', 'American',
-          'Post-minimalist. He brought narrative, lyricism, and harmonic richness back to a language stripped bare by Reich and Glass. Nixon in China and Doctor Atomic are landmarks of late 20th-century opera.',
-          [
-            v('Shaker Loops', 'eiLyfZR1wnI'),
-            v('Short Ride in a Fast Machine', 'dpUyQkxD09A'),
-            v('Doctor Atomic Symphony', 'XNzRMZflbNE'),
           ]),
       ]),
 
@@ -920,30 +959,32 @@ export function buildLineageTree(composerId) {
   const selected = getComposerNode(composerId);
   if (!selected) return null;
 
-  // Build tree from top ancestor down to selected, then include selected's children
+  const chainIds = new Set([...ancestors.map(a => a.id), composerId]);
+
+  const siblings = (parent) =>
+    (parent?.children || [])
+      .filter(c => c.period && !chainIds.has(c.id))
+      .map(s => ({ ...s, isSibling: true, children: [] }));
+
   if (ancestors.length === 0) {
-    // No ancestors, just return selected with its children
-    return {
-      ...selected,
-      children: selected.children ? [...selected.children] : []
-    };
+    return { ...selected, children: selected.children ? [...selected.children] : [] };
   }
 
-  // Build from top ancestor
   const root = { ...ancestors[0], children: [] };
   let current = root;
 
   for (let i = 1; i < ancestors.length; i++) {
     const next = { ...ancestors[i], children: [] };
-    current.children = [next];
+    const parentFull = getComposerNode(ancestors[i - 1].id);
+    current.children = [next, ...siblings(parentFull)];
     current = next;
   }
 
-  // Add selected as child of last ancestor
-  current.children = [{
-    ...selected,
-    children: selected.children ? [...selected.children] : []
-  }];
+  const lastAncestorFull = getComposerNode(ancestors[ancestors.length - 1].id);
+  current.children = [
+    { ...selected, children: selected.children ? [...selected.children] : [] },
+    ...siblings(lastAncestorFull),
+  ];
 
   return root;
 }

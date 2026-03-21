@@ -19,17 +19,18 @@ const TreeNode = memo(function TreeNode({ node, selectedId, ancestorIds, expande
   const period = PERIODS[node.period];
   const isSelected = node.id === selectedId;
   const isAncestor = ancestorIds.has(node.id) && !isSelected;
+  const isSibling = !!node.isSibling;
   const isExpanded = expandedIds.has(node.id);
   const children = node.children?.filter(c => c.period) || [];
   const hasChildren = children.length > 0;
 
   const handleBoxClick = () => {
     onSelect(node);
-    if (hasChildren) onToggle(node.id);
+    if (hasChildren && !isSibling) onToggle(node.id);
   };
 
   return (
-    <div className={`tree-node-wrapper ${depth === 0 ? 'root' : ''}`} style={{ '--depth': depth }}>
+    <div className={`tree-node-wrapper ${depth === 0 ? 'root' : ''} ${isSibling ? 'is-sibling' : ''}`} style={{ '--depth': depth }}>
       <div
         className={`tree-node ${isSelected ? 'selected is-selected' : ''} ${isAncestor ? 'is-ancestor' : ''} ${hasChildren ? 'expandable' : ''}`}
         style={{ '--pc': period?.color }}
@@ -60,7 +61,7 @@ const TreeNode = memo(function TreeNode({ node, selectedId, ancestorIds, expande
             {children.map((child) => (
               <div key={child.id} className="tree-child-wrapper">
                 {children.length > 1 && (
-                  <div className="tree-connector-down" style={{ '--pc': PERIODS[child.period]?.color }} />
+                  <div className={`tree-connector-down${child.isSibling ? ' is-sibling' : ''}`} style={{ '--pc': PERIODS[child.period]?.color }} />
                 )}
                 <TreeNode
                   node={child}
@@ -174,6 +175,10 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
   // Video bar fold state
   const [videoFolded, setVideoFolded] = useState(false);
 
+  // Info panel fold state — collapsed by default on mobile
+  const isMobile = () => window.innerWidth <= 1024;
+  const [infoFolded, setInfoFolded] = useState(() => isMobile());
+
   const lineageTree = useMemo(() => composer ? buildLineageTree(composer.id) : null, [composer?.id]);
 
   const lineagePath = useMemo(
@@ -215,8 +220,28 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
     setLineageIndex(0);
   }, [composer?.id, lineageTree]);
 
+  // After the tree renders, center the selected node so parents sit above and children below
+  useEffect(() => {
+    if (!composer?.id) return;
+    const timer = setTimeout(() => {
+      const container = treeContainerRef.current;
+      if (!container) return;
+      const selectedEl = container.querySelector('.tree-node.is-selected');
+      if (!selectedEl) return;
+      const containerRect = container.getBoundingClientRect();
+      const nodeRect = selectedEl.getBoundingClientRect();
+      const dx = containerRect.left + containerRect.width  / 2 - (nodeRect.left + nodeRect.width  / 2);
+      const dy = containerRect.top  + containerRect.height * 0.35 - (nodeRect.top  + nodeRect.height / 2);
+      setPan(p => ({ x: p.x + dx, y: p.y + dy }));
+    }, 60);
+    return () => clearTimeout(timer);
+  }, [composer?.id]);
+
   // Reset fold whenever a new video opens
   useEffect(() => { setVideoFolded(false); }, [activeVideo?.video?.youtubeId]);
+
+  // Reset info fold whenever the selected composer changes
+  useEffect(() => { setInfoFolded(isMobile()); }, [composer?.id]);
 
   const { wiki, wikiLoading, wikiError } = useWikipedia(composer);
 
@@ -459,57 +484,71 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
               )}
             </div>
           ) : (
-            <div className="lineage-info-panel">
-              {/* Description */}
-              {composer.description && (
-                <p className="lineage-description-text">{composer.description}</p>
-              )}
-
-              {/* Wikipedia snippet */}
-              {wikiLoading && <p className="wiki-loading">Loading Wikipedia…</p>}
-              {wikiError && <p className="wiki-error">Wikipedia unavailable</p>}
-              {wiki && (
-                <div className="wiki-snippet">
-                  <span className="wiki-label">Wikipedia</span>
-                  <p className="wiki-text">{wiki.text}</p>
-                  {wiki.url && (
-                    <a className="wiki-link" href={wiki.url} target="_blank" rel="noopener noreferrer">
-                      Read full article →
-                    </a>
+            <div className={`lineage-info-section${infoFolded ? ' folded' : ''}`}>
+              <div
+                className="lineage-info-header"
+                onClick={() => setInfoFolded(f => !f)}
+                role="button"
+                aria-expanded={!infoFolded}
+                title={infoFolded ? 'Expand info' : 'Collapse info'}
+              >
+                <span className="lineage-info-title">{composer.name}</span>
+                <span className="info-chevron">{infoFolded ? '▲' : '▼'}</span>
+              </div>
+              {!infoFolded && (
+                <div className="lineage-info-panel">
+                  {/* Description */}
+                  {composer.description && (
+                    <p className="lineage-description-text">{composer.description}</p>
                   )}
+
+                  {/* Wikipedia snippet */}
+                  {wikiLoading && <p className="wiki-loading">Loading Wikipedia…</p>}
+                  {wikiError && <p className="wiki-error">Wikipedia unavailable</p>}
+                  {wiki && (
+                    <div className="wiki-snippet">
+                      <span className="wiki-label">Wikipedia</span>
+                      <p className="wiki-text">{wiki.text}</p>
+                      {wiki.url && (
+                        <a className="wiki-link" href={wiki.url} target="_blank" rel="noopener noreferrer">
+                          Read full article →
+                        </a>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Streaming links */}
+                  <div className="streaming-links">
+                    <a
+                      className="streaming-link streaming-spotify"
+                      href={spotifyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title={`Listen to ${composer.name} on Spotify`}
+                    >
+                      <span>🎵</span> Spotify
+                    </a>
+                    <a
+                      className="streaming-link streaming-yt"
+                      href={`https://www.youtube.com/results?search_query=${encodeURIComponent(composer.name + ' classical music')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title={`Search ${composer.name} on YouTube`}
+                    >
+                      <span>▶</span> YouTube
+                    </a>
+                    <a
+                      className="streaming-link streaming-apple"
+                      href={`https://music.apple.com/search?term=${encodeURIComponent(composer.name)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title={`Listen to ${composer.name} on Apple Music`}
+                    >
+                      <span>🎧</span> Apple Music
+                    </a>
+                  </div>
                 </div>
               )}
-
-              {/* Streaming links */}
-              <div className="streaming-links">
-                <a
-                  className="streaming-link streaming-spotify"
-                  href={spotifyUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={`Listen to ${composer.name} on Spotify`}
-                >
-                  <span>🎵</span> Spotify
-                </a>
-                <a
-                  className="streaming-link streaming-yt"
-                  href={`https://www.youtube.com/results?search_query=${encodeURIComponent(composer.name + ' classical music')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={`Search ${composer.name} on YouTube`}
-                >
-                  <span>▶</span> YouTube
-                </a>
-                <a
-                  className="streaming-link streaming-apple"
-                  href={`https://music.apple.com/search?term=${encodeURIComponent(composer.name)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={`Listen to ${composer.name} on Apple Music`}
-                >
-                  <span>🎧</span> Apple Music
-                </a>
-              </div>
             </div>
           )}
         </div>
