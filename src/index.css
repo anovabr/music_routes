@@ -75,6 +75,15 @@ button {
   color: inherit;
 }
 
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+  outline: none;
+}
+
 /* ── App Layout ────────────────────────────────────────────────────────────── */
 .app {
   display: flex;
@@ -296,7 +305,8 @@ button {
 .lineage-controls {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
+  padding: 6px 8px;
 }
 
 .lineage-controls button {
@@ -843,7 +853,6 @@ button {
 }
 
 .timeline-card:hover {
-  transform: translateY(-3px);
   box-shadow: var(--shadow);
 }
 
@@ -1244,7 +1253,7 @@ button {
   top: 0; bottom: 0;
   width: 50%;
   background: var(--bg);
-  transition: transform 0.22s cubic-bezier(0.76, 0, 0.24, 1);
+  transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
 }
 .ls-curtain-l { left: 0; transform-origin: left; }
@@ -1280,7 +1289,7 @@ button {
   background: var(--border);
   border-radius: 1px;
   transform-origin: left;
-  animation: staffDraw 0.13s ease forwards;
+  animation: staffDraw 0.13s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   animation-delay: calc(var(--i) * 27ms);
   transform: scaleX(0);
 }
@@ -1297,7 +1306,7 @@ button {
   color: var(--accent);
   line-height: 1;
   opacity: 0;
-  animation: clefIn 0.2s ease forwards;
+  animation: clefIn 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   animation-delay: 140ms;
 }
 
@@ -1321,7 +1330,7 @@ button {
   display: inline-block;
   opacity: 0;
   transform: translateY(12px);
-  animation: charIn 0.13s ease forwards;
+  animation: charIn 0.13s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   animation-delay: calc(183ms + var(--i) * 12ms);
 }
 
@@ -1343,7 +1352,7 @@ button {
   display: inline-block;
   opacity: 0;
   transform: translateY(6px);
-  animation: charIn 0.12s ease forwards;
+  animation: charIn 0.12s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   animation-delay: calc(300ms + var(--i) * 15ms);
 }
 
@@ -1352,7 +1361,7 @@ button {
   width: 0;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  animation: ruleExpand 0.17s ease forwards;
+  animation: ruleExpand 0.17s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   animation-delay: 467ms;
 }
 
@@ -1677,7 +1686,7 @@ button {
 .lineage-info-panel {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
   padding: 14px 16px;
 }
 
@@ -1708,6 +1717,9 @@ button {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+  margin-top: 2px;
 }
 
 .wiki-label {
@@ -1737,6 +1749,9 @@ button {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  margin-top: 2px;
 }
 
 .streaming-link {
@@ -1842,8 +1857,8 @@ button {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 3px;
-    padding: 10px 8px;
+    gap: 6px;
+    padding: 12px 8px;
     font-size: 11px;
     color: var(--text2);
     position: relative;
@@ -2004,9 +2019,10 @@ button {
   }
 
   .period-btn {
-    padding: 5px 10px;
+    padding: 6px 10px;
     font-size: 11px;
     white-space: nowrap;
+    min-height: 32px;
   }
 
   .period-name {
@@ -2056,6 +2072,10 @@ button {
   .timeline-grid {
     grid-template-columns: 1fr 1fr;
     gap: 10px;
+  }
+
+  .timeline-content {
+    gap: 28px;
   }
 }
 
