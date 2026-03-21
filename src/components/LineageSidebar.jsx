@@ -1,6 +1,5 @@
 import { useState, useMemo, useCallback, useEffect, useRef, memo } from 'react';
 import { PERIODS, buildLineageTree, countDescendants, getWikipediaName } from '../data/composers';
-import VideoPlayer from './VideoPlayer';
 
 function expandPath(node, targetId, ids) {
   if (!node) return false;
@@ -158,7 +157,11 @@ function buildLineagePath(lineageTree, targetId) {
 
 export default function LineageSidebar({ composer, onClose, onSelectComposer, onOpenVideo, activeVideo, onCloseVideo }) {
   const [width, setWidth] = useState(500);
+  const [bottomHeight, setBottomHeight] = useState(240);
   const isResizing = useRef(false);
+  const isResizingBottom = useRef(false);
+  const resizeBottomStartY = useRef(0);
+  const resizeBottomStartH = useRef(0);
   const sidebarRef = useRef(null);
 
   const [zoom, setZoomState] = useState(1);
@@ -290,13 +293,29 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
     e.preventDefault();
   }, []);
 
+  const handleBottomResizeMouseDown = useCallback((e) => {
+    isResizingBottom.current = true;
+    resizeBottomStartY.current = e.clientY;
+    resizeBottomStartH.current = bottomHeight;
+    document.body.style.cursor = 'ns-resize';
+    document.body.style.userSelect = 'none';
+    e.preventDefault();
+    e.stopPropagation();
+  }, [bottomHeight]);
+
   useEffect(() => {
     const handleMouseMove = (e) => {
-      if (!isResizing.current) return;
-      setWidth(Math.max(200, window.innerWidth - e.clientX));
+      if (isResizing.current) {
+        setWidth(Math.max(200, window.innerWidth - e.clientX));
+      }
+      if (isResizingBottom.current) {
+        const dy = resizeBottomStartY.current - e.clientY;
+        setBottomHeight(Math.max(120, Math.min(600, resizeBottomStartH.current + dy)));
+      }
     };
     const handleMouseUp = () => {
       isResizing.current = false;
+      isResizingBottom.current = false;
       document.body.style.cursor = '';
       document.body.style.userSelect = '';
     };
@@ -522,7 +541,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
               ancestorIds={ancestorIds}
               expandedIds={expandedIds}
               onToggle={handleToggle}
-              onSelect={onSelectComposer}
+              onSelect={(node) => { onSelectComposer(node); onCloseVideo(); }}
               onOpenVideo={onOpenVideo}
             />
           </div>
@@ -536,49 +555,51 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
 
       {/* Bottom panel — video, description, Wikipedia, streaming */}
       {composer && (
-        <div className={`lineage-bottom ${activeVideo ? 'has-video' : ''}`}>
+        <div
+          className={`lineage-bottom ${activeVideo ? 'has-video' : ''}`}
+          style={activeVideo ? { height: bottomHeight } : undefined}
+        >
+          <div className="lineage-bottom-resize-handle" onMouseDown={handleBottomResizeMouseDown} />
           {activeVideo ? (
-            <div className={`lineage-video-section${videoFolded ? ' folded' : ''}`}>
-              <div
-                className="lineage-video-header"
-                onClick={() => setVideoFolded(f => !f)}
-                role="button"
-                aria-expanded={!videoFolded}
-                title={videoFolded ? 'Expand video' : 'Collapse video'}
-              >
+            <div className="lineage-video-section">
+              <div className="lineage-video-header">
                 <span className="lineage-video-playing">▶ {activeVideo.video.title}</span>
-                <span className="video-chevron">{videoFolded ? '▲' : '▼'}</span>
+                <button
+                  className="lineage-video-close-btn"
+                  onClick={onCloseVideo}
+                  title="Close player"
+                >✕</button>
               </div>
-              {!videoFolded && (
-                <div className="lineage-video-body">
-                  <div className="lineage-video-pane-left">
-                    <VideoPlayer
-                      youtubeId={activeVideo.video.youtubeId}
-                      title={activeVideo.video.title}
-                      composer={activeVideo.composer}
-                    />
-                  </div>
-                  <div className="lineage-video-pane-right">
-                    <span className="streaming-panel-label">Listen on</span>
-                    <a
-                      className="streaming-panel-btn streaming-panel-spotify"
-                      href={videoSpotifyUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <span>🎵</span> Spotify
-                    </a>
-                    <a
-                      className="streaming-panel-btn streaming-panel-apple"
-                      href={videoAppleUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <span>🎧</span> Apple Music
-                    </a>
-                  </div>
+              <div className="lineage-video-body">
+                <div className="lineage-video-pane-left">
+                  <iframe
+                    src={`https://www.youtube.com/embed?listType=search&list=${encodedVideoQuery}&autoplay=1&rel=0`}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    title={activeVideo.video.title}
+                    style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+                  />
                 </div>
-              )}
+                <div className="lineage-video-pane-right">
+                  <span className="streaming-panel-label">Listen on</span>
+                  <a
+                    className="streaming-panel-btn streaming-panel-spotify"
+                    href={videoSpotifyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span>🎵</span> Spotify
+                  </a>
+                  <a
+                    className="streaming-panel-btn streaming-panel-apple"
+                    href={videoAppleUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span>🎧</span> Apple Music
+                  </a>
+                </div>
+              </div>
             </div>
           ) : (
             <div className={`lineage-info-section${infoFolded ? ' folded' : ''}`}>

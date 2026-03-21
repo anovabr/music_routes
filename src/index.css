@@ -629,30 +629,76 @@ a:focus:not(:focus-visible) {
 /* ── Lineage Bottom (Description / Video) ────────────────────────────────────── */
 .lineage-bottom {
   flex-shrink: 0;
-  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .lineage-bottom.has-video {
   flex: 0 0 auto;
 }
 
+.lineage-bottom-resize-handle {
+  height: 6px;
+  flex-shrink: 0;
+  cursor: ns-resize;
+  background: var(--border);
+  transition: background 0.15s;
+  position: relative;
+}
+
+.lineage-bottom-resize-handle::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--text2);
+  opacity: 0.4;
+}
+
+.lineage-bottom-resize-handle:hover {
+  background: var(--accent);
+}
+
+.lineage-bottom-resize-handle:hover::after {
+  opacity: 0.8;
+}
+
 .lineage-video-section {
   display: flex;
   flex-direction: column;
+  flex: 1;
+  overflow: hidden;
 }
 
 .lineage-video-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 12px;
+  padding: 6px 10px;
   background: var(--bg3);
-  cursor: pointer;
-  user-select: none;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border2);
 }
 
-.lineage-video-header:hover {
+.lineage-video-close-btn {
+  background: none;
+  border: none;
+  color: var(--text2);
+  cursor: pointer;
+  font-size: 13px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.lineage-video-close-btn:hover {
   background: var(--bg2);
+  color: var(--text);
 }
 
 .lineage-video-playing {
@@ -687,7 +733,9 @@ a:focus:not(:focus-visible) {
 .lineage-video-body {
   display: flex;
   flex-direction: row;
-  height: 220px;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
 }
 
 .lineage-video-pane-left {
@@ -695,6 +743,7 @@ a:focus:not(:focus-visible) {
   position: relative;
   background: #000;
   overflow: hidden;
+  min-height: 0;
 }
 
 .lineage-video-pane-right {
@@ -2214,13 +2263,11 @@ a:focus:not(:focus-visible) {
 
   .lineage-video-body {
     flex-direction: column;
-    height: auto;
   }
 
   .lineage-video-pane-left {
-    aspect-ratio: 16 / 9;
+    flex: 2;
     width: 100%;
-    flex: none;
   }
 
   .lineage-video-pane-right {
