@@ -315,10 +315,21 @@ export const treeData = {
                               ]),
 
                             c('grieg', 'Edvard Grieg', 1843, 1907, 'ROMANTIC', 'Norwegian',
-                              'The voice of Norway. He distilled Norwegian folk idioms into Liszt\'s Romantic language, creating music of vivid atmosphere and lyrical beauty.',
+                              'The voice of Norway. He distilled Norwegian folk idioms into Liszt\'s Romantic language, creating music of vivid atmosphere and lyrical beauty. His close friendship with Frederick Delius — whom he met in Leipzig — left a permanent mark on the younger composer\'s harmonic language.',
                               [
                                 v('Piano Concerto in A minor', 'MiJLsGqv37E'),
                                 v('Peer Gynt Suite No. 1', 'O0tH-fkFRZU'),
+                                v('Holberg Suite', 'p5ZVQZ7KFWM'),
+                              ],
+                              [
+                                c('delius', 'Frederick Delius', 1862, 1934, 'IMPRESSIONIST', 'British',
+                                  'The great English Impressionist. After meeting Grieg in Leipzig, he absorbed Nordic harmony and atmosphere and transformed it into a uniquely English lyricism. On Hearing the First Cuckoo in Spring and Brigg Fair are among the most ravishingly beautiful pieces in British music.',
+                                  [
+                                    v('On Hearing the First Cuckoo in Spring', 'OjEBzJeLBLg'),
+                                    v('Brigg Fair — An English Rhapsody', 'jJJNxnL8Gb8'),
+                                    v('A Song of the High Hills', '_u4D6z_iSxc'),
+                                    v('The Walk to the Paradise Garden', 'VNNMFgdRBKo'),
+                                  ]),
                               ]),
 
                             c('sibelius', 'Jean Sibelius', 1865, 1957, 'LATE_ROMANTIC', 'Finnish',
@@ -327,6 +338,24 @@ export const treeData = {
                                 v('Violin Concerto', 'tBx31CIkE74'),
                                 v('Symphony No. 2', 'WNTMFy_Lr-A'),
                                 v('Finlandia', 'I8ctfFs_WKQ'),
+                              ]),
+
+                            c('albeniz', 'Isaac Albéniz', 1860, 1909, 'IMPRESSIONIST', 'Spanish',
+                              'The founding voice of Spanish art music. After studies with Liszt in Weimar, he forged a uniquely Spanish piano language fusing Moorish, Andalusian, and folk elements. His Iberia Suite — twelve pieces of towering complexity — is the pinnacle of Spanish piano writing.',
+                              [
+                                v('Asturias (Leyenda)', 'eLiuCfRhwJM'),
+                                v('Granada — Suite española', 'fFZFkpAObpE'),
+                                v('Iberia — Evocación', 'NVNAJJKGfzk'),
+                                v('Sevilla — Suite española', 'bJ9EOgMwtNw'),
+                              ],
+                              [
+                                c('granados', 'Enrique Granados', 1867, 1916, 'IMPRESSIONIST', 'Spanish',
+                                  'Albéniz\'s great successor in the Spanish piano tradition. His Goyescas — a suite inspired by Goya\'s paintings — brought Spanish music to the operatic stage. He died at 48 when his ship was torpedoed crossing the English Channel after the New York premiere.',
+                                  [
+                                    v('Goyescas — Quejas, o la maja y el ruiseñor', 'sDixP96F3Po'),
+                                    v('Danzas españolas No. 5 "Andaluza"', 'PPj5_5gNqEw'),
+                                    v('El pelele', 'J_D5MkSx-o0'),
+                                  ]),
                               ]),
                           ]),
                       ]),
@@ -430,6 +459,82 @@ export const treeData = {
                 v('Mozart Piano Sonatas', 'QCwHNiKWiGs'),
               ]),
           ]),
+      ]),
+
+    // ── EARLY BAROQUE: SCHÜTZ ────────────────────────────────────────────────
+    c('schutz', 'Heinrich Schütz', 1585, 1672, 'BAROQUE', 'German',
+      'The father of German Baroque music. Trained in Venice under Giovanni Gabrieli, he transplanted Italian Renaissance polyphony into the German Protestant tradition and forged a sacred musical language that pointed directly toward Bach. His Psalmen Davids and Christmas History are cornerstones of the Baroque choral repertoire.',
+      [
+        v('Psalmen Davids — Jauchzet dem Herren', 'vSaHhXOJYfU'),
+        v('Historia der Geburt Jesu Christi', 'JT6VwRRFZQ8'),
+        v('Musikalische Exequien', 'G3_IzH2I4LI'),
+      ]),
+
+    // ── NORTH GERMAN ORGAN SCHOOL: BUXTEHUDE ─────────────────────────────────
+    c('buxtehude', 'Dietrich Buxtehude', 1637, 1707, 'BAROQUE', 'German',
+      'The supreme organist of the Baroque era before Bach. His reputation was so great that the 20-year-old Bach walked 250 miles to hear him play in Lübeck. His free-form praeludia, towering passacaglias, and oratorio Membra Jesu Nostri set the standard for North German organ music.',
+      [
+        v('Membra Jesu Nostri', 'R4BtJr7vAHE'),
+        v('Passacaglia in D minor BuxWV 161', 'cZnvzGFDiY0'),
+        v('Praeludium in G minor BuxWV 149', 'Bi2GE5-TLEM'),
+      ]),
+
+    // ── ITALIAN STRING TRADITION: CORELLI ────────────────────────────────────
+    c('corelli', 'Arcangelo Corelli', 1653, 1713, 'BAROQUE', 'Italian',
+      'The father of the modern violin. He established the concerto grosso form, codified Baroque counterpoint, and trained a generation of violinists. Handel absorbed his style in Rome, and Vivaldi transformed his concerto model into the solo concerto that Bach then transcribed.',
+      [
+        v('Concerto Grosso Op. 6 No. 8 "Christmas"', 'mCwMG1ZTEYU'),
+        v('La Folia — Violin Sonata Op. 5 No. 12', 'Dn3hVEBhlJ4'),
+        v('Concerto Grosso Op. 6 No. 1', 'OE4A5gxP5Q8'),
+      ]),
+
+    // ── PROLIFIC BAROQUE MASTER: TELEMANN ────────────────────────────────────
+    c('telemann', 'Georg Philipp Telemann', 1681, 1767, 'BAROQUE', 'German',
+      'The most prolific composer in history — over 3,000 works. Bach\'s friend and the godfather of C.P.E. Bach, his accessible, tuneful style made him the most celebrated German composer of his day. His Trumpet Concerto in D and Tafelmusik are among the most charming works of the Baroque era.',
+      [
+        v('Trumpet Concerto in D major', 'CqX-TWl4FBs'),
+        v('Water Music — Hamburger Ebb und Flut', 'KE0Kkqbh7Sw'),
+        v('Suite in A minor for Recorder', 'GrTnAy5mlqE'),
+        v('Viola Concerto in G major', 'p5y-kMqDMuE'),
+      ]),
+
+    // ── FRENCH BAROQUE: LULLY → COUPERIN → RAMEAU ───────────────────────────
+    c('lully', 'Jean-Baptiste Lully', 1632, 1687, 'BAROQUE', 'French',
+      'The founder of French opera and the most powerful musical figure at the court of Louis XIV. His operas and ballets defined the French Baroque style for a century. He died from gangrene after accidentally stabbing his own foot with his conducting staff while beating time.',
+      [
+        v('Armide — Overture', 'NRr5PQhfPZI'),
+        v('Te Deum', 'yiKixB5pP2k'),
+        v('Le Bourgeois Gentilhomme — Ballet Suite', 'HNJEkUt2VxQ'),
+      ],
+      [
+        c('couperin', 'François Couperin', 1668, 1733, 'BAROQUE', 'French',
+          'Couperin le Grand — the greatest French harpsichordist of the Baroque era. His exquisitely ornamented pièces de clavecin fused the grandeur of Lully\'s court style with Italian contrapuntal elegance. Bach studied and admired his work deeply.',
+          [
+            v('Les Barricades Mystérieuses', 'NlrTLMoSQ2A'),
+            v('Leçons de Ténèbres', 'ugMrpvXwM4E'),
+            v('Le Tic-Toc-Choc', 'I1VQQpgRTdo'),
+            v('Les Nations — La Française', 'HXxBCVmFkKY'),
+          ],
+          [
+            c('rameau', 'Jean-Philippe Rameau', 1683, 1764, 'BAROQUE', 'French',
+              'The theorist-composer who revolutionised both music and the understanding of harmony. His Traité de l\'Harmonie (1722) became the foundation of tonal theory. His operas and harpsichord pieces united Couperin\'s elegance with a dramatic force that pointed toward Gluck and beyond.',
+              [
+                v('Les Indes galantes — Les Sauvages', 'pIHzeA44miw'),
+                v('Pièces de clavecin en concerts', '7oJBmJXByOo'),
+                v('Dardanus — Chaconne', 'OaJEJJiSgZ0'),
+                v('Hippolyte et Aricie — Overture', 'GxiWYIDqnRQ'),
+              ]),
+          ]),
+      ]),
+
+    // ── FRENCH IMPRESSIONISM: ROUSSEL ────────────────────────────────────────
+    c('roussel', 'Albert Roussel', 1869, 1937, 'IMPRESSIONIST', 'French',
+      'The most rigorous French composer between Franck and the neo-classicists. Trained late — he was a naval officer until 26 — his music charts a path from Debussy\'s harmonic world toward a leaner, harder-edged modernism. His Symphony No. 3 is one of the great French symphonies.',
+      [
+        v('Symphony No. 3 in G minor', 'X27k0Ct_DPY'),
+        v('Bacchus et Ariane — Suite No. 2', 'LM6bkHSFhk4'),
+        v('Le Festin de l\'Araignée', 'T6Kp8neTpK4'),
+        v('Petite Suite', 'bnQXI9j6D9I'),
       ]),
 
     // ── SCHUMANN → BRAHMS ────────────────────────────────────────────────────
@@ -592,6 +697,23 @@ export const treeData = {
                 v('Notre-Dame', 'J8c7K1QmRQo'),
                 v('Clair-Obscur', 'mlADwxhT8Zs'),
               ]),
+          ]),
+
+        c('dukas', 'Paul Dukas', 1865, 1935, 'IMPRESSIONIST', 'French',
+          'Debussy\'s close friend and fellow traveller in musical Impressionism. A perfectionist who destroyed most of his own manuscripts, his surviving works are of the highest quality. The Sorcerer\'s Apprentice is one of the most vivid pieces of orchestral storytelling ever conceived.',
+          [
+            v('The Sorcerer\'s Apprentice', '3Q7BPXT3MvY'),
+            v('La Péri — Fanfare & Ballet', 'MTJuK11J5YA'),
+            v('Piano Sonata in E-flat minor', 'wl0k0hZRsew'),
+          ]),
+
+        c('de-falla', 'Manuel de Falla', 1876, 1946, 'MODERN', 'Spanish',
+          'The greatest Spanish composer of the 20th century. Seven years in Paris among Debussy, Ravel, and Dukas transformed his technique; returning to Spain, he fused their harmonic language with the deep song of Andalusia to produce music of smouldering, inimitable intensity.',
+          [
+            v('El Amor Brujo — Ritual Fire Dance', 'mVMEDMTKDMM'),
+            v('Nights in the Gardens of Spain', 'GNNjkPOT5oA'),
+            v('El Sombrero de Tres Picos — Suite No. 2', 'VJOeZFQDdmA'),
+            v('La vida breve — Spanish Dance', 'u0f5YJWzWas'),
           ]),
       ]),
 
