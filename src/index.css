@@ -1256,313 +1256,308 @@ a:focus:not(:focus-visible) {
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   LOADING SCREEN  — 5 shuffled variants
+   LOADING SCREEN  — 5 structurally distinct variants, shuffled on load
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ── Variant accent colours ─────────────────────────────────────────────── */
-/* staff  → default var(--accent) */
-[data-variant="bloom"]  { --ls-accent: #d4a843; }   /* orchestral gold    */
-[data-variant="violin"] { --ls-accent: #c8780a; }   /* Stradivari amber   */
-[data-variant="wave"]   { --ls-accent: #38bdf8; }   /* flowing cyan       */
-[data-variant="piano"]  { --ls-accent: #d6c9a8; }   /* ivory cream        */
+/* ── Per-variant accent colour ──────────────────────────────────────────── */
+[data-variant="staff"]  { --ls-accent: var(--accent); }
+[data-variant="bloom"]  { --ls-accent: #d4a843; }   /* orchestral gold     */
+[data-variant="violin"] { --ls-accent: #c8780a; }   /* Stradivari amber    */
+[data-variant="wave"]   { --ls-accent: #38bdf8; }   /* flowing cyan        */
+[data-variant="piano"]  { --ls-accent: #c9b98a; }   /* aged ivory          */
 
 /* ── Root shell ─────────────────────────────────────────────────────────── */
 .ls-root {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
+  position: fixed; inset: 0; z-index: 9999;
   background: var(--bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   pointer-events: all;
 }
 
-/* Two curtain panels that split apart on exit */
 .ls-curtain {
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 50%;
+  position: absolute; top: 0; bottom: 0; width: 50%;
   background: var(--bg);
   transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
 }
-.ls-curtain-l { left: 0; transform-origin: left; }
+.ls-curtain-l { left: 0;  transform-origin: left; }
 .ls-curtain-r { right: 0; transform-origin: right; }
 .ls-root.ls-exit .ls-curtain-l { transform: translateX(-100%); }
 .ls-root.ls-exit .ls-curtain-r { transform: translateX(100%); }
 
-/* Centred content sits above the curtains */
 .ls-content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
   transition: opacity 0.12s ease;
 }
 .ls-root.ls-exit .ls-content { opacity: 0; }
 
-/* ── Shared structure ───────────────────────────────────────────────────── */
-.ls-staff {
-  position: relative;
-  width: 200px;
-  height: 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-
+/* ── Shared text elements ───────────────────────────────────────────────── */
 .ls-title {
   font-family: 'Playfair Display', serif;
   font-size: clamp(22px, 5vw, 40px);
   font-weight: 600;
   letter-spacing: 0.04em;
   color: var(--text);
-  display: flex;
-  gap: 0;
+  display: flex; gap: 0;
 }
-
 .ls-subtitle {
   font-family: var(--mono);
   font-size: clamp(10px, 2vw, 13px);
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--ls-accent, var(--accent));
+  color: var(--ls-accent);
   display: flex;
 }
-
-.ls-clef {
-  position: absolute;
-  left: -12px;
-  top: -14px;
-  font-size: 72px;
-  color: var(--ls-accent, var(--accent));
-  line-height: 1;
-  opacity: 0;
-}
-
 .ls-rule {
-  height: 1px;
-  width: 0;
-  background: linear-gradient(90deg, transparent, var(--ls-accent, var(--accent)), transparent);
+  height: 1px; width: 0;
+  background: linear-gradient(90deg, transparent, var(--ls-accent), transparent);
 }
 
 /* ── Shared keyframes ───────────────────────────────────────────────────── */
-@keyframes staffDraw   { to { transform: scaleX(1); } }
-@keyframes clefIn      { from { opacity:0; transform: scale(0.7) translateY(8px); }
-                         to   { opacity:1; transform: scale(1)   translateY(0);   } }
-@keyframes charUp      { to   { opacity:1; transform: translateY(0); } }
-@keyframes charFade    { to   { opacity:1; } }
-@keyframes ruleExpand  { to   { width: 220px; } }
+@keyframes lsDraw    { to { transform: scaleX(1); } }
+@keyframes lsFadeIn  { to { opacity: 1; } }
+@keyframes lsCharUp  { to { opacity: 1; transform: translateY(0); } }
+@keyframes lsRuleExp { to { width: 220px; } }
 
 /* ════════════════════════════════════════════════════════════════════════════
-   V0 — STAFF  (letters stagger up, staff lines draw left→right)
+   V0 — STAFF: classic music notation — staff lines draw, clef appears, letters rise
    ════════════════════════════════════════════════════════════════════════════ */
+.ls-staff {
+  position: relative; width: 220px; height: 64px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  margin-bottom: 4px;
+}
+.ls-clef {
+  position: absolute; left: -14px; top: -16px;
+  font-size: 80px; line-height: 1;
+  color: var(--ls-accent);
+  opacity: 0;
+}
+
+[data-variant="staff"] .ls-staff-line,
+[data-variant="wave"]  .ls-staff-line {
+  height: 1.5px; border-radius: 1px;
+  background: var(--border);
+  transform-origin: left; transform: scaleX(0);
+}
 [data-variant="staff"] .ls-staff-line {
-  height: 1.5px;
-  background: var(--border);
-  border-radius: 1px;
-  transform-origin: left;
-  transform: scaleX(0);
-  animation: staffDraw 0.15s cubic-bezier(0.4,0,0.2,1) forwards;
-  animation-delay: calc(var(--i) * 30ms);
-}
-[data-variant="staff"] .ls-clef {
-  animation: clefIn 0.22s cubic-bezier(0.4,0,0.2,1) forwards 150ms;
-}
-[data-variant="staff"] .ls-char {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(12px);
-  animation: charUp 0.15s cubic-bezier(0.4,0,0.2,1) forwards;
-  animation-delay: calc(200ms + var(--i) * 14ms);
-}
-[data-variant="staff"] .ls-char-sub {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(6px);
-  animation: charUp 0.13s cubic-bezier(0.4,0,0.2,1) forwards;
-  animation-delay: calc(350ms + var(--i) * 16ms);
-}
-[data-variant="staff"] .ls-rule {
-  animation: ruleExpand 0.2s cubic-bezier(0.4,0,0.2,1) forwards 500ms;
-}
-
-/* ════════════════════════════════════════════════════════════════════════════
-   V1 — BLOOM  (whole block scales+fades from centre, gold palette)
-   ════════════════════════════════════════════════════════════════════════════ */
-@keyframes lsBloom {
-  from { opacity: 0; transform: scale(0.78); }
-  to   { opacity: 1; transform: scale(1); }
-}
-@keyframes clefSpin {
-  from { opacity: 0; transform: scale(0.5) rotate(-20deg); }
-  to   { opacity: 1; transform: scale(1)   rotate(0deg);   }
-}
-[data-variant="bloom"] .ls-content {
-  opacity: 0;
-  animation: lsBloom 0.5s cubic-bezier(0.34,1.3,0.64,1) forwards;
-}
-[data-variant="bloom"] .ls-staff-line {
-  height: 1.5px;
-  background: var(--border);
-  border-radius: 1px;
-  opacity: 0;
-  transform: scaleX(1);
-  animation: charFade 0.25s ease forwards;
-  animation-delay: calc(var(--i) * 45ms + 80ms);
-}
-[data-variant="bloom"] .ls-clef {
-  animation: clefSpin 0.45s cubic-bezier(0.34,1.2,0.64,1) forwards 60ms;
-}
-[data-variant="bloom"] .ls-char {
-  display: inline-block;
-  opacity: 0;
-  animation: charFade 0.3s ease forwards;
-  animation-delay: calc(280ms + var(--i) * 9ms);
-}
-[data-variant="bloom"] .ls-char-sub {
-  display: inline-block;
-  opacity: 0;
-  animation: charFade 0.25s ease forwards;
-  animation-delay: calc(450ms + var(--i) * 14ms);
-}
-[data-variant="bloom"] .ls-rule {
-  animation: ruleExpand 0.25s ease forwards 540ms;
-}
-
-/* ════════════════════════════════════════════════════════════════════════════
-   V2 — VIOLIN  (bow-stroke rule draws first, warm amber, legato title)
-   ════════════════════════════════════════════════════════════════════════════ */
-@keyframes bowStroke {
-  from { width: 0; opacity: 0.4; }
-  to   { width: 260px; opacity: 1; }
-}
-@keyframes clefGlow {
-  from { opacity: 0; transform: scale(0.85) translateY(4px); filter: blur(4px); }
-  to   { opacity: 1; transform: scale(1)    translateY(0);   filter: blur(0);   }
-}
-@keyframes charLegato {
-  from { opacity: 0; letter-spacing: 0.14em; }
-  to   { opacity: 1; letter-spacing: inherit; }
-}
-[data-variant="violin"] .ls-rule {
-  animation: bowStroke 0.55s cubic-bezier(0.4,0,0.2,1) forwards 0ms;
-}
-[data-variant="violin"] .ls-staff-line {
-  height: 1.5px;
-  background: var(--border);
-  border-radius: 1px;
-  transform-origin: left;
-  transform: scaleX(0);
-  animation: staffDraw 0.18s ease forwards;
-  animation-delay: calc(var(--i) * 45ms + 550ms);
-}
-[data-variant="violin"] .ls-clef {
-  animation: clefGlow 0.35s ease forwards 750ms;
-}
-[data-variant="violin"] .ls-char {
-  display: inline-block;
-  opacity: 0;
-  animation: charLegato 0.22s ease forwards;
-  animation-delay: calc(780ms + var(--i) * 22ms);
-}
-[data-variant="violin"] .ls-char-sub {
-  display: inline-block;
-  opacity: 0;
-  animation: charFade 0.18s ease forwards;
-  animation-delay: calc(1050ms + var(--i) * 18ms);
-}
-
-/* ════════════════════════════════════════════════════════════════════════════
-   V3 — WAVE  (letters bounce in with sine-offset Y, ripple across)
-   ════════════════════════════════════════════════════════════════════════════ */
-@keyframes waveChar {
-  0%   { opacity: 0; transform: translateY(var(--wy, 12px)); }
-  55%  { opacity: 1; transform: translateY(-3px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-@keyframes waveStaff {
-  from { opacity: 0; transform: scaleX(0); }
-  to   { opacity: 1; transform: scaleX(1); }
-}
-[data-variant="wave"] .ls-staff-line {
-  height: 1.5px;
-  background: var(--border);
-  border-radius: 1px;
-  transform-origin: center;
-  transform: scaleX(0);
-  opacity: 0;
-  animation: waveStaff 0.2s ease forwards;
+  animation: lsDraw 0.18s cubic-bezier(0.4,0,0.2,1) forwards;
   animation-delay: calc(var(--i) * 35ms);
 }
-[data-variant="wave"] .ls-clef {
-  animation: clefIn 0.22s ease forwards 180ms;
+[data-variant="staff"] .ls-clef {
+  animation: staffClef 0.25s cubic-bezier(0.34,1.2,0.64,1) forwards 180ms;
 }
-[data-variant="wave"] .ls-char {
-  display: inline-block;
-  opacity: 0;
-  animation: waveChar 0.38s cubic-bezier(0.34,1.2,0.64,1) forwards;
-  animation-delay: calc(200ms + var(--i) * 38ms);
+@keyframes staffClef {
+  from { opacity: 0; transform: scale(0.6) translateY(10px); }
+  to   { opacity: 1; transform: scale(1)   translateY(0); }
 }
-[data-variant="wave"] .ls-char-sub {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(6px);
-  animation: charUp 0.14s ease forwards;
-  animation-delay: calc(550ms + var(--i) * 18ms);
+[data-variant="staff"] .ls-char {
+  display: inline-block; opacity: 0; transform: translateY(14px);
+  animation: lsCharUp 0.16s cubic-bezier(0.4,0,0.2,1) forwards;
+  animation-delay: calc(220ms + var(--i) * 15ms);
 }
-[data-variant="wave"] .ls-rule {
-  animation: ruleExpand 0.22s ease forwards 680ms;
+[data-variant="staff"] .ls-char-sub {
+  display: inline-block; opacity: 0; transform: translateY(7px);
+  animation: lsCharUp 0.14s ease forwards;
+  animation-delay: calc(420ms + var(--i) * 16ms);
+}
+[data-variant="staff"] .ls-rule {
+  animation: lsRuleExp 0.22s ease forwards 580ms;
 }
 
 /* ════════════════════════════════════════════════════════════════════════════
-   V4 — PIANO  (letters drop from above like keys, ivory palette, slight bounce)
+   V1 — BLOOM: HUGE treble clef spins in as sole hero, no staff, gold palette
    ════════════════════════════════════════════════════════════════════════════ */
-@keyframes pianoKey {
-  0%   { opacity: 0; transform: translateY(-22px); }
-  65%  { opacity: 1; transform: translateY(3px); }
+.ls-bloom-clef {
+  font-size: clamp(90px, 18vw, 130px);
+  line-height: 1;
+  color: var(--ls-accent);
+  opacity: 0;
+  text-align: center;
+  filter: drop-shadow(0 0 18px color-mix(in srgb, var(--ls-accent) 45%, transparent));
+}
+@keyframes bloomClef {
+  0%   { opacity: 0; transform: scale(0.25) rotate(-35deg); filter: blur(12px) drop-shadow(0 0 0px transparent); }
+  70%  { opacity: 1; transform: scale(1.08) rotate(3deg); }
+  100% { opacity: 1; transform: scale(1)    rotate(0deg); filter: drop-shadow(0 0 18px color-mix(in srgb, var(--ls-accent) 45%, transparent)); }
+}
+[data-variant="bloom"] .ls-bloom-clef {
+  animation: bloomClef 0.7s cubic-bezier(0.34,1.3,0.64,1) forwards;
+}
+[data-variant="bloom"] .ls-char {
+  display: inline-block; opacity: 0;
+  animation: lsFadeIn 0.35s ease forwards;
+  animation-delay: calc(520ms + var(--i) * 10ms);
+}
+[data-variant="bloom"] .ls-char-sub {
+  display: inline-block; opacity: 0;
+  animation: lsFadeIn 0.28s ease forwards;
+  animation-delay: calc(720ms + var(--i) * 14ms);
+}
+[data-variant="bloom"] .ls-rule {
+  animation: lsRuleExp 0.28s ease forwards 900ms;
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   V2 — VIOLIN: bow-stroke line draws first, then 4 amber strings appear,
+                title fades in with letter-spacing collapse (legato)
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* The bow stroke — appears before the strings */
+.ls-bow {
+  height: 2px; width: 0; border-radius: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--ls-accent) 30%, var(--ls-accent) 70%, transparent 100%);
+  margin-bottom: 4px;
+}
+[data-variant="violin"] .ls-bow {
+  animation: violinBow 0.7s cubic-bezier(0.4,0,0.15,1) forwards 0ms;
+}
+@keyframes violinBow {
+  0%   { width: 0;     opacity: 0.3; }
+  40%  { opacity: 1; }
+  100% { width: 280px; opacity: 0.85; }
+}
+
+/* 4 violin strings (horizontal, progressively thicker like E A D G) */
+.ls-strings {
+  position: relative; width: 280px; height: 72px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 4px 0; margin-bottom: 4px;
+}
+.ls-string {
+  border-radius: 1px;
+  background: var(--ls-accent);
+  transform-origin: left; transform: scaleX(0); opacity: 0;
+  animation: lsDraw 0.45s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+.ls-string:nth-child(1) { height: 1px;   animation-delay: 750ms; }   /* E — thinnest */
+.ls-string:nth-child(2) { height: 1.5px; animation-delay: 850ms; }   /* A */
+.ls-string:nth-child(3) { height: 2px;   animation-delay: 950ms; }   /* D */
+.ls-string:nth-child(4) { height: 3px;   animation-delay: 1050ms; }  /* G — thickest */
+
+/* Bridge — thin vertical mark at the centre */
+.ls-bridge {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  top: 0; bottom: 0; width: 2px; border-radius: 1px;
+  background: var(--ls-accent); opacity: 0;
+  animation: lsFadeIn 0.2s ease forwards 1150ms;
+}
+
+@keyframes charLegato {
+  from { opacity: 0; letter-spacing: 0.22em; }
+  to   { opacity: 1; letter-spacing: 0.04em; }
+}
+[data-variant="violin"] .ls-char {
+  display: inline-block; opacity: 0;
+  animation: charLegato 0.35s ease forwards;
+  animation-delay: calc(1200ms + var(--i) * 25ms);
+}
+[data-variant="violin"] .ls-char-sub {
+  display: inline-block; opacity: 0;
+  animation: lsFadeIn 0.22s ease forwards;
+  animation-delay: calc(1600ms + var(--i) * 20ms);
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   V3 — WAVE: staff expands from centre, letters bounce in as a visible ripple,
+              title gets a colour gradient (cyan to white)
+   ════════════════════════════════════════════════════════════════════════════ */
+[data-variant="wave"] .ls-staff-line {
+  animation: waveStaff 0.25s ease forwards;
+  animation-delay: calc(var(--i) * 40ms);
+}
+@keyframes waveStaff {
+  from { transform: scaleX(0); opacity: 0.4; }
+  to   { transform: scaleX(1); opacity: 1; }
+}
+[data-variant="wave"] .ls-clef {
+  animation: staffClef 0.28s cubic-bezier(0.34,1.2,0.64,1) forwards 210ms;
+}
+
+/* Gradient title */
+[data-variant="wave"] .ls-title {
+  background: linear-gradient(110deg, var(--text) 30%, var(--ls-accent) 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes waveChar {
+  0%   { opacity: 0; transform: translateY(var(--wy, 14px)); }
+  55%  { opacity: 1; transform: translateY(-5px); }
   100% { opacity: 1; transform: translateY(0); }
 }
-@keyframes pianoStaff {
-  from { transform: scaleX(0); }
-  to   { transform: scaleX(1); }
+[data-variant="wave"] .ls-char {
+  display: inline-block; opacity: 0;
+  animation: waveChar 0.45s cubic-bezier(0.34,1.3,0.64,1) forwards;
+  animation-delay: calc(260ms + var(--i) * 45ms);
 }
-@keyframes pianoClef {
-  from { opacity: 0; transform: translateY(-16px) scale(0.8); }
-  to   { opacity: 1; transform: translateY(0)     scale(1);   }
+[data-variant="wave"] .ls-char-sub {
+  display: inline-block; opacity: 0; transform: translateY(6px);
+  animation: lsCharUp 0.16s ease forwards;
+  animation-delay: calc(680ms + var(--i) * 20ms);
 }
-[data-variant="piano"] .ls-staff-line {
-  height: 1.5px;
-  background: var(--border);
-  border-radius: 1px;
-  transform-origin: left;
-  transform: scaleX(0);
-  animation: pianoStaff 0.14s cubic-bezier(0.4,0,0.2,1) forwards;
-  animation-delay: calc(var(--i) * 28ms);
+[data-variant="wave"] .ls-rule {
+  animation: lsRuleExp 0.24s ease forwards 840ms;
 }
-[data-variant="piano"] .ls-clef {
-  animation: pianoClef 0.25s cubic-bezier(0.4,0,0.2,1) forwards 145ms;
+
+/* ════════════════════════════════════════════════════════════════════════════
+   V4 — PIANO: mini keyboard (7 white + 5 black keys) drops in, then title
+   ════════════════════════════════════════════════════════════════════════════ */
+.ls-keyboard {
+  position: relative;
+  width: 210px; height: 90px;
+  display: flex; gap: 3px;
+  margin-bottom: 6px;
 }
+.ls-white-key {
+  flex: 1; height: 90px;
+  background: var(--ls-accent);
+  border-radius: 0 0 5px 5px;
+  border: 1px solid color-mix(in srgb, var(--ls-accent) 60%, #000);
+  opacity: 0; transform: translateY(-44px);
+}
+[data-variant="piano"] .ls-white-key {
+  animation: keyDrop 0.28s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+  animation-delay: calc(var(--i) * 45ms);
+}
+@keyframes keyDrop {
+  0%   { opacity: 0; transform: translateY(-44px); }
+  65%  { opacity: 1; transform: translateY(4px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.ls-black-key {
+  position: absolute; top: 0;
+  width: 13%; height: 56px;
+  background: color-mix(in srgb, var(--bg) 60%, #000 40%);
+  border-radius: 0 0 4px 4px;
+  border: 1px solid color-mix(in srgb, var(--bg) 30%, #000);
+  z-index: 2;
+  opacity: 0; transform: translateY(-34px);
+}
+[data-variant="piano"] .ls-black-key {
+  animation: blackKeyDrop 0.22s ease forwards;
+  animation-delay: calc(var(--bi) * 50ms + 120ms);
+}
+@keyframes blackKeyDrop {
+  0%   { opacity: 0; transform: translateY(-34px); }
+  70%  { opacity: 1; transform: translateY(2px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 [data-variant="piano"] .ls-char {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(-22px);
-  animation: pianoKey 0.22s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
-  animation-delay: calc(230ms + var(--i) * 20ms);
+  display: inline-block; opacity: 0; transform: translateY(-20px);
+  animation: keyDrop 0.24s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+  animation-delay: calc(460ms + var(--i) * 22ms);
 }
 [data-variant="piano"] .ls-char-sub {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(6px);
-  animation: charUp 0.15s ease forwards;
-  animation-delay: calc(620ms + var(--i) * 16ms);
+  display: inline-block; opacity: 0; transform: translateY(7px);
+  animation: lsCharUp 0.16s ease forwards;
+  animation-delay: calc(820ms + var(--i) * 17ms);
 }
 [data-variant="piano"] .ls-rule {
-  animation: ruleExpand 0.2s ease forwards 760ms;
+  animation: lsRuleExp 0.22s ease forwards 980ms;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
