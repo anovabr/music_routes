@@ -1621,6 +1621,42 @@ button {
    LINEAGE INFO PANEL (description + Wikipedia + streaming)
    ═══════════════════════════════════════════════════════════════════════════ */
 
+.lineage-info-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.lineage-info-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--bg3);
+  cursor: pointer;
+  user-select: none;
+}
+
+.lineage-info-header:hover {
+  background: var(--bg2);
+}
+
+.lineage-info-title {
+  font-size: 12px;
+  color: var(--text1);
+  font-weight: 500;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.info-chevron {
+  font-size: 10px;
+  color: var(--text2);
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
 .lineage-info-panel {
   display: flex;
   flex-direction: column;
@@ -1831,6 +1867,20 @@ button {
   }
 
   .video-chevron {
+    font-size: 13px;
+  }
+
+  /* Taller info header bar for easy tap on mobile */
+  .lineage-info-header {
+    min-height: 52px;
+    padding: 8px 16px;
+  }
+
+  .lineage-info-title {
+    font-size: 13px;
+  }
+
+  .info-chevron {
     font-size: 13px;
   }
 }

@@ -174,6 +174,9 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
   // Video bar fold state
   const [videoFolded, setVideoFolded] = useState(false);
 
+  // Info panel fold state
+  const [infoFolded, setInfoFolded] = useState(false);
+
   const lineageTree = useMemo(() => composer ? buildLineageTree(composer.id) : null, [composer?.id]);
 
   const lineagePath = useMemo(
@@ -459,57 +462,71 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
               )}
             </div>
           ) : (
-            <div className="lineage-info-panel">
-              {/* Description */}
-              {composer.description && (
-                <p className="lineage-description-text">{composer.description}</p>
-              )}
-
-              {/* Wikipedia snippet */}
-              {wikiLoading && <p className="wiki-loading">Loading Wikipedia…</p>}
-              {wikiError && <p className="wiki-error">Wikipedia unavailable</p>}
-              {wiki && (
-                <div className="wiki-snippet">
-                  <span className="wiki-label">Wikipedia</span>
-                  <p className="wiki-text">{wiki.text}</p>
-                  {wiki.url && (
-                    <a className="wiki-link" href={wiki.url} target="_blank" rel="noopener noreferrer">
-                      Read full article →
-                    </a>
+            <div className={`lineage-info-section${infoFolded ? ' folded' : ''}`}>
+              <div
+                className="lineage-info-header"
+                onClick={() => setInfoFolded(f => !f)}
+                role="button"
+                aria-expanded={!infoFolded}
+                title={infoFolded ? 'Expand info' : 'Collapse info'}
+              >
+                <span className="lineage-info-title">{composer.name}</span>
+                <span className="info-chevron">{infoFolded ? '▲' : '▼'}</span>
+              </div>
+              {!infoFolded && (
+                <div className="lineage-info-panel">
+                  {/* Description */}
+                  {composer.description && (
+                    <p className="lineage-description-text">{composer.description}</p>
                   )}
+
+                  {/* Wikipedia snippet */}
+                  {wikiLoading && <p className="wiki-loading">Loading Wikipedia…</p>}
+                  {wikiError && <p className="wiki-error">Wikipedia unavailable</p>}
+                  {wiki && (
+                    <div className="wiki-snippet">
+                      <span className="wiki-label">Wikipedia</span>
+                      <p className="wiki-text">{wiki.text}</p>
+                      {wiki.url && (
+                        <a className="wiki-link" href={wiki.url} target="_blank" rel="noopener noreferrer">
+                          Read full article →
+                        </a>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Streaming links */}
+                  <div className="streaming-links">
+                    <a
+                      className="streaming-link streaming-spotify"
+                      href={spotifyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title={`Listen to ${composer.name} on Spotify`}
+                    >
+                      <span>🎵</span> Spotify
+                    </a>
+                    <a
+                      className="streaming-link streaming-yt"
+                      href={`https://www.youtube.com/results?search_query=${encodeURIComponent(composer.name + ' classical music')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title={`Search ${composer.name} on YouTube`}
+                    >
+                      <span>▶</span> YouTube
+                    </a>
+                    <a
+                      className="streaming-link streaming-apple"
+                      href={`https://music.apple.com/search?term=${encodeURIComponent(composer.name)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title={`Listen to ${composer.name} on Apple Music`}
+                    >
+                      <span>🎧</span> Apple Music
+                    </a>
+                  </div>
                 </div>
               )}
-
-              {/* Streaming links */}
-              <div className="streaming-links">
-                <a
-                  className="streaming-link streaming-spotify"
-                  href={spotifyUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={`Listen to ${composer.name} on Spotify`}
-                >
-                  <span>🎵</span> Spotify
-                </a>
-                <a
-                  className="streaming-link streaming-yt"
-                  href={`https://www.youtube.com/results?search_query=${encodeURIComponent(composer.name + ' classical music')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={`Search ${composer.name} on YouTube`}
-                >
-                  <span>▶</span> YouTube
-                </a>
-                <a
-                  className="streaming-link streaming-apple"
-                  href={`https://music.apple.com/search?term=${encodeURIComponent(composer.name)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={`Listen to ${composer.name} on Apple Music`}
-                >
-                  <span>🎧</span> Apple Music
-                </a>
-              </div>
             </div>
           )}
         </div>
