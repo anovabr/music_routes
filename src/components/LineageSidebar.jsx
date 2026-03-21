@@ -174,8 +174,9 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
   // Video bar fold state
   const [videoFolded, setVideoFolded] = useState(false);
 
-  // Info panel fold state
-  const [infoFolded, setInfoFolded] = useState(false);
+  // Info panel fold state — collapsed by default on mobile
+  const isMobile = () => window.innerWidth <= 1024;
+  const [infoFolded, setInfoFolded] = useState(() => isMobile());
 
   const lineageTree = useMemo(() => composer ? buildLineageTree(composer.id) : null, [composer?.id]);
 
@@ -222,7 +223,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
   useEffect(() => { setVideoFolded(false); }, [activeVideo?.video?.youtubeId]);
 
   // Reset info fold whenever the selected composer changes
-  useEffect(() => { setInfoFolded(false); }, [composer?.id]);
+  useEffect(() => { setInfoFolded(isMobile()); }, [composer?.id]);
 
   const { wiki, wikiLoading, wikiError } = useWikipedia(composer);
 
