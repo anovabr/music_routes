@@ -396,11 +396,6 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
             <button onClick={handleZoomIn} title="Zoom in">+</button>
             <button onClick={handleExpandAll} title="Expand all">⊞</button>
             <button onClick={handleCollapseAll} title="Collapse">⊟</button>
-            {lineagePath.length > 1 && !lineagePlaying && (
-              <button className="lineage-play-btn" onClick={handlePlayLineage} title="Play through the entire lineage">
-                ▶ Tour
-              </button>
-            )}
             <button className="lineage-close" onClick={onClose} aria-label="Close">✕</button>
           </div>
         )}
