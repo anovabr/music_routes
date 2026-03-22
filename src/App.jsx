@@ -334,7 +334,7 @@ export default function App() {
             title="Buy me a coffee"
             onDoubleClick={e => { e.preventDefault(); showToast('You\'re a true patron of the arts! Grazie mille!'); }}
           >
-            <span>Buy me a coffee</span>
+            ☕ <span>Buy me a coffee</span>
           </a>
           <button
             className="theme-toggle"

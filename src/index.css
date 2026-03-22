@@ -1430,21 +1430,25 @@ a:focus:not(:focus-visible) {
 }
 
 .search-toggle {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--surface);
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 4px;
+  background: transparent;
   border: 1px solid var(--border);
-  font-size: 14px;
+  color: var(--text2);
+  font-size: 13px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
   transition: all var(--transition);
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .search-toggle:hover {
-  background: var(--surface2);
   border-color: var(--accent);
+  color: var(--accent);
 }
 
 .search-dropdown {
