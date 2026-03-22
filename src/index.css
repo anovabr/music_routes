@@ -1346,7 +1346,9 @@ a:focus:not(:focus-visible) {
 
 .timeline-card.is-selected {
   border-left-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 6%, var(--surface));
+  border-left-width: 3px;
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent), var(--shadow-sm);
 }
 
 /* ── Lineage highlighting ──────────────────────────────────────── */

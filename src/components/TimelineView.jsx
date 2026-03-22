@@ -36,6 +36,7 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
   }, [allCollapsed, visiblePeriods]);
 
   const contentRef = useRef(null);
+  const selectedCardRef = useRef(null);
 
   useEffect(() => {
     const container = contentRef.current;
@@ -57,6 +58,16 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
     container.querySelectorAll('[data-period]').forEach(el => observer.observe(el));
     return () => observer.disconnect();
   }, [visiblePeriods]);
+
+  // When selectedComposer changes, uncollapse its period and scroll its card into view
+  useEffect(() => {
+    if (!selectedComposer) return;
+    setCollapsedPeriods(prev => ({ ...prev, [selectedComposer.period]: false }));
+    // Scroll after a brief tick so the period can expand first
+    setTimeout(() => {
+      selectedCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 80);
+  }, [selectedComposer?.id]);
 
   return (
     <div className="timeline-view">
@@ -139,6 +150,7 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
                   return (
                     <div
                       key={c.id}
+                      ref={isSelected ? selectedCardRef : null}
                       className={cardClass}
                       onClick={() => onSelectComposer(isSelected ? null : c)}
                     >
