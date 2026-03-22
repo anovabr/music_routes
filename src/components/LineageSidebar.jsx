@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect, useRef, memo } from 'react';
+import { useState, useMemo, useCallback, useEffect, useRef, memo, forwardRef, useImperativeHandle } from 'react';
 import { PERIODS, buildLineageTree, countDescendants, getWikipediaName } from '../data/composers';
 import { findEmbeddableVideoId } from '../utils/youtubeSearch';
 import { downloadComposerCard } from '../utils/shareCard';
@@ -157,7 +157,7 @@ function buildLineagePath(lineageTree, targetId) {
   return path.filter(c => c.videos?.length > 0);
 }
 
-export default function LineageSidebar({ composer, onClose, onSelectComposer, onSelectComposerFromTree, onOpenVideo, activeVideo, onCloseVideo }) {
+const LineageSidebar = forwardRef(function LineageSidebar({ composer, onClose, onSelectComposer, onSelectComposerFromTree, onOpenVideo, activeVideo, onCloseVideo }, ref) {
   const [width, setWidth] = useState(() => Math.round(window.innerWidth * 0.5));
   // On mobile, default to enough height to show video + header; on desktop use compact default
   const [bottomHeight, setBottomHeight] = useState(() => {
@@ -397,6 +397,11 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
     setExpandedIds(ids);
   }, [composer?.id, lineageTree]);
 
+  useImperativeHandle(ref, () => ({
+    expandAll: handleExpandAll,
+    collapseAll: handleCollapseAll,
+  }), [handleExpandAll, handleCollapseAll]);
+
   const handleZoomIn    = useCallback(() => setZoom(z => z + 0.15), [setZoom]);
   const handleZoomOut   = useCallback(() => setZoom(z => z - 0.15), [setZoom]);
   const handleZoomReset = useCallback(() => { setZoom(1); setPan({ x: 0, y: 0 }); }, [setZoom]);
@@ -540,8 +545,10 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
             <span className="zoom-level" onClick={handleZoomReset} title="Reset view">{Math.round(zoom * 100)}%</span>
             <button onClick={handleZoomIn} title="Zoom in">+</button>
             <button onClick={handleFitAll} title="Fit entire tree in view">⤢</button>
-            <button onClick={handleExpandAll} title="Expand all">⊞</button>
-            <button onClick={handleCollapseAll} title="Collapse">⊟</button>
+            <span className="lineage-fold-controls">
+              <button onClick={handleExpandAll} title="Expand all">⊞</button>
+              <button onClick={handleCollapseAll} title="Collapse">⊟</button>
+            </span>
             <button className="lineage-close" onClick={onClose} aria-label="Close">✕</button>
           </div>
         )}
@@ -750,4 +757,6 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
       )}
     </aside>
   );
-}
+});
+
+export default LineageSidebar;

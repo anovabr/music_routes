@@ -31,6 +31,7 @@ export default function App() {
   const [nationalityFilter, setNationalityFilter] = useState(null);
   const [toast, setToast]         = useState(null); // { msg, id }
   const searchRef = useRef(null);
+  const lineageSidebarRef = useRef(null);
   const toastCounterRef = useRef(0);
   const clefClicksRef = useRef(0);
   const clefTimerRef  = useRef(null);
@@ -230,7 +231,13 @@ export default function App() {
           <span className="byline">by Luis Anunciação</span>
         </div>
 
-        {/* Hamburger button — mobile only */}
+        {/* Mobile-only: expand/collapse tree + theme — shown before hamburger */}
+        {selectedComposer && (
+          <span className="mobile-tree-controls">
+            <button onClick={() => lineageSidebarRef.current?.expandAll()} title="Expand all">⊞</button>
+            <button onClick={() => lineageSidebarRef.current?.collapseAll()} title="Collapse">⊟</button>
+          </span>
+        )}
         <button
           className="theme-toggle theme-toggle--mobile"
           onClick={toggleTheme}
@@ -380,6 +387,7 @@ export default function App() {
         </div>
 
         <LineageSidebar
+          ref={lineageSidebarRef}
           composer={selectedComposer}
           onClose={() => setSelectedComposer(null)}
           onOpenVideo={handleOpenVideo}

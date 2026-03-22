@@ -218,6 +218,7 @@ a:focus:not(:focus-visible) {
 }
 .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
 .theme-toggle--mobile { display: none; }
+.mobile-tree-controls { display: none; }
 
 /* ── Header Period Filters ───────────────────────────────────────────────────── */
 .header-periods {
@@ -2733,6 +2734,26 @@ a:focus:not(:focus-visible) {
 
 @media (max-width: 768px) {
   .theme-toggle--mobile { display: flex; }
+
+  .mobile-tree-controls {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-left: auto;
+  }
+  .mobile-tree-controls button {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    border-radius: var(--radius);
+    padding: 3px 7px;
+    font-size: 14px;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .mobile-tree-controls button:active { color: var(--accent); }
+
+  .lineage-fold-controls { display: none; }
 
   /* ── Compact header: only logo + hamburger visible ── */
   .app-header {
