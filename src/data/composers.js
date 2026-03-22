@@ -167,6 +167,15 @@ export const treeData = {
                                 v('Gymnopédies Nos. 1–3', 'TLNnDmdGBBg'),
                               ],
                               [
+                                c('riopy', 'RIOPY', 1986, null, 'CONTEMPORARY', 'French',
+                                  'Born Jean-Baptiste Morali. Studied at the Paris Conservatoire. Has cited Satie and Chopin as his primary influences — Satie\'s harmonic stillness is the most direct antecedent to his sparse, meditative solo piano writing.',
+                                  [
+                                    v('Bliss', 'WNn-nFdK4dM'),
+                                    v('Aum', 'QtPRQmhBmcs'),
+                                    v('Bloom', 'kBlJnXkQBpM'),
+                                    v('Jupiter', 'RqkXaAWJZaY'),
+                                  ]),
+
                                 c('poulenc', 'Francis Poulenc', 1899, 1963, 'MODERN', 'French',
                                   'The wittiest and most beloved of Les Six, shaped by Satie\'s irreverence and economy. His music swings between sparkling wit and unexpected depth — the Gloria and Stabat Mater are among the most moving choral works of the 20th century.',
                                   [
@@ -949,6 +958,7 @@ export function getWikipediaName(composer) {
     'frahm': 'Nils_Frahm',
     'arnalds': 'Ólafur_Arnalds',
     'glass': 'Philip_Glass',
+    'riopy': 'RIOPY',
   };
   if (overrides[composer.id]) return overrides[composer.id];
   return composer.name.replace(/ /g, '_');
