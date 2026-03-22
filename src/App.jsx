@@ -14,9 +14,9 @@ const DEFAULT_PERIODS = Object.keys(PERIODS).reduce(
 
 export default function App() {
   const [loaded, setLoaded]       = useState(false);
-  const THEMES = ['dark', 'light', 'joby', 'jeton'];
-  const THEME_LABELS = { dark: 'Dark', light: 'Light', joby: 'Joby', jeton: 'Jeton' };
-  const THEME_TITLES = { dark: 'Classic dark', light: 'Classic light', joby: 'Joby — futuristic dark', jeton: 'Jeton — warm light' };
+  const THEMES = ['dark', 'light'];
+  const THEME_LABELS = { dark: 'Dark', light: 'Light' };
+  const THEME_TITLES = { dark: 'Classic dark', light: 'Classic light' };
   const [theme, setTheme]         = useState('dark');
   const [selectedComposer, setSelectedComposer] = useState(null);
   const [activeVideo, setActiveVideo]           = useState(null);

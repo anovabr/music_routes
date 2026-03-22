@@ -875,22 +875,23 @@ a:focus:not(:focus-visible) {
 .start-here-btn:hover { opacity: 0.85; }
 
 .map-btn {
-  background: var(--surface);
-  color: var(--text);
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 4px;
+  background: transparent;
   border: 1px solid var(--border);
-  font-size: 16px;
-  padding: 0;
-  width: 34px;
-  height: 34px;
-  border-radius: var(--radius);
-  cursor: pointer;
+  color: var(--text2);
+  font-size: 13px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s;
+  cursor: pointer;
+  transition: all var(--transition);
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
-.map-btn:hover { background: var(--surface2); }
+.map-btn:hover { border-color: var(--accent); color: var(--accent); }
 
 .guided-paths-modal {
   background: var(--bg2);
@@ -1846,7 +1847,6 @@ a:focus:not(:focus-visible) {
    HEADER — SHARE · SHORTCUTS BUTTONS
    ═══════════════════════════════════════════════════════════════════════════ */
 
-.share-btn,
 .shortcuts-btn,
 .random-btn {
   width: 32px; height: 32px;
@@ -1860,6 +1860,21 @@ a:focus:not(:focus-visible) {
   transition: all var(--transition);
   flex-shrink: 0;
 }
+.share-btn {
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 4px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text2);
+  font-size: 13px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
 .share-btn:hover, .shortcuts-btn:hover, .random-btn:hover {
   border-color: var(--accent);
   color: var(--accent);
