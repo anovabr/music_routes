@@ -1,6 +1,7 @@
 import { useState, useMemo, useCallback, useEffect, useRef, memo } from 'react';
 import { PERIODS, buildLineageTree, countDescendants, getWikipediaName } from '../data/composers';
 import { findEmbeddableVideoId } from '../utils/youtubeSearch';
+import { downloadComposerCard } from '../utils/shareCard';
 
 function expandPath(node, targetId, ids) {
   if (!node) return false;
@@ -119,7 +120,7 @@ function useWikipedia(composer) {
             const cut = text.lastIndexOf('.', 240);
             text = cut > 60 ? text.slice(0, cut + 1) : text.slice(0, 240) + '…';
           }
-          const result = { text, url: data.content_urls?.desktop?.page };
+          const result = { text, url: data.content_urls?.desktop?.page, thumbnail: data.thumbnail?.source ?? null };
           wikiCache[composer.id] = result;
           setWiki(result);
         } else {
@@ -638,14 +639,32 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
                 title={infoFolded ? 'Expand info' : 'Collapse info'}
               >
                 <span className="lineage-info-title">{composer.name}</span>
+                <button
+                  className="share-card-btn"
+                  onClick={e => { e.stopPropagation(); downloadComposerCard(composer, wiki); }}
+                  title="Download composer card as PNG"
+                >
+                  ↓ Card
+                </button>
                 <span className="info-chevron">{infoFolded ? '▲' : '▼'}</span>
               </div>
               {!infoFolded && (
                 <div className="lineage-info-panel">
-                  {/* Description */}
-                  {composer.description && (
-                    <p className="lineage-description-text">{composer.description}</p>
-                  )}
+                  {/* Portrait + description row */}
+                  <div className="composer-bio-row">
+                    {wiki?.thumbnail && (
+                      <img
+                        className="composer-portrait"
+                        src={wiki.thumbnail}
+                        alt={composer.name}
+                      />
+                    )}
+                    <div className="composer-bio-text">
+                      {composer.description && (
+                        <p className="lineage-description-text">{composer.description}</p>
+                      )}
+                    </div>
+                  </div>
 
                   {/* Wikipedia snippet */}
                   {wikiLoading && <p className="wiki-loading">Loading Wikipedia…</p>}

@@ -3,6 +3,8 @@ import LineageSidebar from './components/LineageSidebar';
 import TimelineView from './components/TimelineView';
 import LoadingScreen from './components/LoadingScreen';
 import ShortcutsModal from './components/ShortcutsModal';
+import GuidedPathsModal from './components/GuidedPathsModal';
+import WorldMap from './components/WorldMap';
 import { PERIODS, flatComposers } from './data/composers';
 
 const DEFAULT_PERIODS = Object.keys(PERIODS).reduce(
@@ -24,8 +26,11 @@ export default function App() {
   const [searchOpen, setSearchOpen]     = useState(false);
   const [searchHighlight, setSearchHighlight] = useState(0);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
+  const [pathsOpen, setPathsOpen] = useState(false);
+  const [mapOpen, setMapOpen] = useState(false);
   const [mobileTab, setMobileTab] = useState('timeline');
   const [menuOpen, setMenuOpen]   = useState(false);
+  const [yearFilter, setYearFilter] = useState(null);
   const [toast, setToast]         = useState(null); // { msg, id }
   const searchRef = useRef(null);
   const toastCounterRef = useRef(0);
@@ -189,6 +194,8 @@ export default function App() {
 
       {/* Keyboard shortcuts modal */}
       {shortcutsOpen && <ShortcutsModal onClose={() => setShortcutsOpen(false)} />}
+      {pathsOpen && <GuidedPathsModal onClose={() => setPathsOpen(false)} onSelectComposer={handleSelectComposer} />}
+      {mapOpen && <WorldMap onClose={() => setMapOpen(false)} onSelectComposer={handleSelectComposer} />}
 
       {/* Toast notification */}
       {toast && <div className="toast" key={toast.id}>{toast.msg}</div>}
@@ -299,6 +306,20 @@ export default function App() {
         </nav>
 
         <div className="header-controls">
+          <button
+            className="start-here-btn"
+            onClick={() => setPathsOpen(true)}
+            title="Start Here — guided paths"
+          >
+            Start Here
+          </button>
+          <button
+            className="map-btn"
+            onClick={() => setMapOpen(true)}
+            title="Birthplace Map"
+          >
+            🗺
+          </button>
           {/* Share button */}
           <button
             className="share-btn"
@@ -343,6 +364,8 @@ export default function App() {
             selectedComposer={selectedComposer}
             onSelectComposer={handleSelectComposer}
             onOpenVideo={handleOpenVideo}
+            yearFilter={yearFilter}
+            onYearFilterChange={setYearFilter}
           />
         </div>
 

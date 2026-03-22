@@ -1,7 +1,7 @@
 import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
 import { flatComposers, PERIODS, countDescendants } from '../data/composers';
 
-export default function TimelineView({ activePeriods, selectedComposer, onSelectComposer, onOpenVideo }) {
+export default function TimelineView({ activePeriods, selectedComposer, onSelectComposer, onOpenVideo, yearFilter, onYearFilterChange }) {
   const all = useMemo(() => flatComposers(), []);
   const [collapsedPeriods, setCollapsedPeriods] = useState({});
 
@@ -10,8 +10,11 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
   }, []);
 
   const filtered = useMemo(() => {
-    return all.filter(c => activePeriods[c.period] !== false);
-  }, [all, activePeriods]);
+    return all.filter(c =>
+      activePeriods[c.period] !== false &&
+      (yearFilter === null || c.born <= yearFilter)
+    );
+  }, [all, activePeriods, yearFilter]);
 
   const grouped = useMemo(() => {
     const map = {};
@@ -60,6 +63,26 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
         <button className="timeline-toggle-all" onClick={toggleAll}>
           {allCollapsed ? '▶ Expand all' : '▼ Fold all'}
         </button>
+        <div className="year-scrubber">
+          <span className="year-scrubber-label">
+            {yearFilter === null ? 'All eras' : yearFilter}
+          </span>
+          <input
+            className="year-scrubber-input"
+            type="range"
+            min={500}
+            max={2024}
+            step={5}
+            value={yearFilter ?? 2024}
+            onChange={e => {
+              const v = +e.target.value;
+              onYearFilterChange(v >= 2024 ? null : v);
+            }}
+          />
+          {yearFilter !== null && (
+            <button className="year-scrubber-reset" onClick={() => onYearFilterChange(null)} title="Reset">✕</button>
+          )}
+        </div>
       </div>
       <div className="timeline-content" ref={contentRef}>
         {periodOrder.map(pid => {
