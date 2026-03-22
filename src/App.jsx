@@ -153,6 +153,7 @@ export default function App() {
   const handleOpenVideo = useCallback((video, composer) => {
     setActiveVideo({ video, composer });
     setSelectedComposer(composer);
+    setMobileTab('lineage');
   }, []);
 
   const handleSelectComposer = useCallback((c) => {
@@ -388,14 +389,31 @@ export default function App() {
           className={`mobile-tab ${mobileTab === 'timeline' ? 'active' : ''}`}
           onClick={() => setMobileTab('timeline')}
         >
-          <span className="mobile-tab-icon">—</span>
+          <span className="mobile-tab-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <rect x="2" y="4" width="16" height="2" rx="1" fill="currentColor"/>
+              <rect x="2" y="9" width="16" height="2" rx="1" fill="currentColor"/>
+              <rect x="2" y="14" width="16" height="2" rx="1" fill="currentColor"/>
+            </svg>
+          </span>
           <span>Timeline</span>
         </button>
         <button
           className={`mobile-tab ${mobileTab === 'lineage' ? 'active' : ''}`}
           onClick={() => setMobileTab('lineage')}
         >
-          <span className="mobile-tab-icon">—</span>
+          <span className="mobile-tab-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <circle cx="10" cy="3" r="2" fill="currentColor"/>
+              <line x1="10" y1="5" x2="10" y2="8" stroke="currentColor" strokeWidth="1.5"/>
+              <line x1="10" y1="8" x2="5" y2="11" stroke="currentColor" strokeWidth="1.5"/>
+              <line x1="10" y1="8" x2="15" y2="11" stroke="currentColor" strokeWidth="1.5"/>
+              <circle cx="5" cy="13" r="2" fill="currentColor"/>
+              <circle cx="15" cy="13" r="2" fill="currentColor"/>
+              <line x1="5" y1="15" x2="5" y2="18" stroke="currentColor" strokeWidth="1.5"/>
+              <line x1="15" y1="15" x2="15" y2="18" stroke="currentColor" strokeWidth="1.5"/>
+            </svg>
+          </span>
           <span>Lineage</span>
           {selectedComposer && <span className="mobile-tab-badge" />}
         </button>

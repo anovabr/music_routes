@@ -496,7 +496,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
   const videoAppleUrl    = `https://music.apple.com/search?term=${encodedVideoQuery}`;
 
   return (
-    <aside className={`lineage-sidebar${activeVideo ? ' has-active-video' : ''}`} ref={sidebarRef} style={{ width, flex: 'none' }}>
+    <aside className={`lineage-sidebar${activeVideo ? ' has-active-video' : ''}`} ref={sidebarRef} style={isMobile() ? undefined : { width, flex: 'none' }}>
       <div className="lineage-resize-handle" onMouseDown={handleMouseDown} />
 
       <div className="lineage-header">
@@ -581,7 +581,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
       {composer && (
         <div
           className={`lineage-bottom ${activeVideo ? 'has-video' : ''}`}
-          style={activeVideo ? { height: bottomHeight } : undefined}
+          style={activeVideo && !isMobile() ? { height: bottomHeight } : undefined}
         >
           <div className="lineage-bottom-resize-handle" onMouseDown={handleBottomResizeMouseDown} />
           {activeVideo ? (

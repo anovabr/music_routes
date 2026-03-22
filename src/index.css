@@ -1164,7 +1164,7 @@ a:focus:not(:focus-visible) {
   flex: 1;
   overflow-y: auto;
   overscroll-behavior-y: contain;
-  padding: 32px 32px;
+  padding: 0 32px 32px;
   display: flex;
   flex-direction: column;
   gap: 48px;
@@ -1174,6 +1174,10 @@ a:focus:not(:focus-visible) {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.timeline-section:first-child {
+  padding-top: 24px;
 }
 
 .period-world-context {
@@ -2554,9 +2558,11 @@ a:focus:not(:focus-visible) {
   .app-main[data-mobile-tab="lineage"] .lineage-sidebar {
     display: flex;
     flex: 1;
+    width: 100% !important;
     min-width: 100%;
     border-left: none;
     border-top: 1px solid var(--border);
+    overflow: hidden;
   }
 
 
@@ -2592,8 +2598,11 @@ a:focus:not(:focus-visible) {
   }
 
   .mobile-tab-icon {
-    font-size: 20px;
-    line-height: 1;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .mobile-tab-badge {
@@ -2624,9 +2633,25 @@ a:focus:not(:focus-visible) {
     flex-direction: column;
   }
 
+  /* On mobile, video section fills all remaining space */
+  .lineage-bottom.has-video {
+    flex: 1 !important;
+    height: auto !important;
+    min-height: 0;
+  }
+
+  /* Iframe: use aspect-ratio wrapper on mobile */
   .lineage-video-pane-left {
-    flex: 2;
+    flex: none !important;
     width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  .lineage-video-pane-left iframe {
+    position: static !important;
+    width: 100%;
+    height: 100%;
+    display: block;
   }
 
   .lineage-video-pane-right {
@@ -2638,6 +2663,11 @@ a:focus:not(:focus-visible) {
     flex: none;
   }
 
+  /* Hide the vertical resize handle on mobile */
+  .lineage-bottom-resize-handle {
+    display: none;
+  }
+
   .streaming-panel-label {
     display: none;
   }
@@ -2645,6 +2675,25 @@ a:focus:not(:focus-visible) {
   .streaming-panel-btn {
     flex: 1;
     max-width: 160px;
+  }
+
+  /* Taller video buttons in timeline cards for thumb tapping */
+  .tcard-video-btn {
+    padding: 8px 0;
+    font-size: 13px;
+  }
+
+  .tcard-play {
+    font-size: 11px;
+  }
+
+  /* Compact world context on mobile */
+  .period-world-context {
+    padding: 10px 12px;
+  }
+
+  .period-world-context-list li {
+    font-size: 11px;
   }
 
   /* Taller info header bar for easy tap on mobile */
@@ -2659,6 +2708,11 @@ a:focus:not(:focus-visible) {
 
   .info-chevron {
     font-size: 13px;
+  }
+
+  /* Mobile tab icons */
+  .mobile-tab-icon svg {
+    display: block;
   }
 }
 
