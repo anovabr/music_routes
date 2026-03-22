@@ -316,6 +316,15 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
     e.preventDefault();
   }, []);
 
+  const handleBottomResizeTouchStart = useCallback((e) => {
+    if (e.touches.length !== 1) return;
+    isResizingBottom.current = true;
+    resizeBottomStartY.current = e.touches[0].clientY;
+    resizeBottomStartH.current = bottomHeight;
+    e.preventDefault();
+    e.stopPropagation();
+  }, [bottomHeight]);
+
   const handleBottomResizeMouseDown = useCallback((e) => {
     isResizingBottom.current = true;
     resizeBottomStartY.current = e.clientY;
@@ -327,15 +336,15 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
   }, [bottomHeight]);
 
   useEffect(() => {
+    const applyBottomDrag = (clientY) => {
+      const dy = resizeBottomStartY.current - clientY;
+      const maxH = Math.round(window.innerHeight * 0.85);
+      setBottomHeight(Math.max(160, Math.min(maxH, resizeBottomStartH.current + dy)));
+    };
+
     const handleMouseMove = (e) => {
-      if (isResizing.current) {
-        setWidth(Math.max(200, window.innerWidth - e.clientX));
-      }
-      if (isResizingBottom.current) {
-        const dy = resizeBottomStartY.current - e.clientY;
-        const maxH = Math.round(window.innerHeight * 0.85);
-        setBottomHeight(Math.max(160, Math.min(maxH, resizeBottomStartH.current + dy)));
-      }
+      if (isResizing.current) setWidth(Math.max(200, window.innerWidth - e.clientX));
+      if (isResizingBottom.current) applyBottomDrag(e.clientY);
     };
     const handleMouseUp = () => {
       isResizing.current = false;
@@ -343,11 +352,23 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
       document.body.style.cursor = '';
       document.body.style.userSelect = '';
     };
+
+    const handleTouchMoveResize = (e) => {
+      if (!isResizingBottom.current || e.touches.length !== 1) return;
+      e.preventDefault();
+      applyBottomDrag(e.touches[0].clientY);
+    };
+    const handleTouchEndResize = () => { isResizingBottom.current = false; };
+
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('touchmove', handleTouchMoveResize, { passive: false });
+    document.addEventListener('touchend', handleTouchEndResize);
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('touchmove', handleTouchMoveResize);
+      document.removeEventListener('touchend', handleTouchEndResize);
     };
   }, []);
 
