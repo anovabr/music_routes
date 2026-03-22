@@ -2753,7 +2753,6 @@ a:focus:not(:focus-visible) {
   }
   .mobile-tree-controls button:active { color: var(--accent); }
 
-  .lineage-fold-controls { display: none; }
 
   /* ── Compact header: only logo + hamburger visible ── */
   .app-header {
@@ -2908,6 +2907,8 @@ a:focus:not(:focus-visible) {
     min-height: 32px;
     font-size: 16px;
   }
+
+  .lineage-fold-controls { display: none; }
 
   /* Timeline grid */
   .timeline-grid {
