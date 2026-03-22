@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Tooltip } from 'react-leaflet';
 import { flatComposers, PERIODS } from '../data/composers';
 
@@ -36,8 +36,9 @@ const NATIONALITY_COORDS = {
   'Flemish':         [50.7, 3.2],
 };
 
-export default function WorldMap({ onClose, onSelectNationality }) {
+export default function WorldMap({ onClose, onSelectComposer }) {
   const allComposers = useMemo(() => flatComposers(), []);
+  const [selected, setSelected] = useState(null); // { nationality, composers }
 
   const dots = useMemo(() => {
     const map = new Map();
@@ -55,61 +56,97 @@ export default function WorldMap({ onClose, onSelectNationality }) {
     <div className="modal-overlay" onClick={onClose}>
       <div className="world-map-modal" onClick={e => e.stopPropagation()}>
         <div className="world-map-header">
-          <h2 className="world-map-title">Birthplace Map</h2>
-          <p className="world-map-subtitle">Where classical composers were born</p>
-          <button className="guided-paths-close" onClick={onClose}>x</button>
+          <h2 className="world-map-title">
+            {selected ? `${selected.nationality} composers` : 'Birthplace Map'}
+          </h2>
+          <p className="world-map-subtitle">
+            {selected
+              ? `${selected.composers.length} composer${selected.composers.length !== 1 ? 's' : ''} — click one to open`
+              : 'Click a dot to see composers from that country'}
+          </p>
+          {selected
+            ? <button className="guided-paths-close" onClick={() => setSelected(null)}>Back</button>
+            : <button className="guided-paths-close" onClick={onClose}>x</button>
+          }
         </div>
 
-        <div className="world-map-container">
-          <MapContainer
-            center={[30, 10]}
-            zoom={2}
-            minZoom={2}
-            maxZoom={6}
-            style={{ width: '100%', height: '460px' }}
-            scrollWheelZoom={true}
-          >
-            <TileLayer
-              url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-              attribution='&copy; <a href="https://carto.com/">CARTO</a>'
-            />
-            {dots.map(({ coords, composers, nationality }) => {
-              const r = Math.min(6 + composers.length * 1.5, 20);
-              const period = composers[0]?.period;
-              const color = PERIODS[period]?.color ?? '#888';
-              return (
-                <CircleMarker
-                  key={nationality}
-                  center={coords}
-                  radius={r}
-                  pathOptions={{
-                    color: color,
-                    fillColor: color,
-                    fillOpacity: 0.85,
-                    weight: 1.5,
-                  }}
-                  eventHandlers={{
-                    click: () => onSelectNationality(nationality),
-                  }}
-                >
-                  <Tooltip direction="top" offset={[0, -r]} opacity={1}>
-                    <span style={{ fontWeight: 600 }}>{nationality}</span>
-                    <br />
-                    {composers.length} composer{composers.length !== 1 ? 's' : ''}
-                  </Tooltip>
-                </CircleMarker>
-              );
-            })}
-          </MapContainer>
-
-          <div className="world-map-legend">
-            {Object.values(PERIODS).map(p => (
-              <div key={p.id} className="world-map-legend-item">
-                <span className="world-map-legend-dot" style={{ background: p.color }} />
-                <span>{p.name}</span>
-              </div>
-            ))}
+        <div className="world-map-body">
+          {/* Map — always visible */}
+          <div className="world-map-container">
+            <MapContainer
+              center={[30, 10]}
+              zoom={2}
+              minZoom={2}
+              maxZoom={6}
+              style={{ width: '100%', height: '100%' }}
+              scrollWheelZoom={true}
+            >
+              <TileLayer
+                url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+                attribution='&copy; <a href="https://carto.com/">CARTO</a>'
+              />
+              {dots.map(({ coords, composers, nationality }) => {
+                const r = Math.min(6 + composers.length * 1.5, 20);
+                const period = composers[0]?.period;
+                const color = PERIODS[period]?.color ?? '#888';
+                const isSelected = selected?.nationality === nationality;
+                return (
+                  <CircleMarker
+                    key={nationality}
+                    center={coords}
+                    radius={isSelected ? r + 4 : r}
+                    pathOptions={{
+                      color: isSelected ? '#fff' : color,
+                      fillColor: color,
+                      fillOpacity: isSelected ? 1 : 0.85,
+                      weight: isSelected ? 2.5 : 1.5,
+                    }}
+                    eventHandlers={{
+                      click: () => setSelected({ nationality, composers }),
+                    }}
+                  >
+                    <Tooltip direction="top" offset={[0, -r]} opacity={1}>
+                      <span style={{ fontWeight: 600 }}>{nationality}</span>
+                      <br />
+                      {composers.length} composer{composers.length !== 1 ? 's' : ''}
+                    </Tooltip>
+                  </CircleMarker>
+                );
+              })}
+            </MapContainer>
           </div>
+
+          {/* Composer list panel */}
+          {selected && (
+            <div className="world-map-list">
+              {selected.composers
+                .slice()
+                .sort((a, b) => a.born - b.born)
+                .map(c => {
+                  const color = PERIODS[c.period]?.color ?? '#888';
+                  return (
+                    <button
+                      key={c.id}
+                      className="world-map-composer-row"
+                      onClick={() => { onSelectComposer(c); onClose(); }}
+                    >
+                      <span className="world-map-composer-dot" style={{ background: color }} />
+                      <span className="world-map-composer-name">{c.name}</span>
+                      <span className="world-map-composer-years">{c.born}{c.died ? `–${c.died}` : ''}</span>
+                    </button>
+                  );
+                })}
+            </div>
+          )}
+        </div>
+
+        <div className="world-map-legend">
+          {Object.values(PERIODS).map(p => (
+            <div key={p.id} className="world-map-legend-item">
+              <span className="world-map-legend-dot" style={{ background: p.color }} />
+              <span>{p.name}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>

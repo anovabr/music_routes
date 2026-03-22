@@ -2764,8 +2764,8 @@ a:focus:not(:focus-visible) {
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
-  width: min(900px, 95vw);
-  max-height: 90vh;
+  width: min(960px, 95vw);
+  height: min(600px, 90vh);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -2793,20 +2793,70 @@ a:focus:not(:focus-visible) {
   flex: 1;
 }
 
+.world-map-body {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+  overflow: hidden;
+}
+
 .world-map-container {
   flex: 1;
-  overflow: hidden;
-  padding: 0 0 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
   min-height: 0;
+  min-width: 0;
 }
 
 .world-map-container .leaflet-container {
-  flex: 1;
-  min-height: 400px;
   background: #1a1a2e;
+}
+
+.world-map-list {
+  width: 220px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+}
+
+.world-map-composer-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.12s;
+}
+
+.world-map-composer-row:hover {
+  background: var(--surface);
+}
+
+.world-map-composer-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.world-map-composer-name {
+  flex: 1;
+  font-size: 13px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.world-map-composer-years {
+  font-size: 11px;
+  color: var(--text3);
+  white-space: nowrap;
 }
 
 .world-map-legend {

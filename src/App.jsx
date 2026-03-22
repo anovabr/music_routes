@@ -196,7 +196,7 @@ export default function App() {
       {mapOpen && (
         <WorldMap
           onClose={() => setMapOpen(false)}
-          onSelectNationality={(nat) => { setNationalityFilter(nat); setMapOpen(false); }}
+          onSelectComposer={handleSelectComposer}
         />
       )}
 
