@@ -157,14 +157,6 @@ export const treeData = {
                                     v('Ab Ovo', 'W0txKNHqZPk'),
                                   ]),
 
-                                c('riopy', 'RIOPY', 1986, null, 'CONTEMPORARY', 'French',
-                                  'Born Jean-Baptiste Morali, RIOPY studied at the Paris Conservatoire before finding a singular voice in meditative solo piano. His writing draws directly from Satie\'s harmonic stillness and Chopin\'s melodic lyricism, filtered through the same neo-classical minimalism that Einaudi pioneered — but with a rawer emotional directness. One of the most distinctive piano voices to emerge from France in decades.',
-                                  [
-                                    v('Bliss', 'WNn-nFdK4dM'),
-                                    v('Aum', 'QtPRQmhBmcs'),
-                                    v('Bloom', 'kBlJnXkQBpM'),
-                                    v('Jupiter', 'RqkXaAWJZaY'),
-                                  ]),
                               ]),
 
                             c('satie', 'Erik Satie', 1866, 1925, 'IMPRESSIONIST', 'French',
@@ -957,7 +949,6 @@ export function getWikipediaName(composer) {
     'frahm': 'Nils_Frahm',
     'arnalds': 'Ólafur_Arnalds',
     'glass': 'Philip_Glass',
-    'riopy': 'RIOPY',
   };
   if (overrides[composer.id]) return overrides[composer.id];
   return composer.name.replace(/ /g, '_');
