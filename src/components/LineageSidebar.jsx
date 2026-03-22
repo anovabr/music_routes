@@ -567,7 +567,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
         </div>
       ) : (
         <div className="lineage-empty">
-          <span className="lineage-empty-icon">🎼</span>
+          <span className="lineage-empty-icon">𝄞</span>
           <p>Select a composer to see their lineage</p>
         </div>
       )}
@@ -616,7 +616,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <span>🎵</span> Spotify
+                    Spotify
                   </a>
                   <a
                     className="streaming-panel-btn streaming-panel-apple"
@@ -624,7 +624,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <span>🎧</span> Apple Music
+                    Apple Music
                   </a>
                 </div>
               </div>
@@ -690,7 +690,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
                       rel="noopener noreferrer"
                       title={`Listen to ${composer.name} on Spotify`}
                     >
-                      <span>🎵</span> Spotify
+                      Spotify
                     </a>
                     <a
                       className="streaming-link streaming-yt"
@@ -699,7 +699,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
                       rel="noopener noreferrer"
                       title={`Search ${composer.name} on YouTube`}
                     >
-                      <span>▶</span> YouTube
+                      YouTube
                     </a>
                     <a
                       className="streaming-link streaming-apple"
@@ -708,7 +708,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
                       rel="noopener noreferrer"
                       title={`Listen to ${composer.name} on Apple Music`}
                     >
-                      <span>🎧</span> Apple Music
+                      Apple Music
                     </a>
                   </div>
                 </div>

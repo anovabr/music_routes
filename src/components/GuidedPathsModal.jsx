@@ -34,7 +34,6 @@ export default function GuidedPathsModal({ onClose, onSelectComposer }) {
                 className="guided-path-card"
                 onClick={() => handleStartPath(path)}
               >
-                <span className="guided-path-emoji">{path.emoji}</span>
                 <span className="guided-path-name">{path.name}</span>
                 <span className="guided-path-desc">{path.description}</span>
                 <span className="guided-path-composers">

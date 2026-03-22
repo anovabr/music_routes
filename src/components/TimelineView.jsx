@@ -181,7 +181,7 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
                           className="tcard-stream-link"
                           title={`${c.name} on Spotify`}
                         >
-                          🎵
+                          S
                         </a>
                         <a
                           href={`https://music.apple.com/search?term=${encodeURIComponent(c.name)}`}
@@ -190,7 +190,7 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
                           className="tcard-stream-link"
                           title={`${c.name} on Apple Music`}
                         >
-                          🎧
+                          A
                         </a>
                         <a
                           href={`https://www.youtube.com/results?search_query=${encodeURIComponent(c.name + ' classical')}`}

@@ -16,7 +16,7 @@ const DEFAULT_PERIODS = Object.keys(PERIODS).reduce(
 export default function App() {
   const [loaded, setLoaded]       = useState(false);
   const THEMES = ['dark', 'light', 'joby', 'jeton'];
-  const THEME_LABELS = { dark: '🌙', light: '☀', joby: '✈', jeton: '🟠' };
+  const THEME_LABELS = { dark: 'Dark', light: 'Light', joby: 'Joby', jeton: 'Jeton' };
   const THEME_TITLES = { dark: 'Classic dark', light: 'Classic light', joby: 'Joby — futuristic dark', jeton: 'Jeton — warm light' };
   const [theme, setTheme]         = useState('dark');
   const [selectedComposer, setSelectedComposer] = useState(null);
@@ -169,7 +169,7 @@ export default function App() {
     clefTimerRef.current = setTimeout(() => { clefClicksRef.current = 0; }, 1200);
     if (clefClicksRef.current >= 5) {
       clefClicksRef.current = 0;
-      showToast('🎹 Maestro unlocked! The gods of music approve.');
+      showToast('Maestro unlocked! The gods of music approve.');
     }
   }, [showToast]);
 
@@ -179,7 +179,7 @@ export default function App() {
     const handleKonami = (e) => {
       konamiRef.current = [...konamiRef.current, e.key].slice(-KONAMI.length);
       if (konamiRef.current.join(',') === KONAMI.join(',')) {
-        showToast('🎼 ↑↑↓↓←→←→ Hidden concerto unlocked! 🎵');
+        showToast('↑↑↓↓←→←→ Hidden concerto unlocked!');
         konamiRef.current = [];
       }
     };
@@ -238,7 +238,7 @@ export default function App() {
             onClick={(e) => { e.stopPropagation(); setSearchOpen(!searchOpen); setTimeout(() => searchRef.current?.focus(), 50); }}
             title="Search composers (Ctrl+K)"
           >
-            🔍
+            Search
           </button>
           {searchOpen && (
             <div className="search-dropdown">
@@ -318,7 +318,7 @@ export default function App() {
             onClick={() => setMapOpen(true)}
             title="Birthplace Map"
           >
-            🗺
+            Map
           </button>
           {/* Share button */}
           <button
@@ -326,7 +326,7 @@ export default function App() {
             onClick={handleShare}
             title="Copy link to share"
           >
-            🔗
+            Share
           </button>
           {/* Shortcuts hint */}
           <button
@@ -342,9 +342,9 @@ export default function App() {
             rel="noopener noreferrer"
             className="bmc-btn"
             title="Buy me a coffee"
-            onDoubleClick={e => { e.preventDefault(); showToast('☕ You\'re a true patron of the arts! Grazie mille! 🎶'); }}
+            onDoubleClick={e => { e.preventDefault(); showToast('You\'re a true patron of the arts! Grazie mille!'); }}
           >
-            ☕ <span>Buy me a coffee</span>
+            <span>Buy me a coffee</span>
           </a>
           <button
             className="theme-toggle"
@@ -385,14 +385,14 @@ export default function App() {
           className={`mobile-tab ${mobileTab === 'timeline' ? 'active' : ''}`}
           onClick={() => setMobileTab('timeline')}
         >
-          <span className="mobile-tab-icon">🎼</span>
+          <span className="mobile-tab-icon">—</span>
           <span>Timeline</span>
         </button>
         <button
           className={`mobile-tab ${mobileTab === 'lineage' ? 'active' : ''}`}
           onClick={() => setMobileTab('lineage')}
         >
-          <span className="mobile-tab-icon">🌳</span>
+          <span className="mobile-tab-icon">—</span>
           <span>Lineage</span>
           {selectedComposer && <span className="mobile-tab-badge" />}
         </button>
