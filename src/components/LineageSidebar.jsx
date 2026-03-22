@@ -530,14 +530,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
       <div className="lineage-resize-handle" onMouseDown={handleMouseDown} />
 
       <div className="lineage-header">
-        <div className="lineage-header-left">
-          <h3 className="lineage-title">Lineage Tree</h3>
-          {composer && influenceCount > 0 && (
-            <span className="influence-badge" title={`${influenceCount} musical descendants`}>
-              {influenceCount} influenced
-            </span>
-          )}
-        </div>
+        <div className="lineage-header-left" />
         {composer && (
           <div className="lineage-controls">
             <button onClick={handleZoomOut} title="Zoom out">−</button>
