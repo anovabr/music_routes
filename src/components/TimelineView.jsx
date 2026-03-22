@@ -1,7 +1,7 @@
 import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
 import { flatComposers, PERIODS, countDescendants } from '../data/composers';
 
-export default function TimelineView({ activePeriods, selectedComposer, onSelectComposer, onOpenVideo, yearFilter, onYearFilterChange }) {
+export default function TimelineView({ activePeriods, selectedComposer, onSelectComposer, onOpenVideo, yearFilter, onYearFilterChange, nationalityFilter, onNationalityFilterChange }) {
   const all = useMemo(() => flatComposers(), []);
   const [collapsedPeriods, setCollapsedPeriods] = useState({});
 
@@ -12,9 +12,10 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
   const filtered = useMemo(() => {
     return all.filter(c =>
       activePeriods[c.period] !== false &&
-      (yearFilter === null || c.born <= yearFilter)
+      (yearFilter === null || c.born <= yearFilter) &&
+      (nationalityFilter === null || c.nationality === nationalityFilter)
     );
-  }, [all, activePeriods, yearFilter]);
+  }, [all, activePeriods, yearFilter, nationalityFilter]);
 
   const grouped = useMemo(() => {
     const map = {};
@@ -59,6 +60,12 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
 
   return (
     <div className="timeline-view">
+      {nationalityFilter && (
+        <div className="nationality-filter-bar">
+          Showing: <strong>{nationalityFilter}</strong> composers
+          <button onClick={() => onNationalityFilterChange(null)}>Clear</button>
+        </div>
+      )}
       <div className="timeline-toolbar">
         <button className="timeline-toggle-all" onClick={toggleAll}>
           {allCollapsed ? '▶ Expand all' : '▼ Fold all'}

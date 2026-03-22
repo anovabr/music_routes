@@ -36,7 +36,7 @@ const NATIONALITY_COORDS = {
   'Flemish':         [50.7, 3.2],
 };
 
-export default function WorldMap({ onClose, onSelectComposer }) {
+export default function WorldMap({ onClose, onSelectNationality }) {
   const allComposers = useMemo(() => flatComposers(), []);
 
   const dots = useMemo(() => {
@@ -89,10 +89,7 @@ export default function WorldMap({ onClose, onSelectComposer }) {
                     weight: 1.5,
                   }}
                   eventHandlers={{
-                    click: () => {
-                      const c = composers[0];
-                      if (c) { onSelectComposer(c); onClose(); }
-                    },
+                    click: () => onSelectNationality(nationality),
                   }}
                 >
                   <Tooltip direction="top" offset={[0, -r]} opacity={1}>

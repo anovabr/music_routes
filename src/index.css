@@ -1139,6 +1139,34 @@ a:focus:not(:focus-visible) {
   gap: 12px;
 }
 
+.nationality-filter-bar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 16px;
+  font-size: 13px;
+  color: var(--text2);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nationality-filter-bar strong {
+  color: var(--accent);
+}
+.nationality-filter-bar button {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text3);
+  font-size: 12px;
+  padding: 2px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.nationality-filter-bar button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .year-scrubber {
   display: flex;
   align-items: center;

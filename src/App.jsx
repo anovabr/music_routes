@@ -29,6 +29,7 @@ export default function App() {
   const [mobileTab, setMobileTab] = useState('timeline');
   const [menuOpen, setMenuOpen]   = useState(false);
   const [yearFilter, setYearFilter] = useState(null);
+  const [nationalityFilter, setNationalityFilter] = useState(null);
   const [toast, setToast]         = useState(null); // { msg, id }
   const searchRef = useRef(null);
   const toastCounterRef = useRef(0);
@@ -192,7 +193,12 @@ export default function App() {
 
       {/* Keyboard shortcuts modal */}
       {shortcutsOpen && <ShortcutsModal onClose={() => setShortcutsOpen(false)} />}
-      {mapOpen && <WorldMap onClose={() => setMapOpen(false)} onSelectComposer={handleSelectComposer} />}
+      {mapOpen && (
+        <WorldMap
+          onClose={() => setMapOpen(false)}
+          onSelectNationality={(nat) => { setNationalityFilter(nat); setMapOpen(false); }}
+        />
+      )}
 
       {/* Toast notification */}
       {toast && <div className="toast" key={toast.id}>{toast.msg}</div>}
@@ -356,6 +362,8 @@ export default function App() {
             onOpenVideo={handleOpenVideo}
             yearFilter={yearFilter}
             onYearFilterChange={setYearFilter}
+            nationalityFilter={nationalityFilter}
+            onNationalityFilterChange={setNationalityFilter}
           />
         </div>
 
