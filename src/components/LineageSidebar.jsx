@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect, useRef, memo, forwardRef, useImperativeHandle } from 'react';
+import { useState, useMemo, useCallback, useEffect, useRef, memo } from 'react';
 import { PERIODS, buildLineageTree, countDescendants, getWikipediaName } from '../data/composers';
 import { findEmbeddableVideoId } from '../utils/youtubeSearch';
 import { downloadComposerCard } from '../utils/shareCard';
@@ -157,7 +157,7 @@ function buildLineagePath(lineageTree, targetId) {
   return path.filter(c => c.videos?.length > 0);
 }
 
-const LineageSidebar = forwardRef(function LineageSidebar({ composer, onClose, onSelectComposer, onSelectComposerFromTree, onOpenVideo, activeVideo, onCloseVideo }, ref) {
+export default function LineageSidebar({ composer, onClose, onSelectComposer, onSelectComposerFromTree, onOpenVideo, activeVideo, onCloseVideo, onRegisterControls }) {
   const [width, setWidth] = useState(() => Math.round(window.innerWidth * 0.5));
   // On mobile, default to enough height to show video + header; on desktop use compact default
   const [bottomHeight, setBottomHeight] = useState(() => {
@@ -397,10 +397,9 @@ const LineageSidebar = forwardRef(function LineageSidebar({ composer, onClose, o
     setExpandedIds(ids);
   }, [composer?.id, lineageTree]);
 
-  useImperativeHandle(ref, () => ({
-    expandAll: handleExpandAll,
-    collapseAll: handleCollapseAll,
-  }), [handleExpandAll, handleCollapseAll]);
+  useEffect(() => {
+    onRegisterControls?.({ expandAll: handleExpandAll, collapseAll: handleCollapseAll });
+  }, [handleExpandAll, handleCollapseAll, onRegisterControls]);
 
   const handleZoomIn    = useCallback(() => setZoom(z => z + 0.15), [setZoom]);
   const handleZoomOut   = useCallback(() => setZoom(z => z - 0.15), [setZoom]);
@@ -757,6 +756,4 @@ const LineageSidebar = forwardRef(function LineageSidebar({ composer, onClose, o
       )}
     </aside>
   );
-});
-
-export default LineageSidebar;
+}
