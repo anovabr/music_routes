@@ -1,52 +1,44 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
+import { MapContainer, TileLayer, CircleMarker, Tooltip } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 import { flatComposers, PERIODS } from '../data/composers';
 
-// Rough [lng, lat] for each nationality label used in composers.js
 const NATIONALITY_COORDS = {
-  'German':          [10.4, 51.2],
-  'Austrian':        [14.5, 47.5],
-  'Italian':         [12.5, 42.5],
-  'French':          [2.3, 46.6],
-  'English':         [-1.5, 52.4],
-  'British':         [-1.5, 52.4],
-  'Russian':         [37.6, 55.8],
-  'Polish':          [19.1, 52.2],
-  'Czech':           [15.5, 49.8],
-  'Hungarian':       [19.0, 47.2],
-  'Norwegian':       [10.7, 59.9],
-  'Finnish':         [25.7, 61.9],
-  'Swedish':         [18.1, 59.3],
-  'Danish':          [10.2, 55.7],
-  'Spanish':         [-3.7, 40.4],
-  'Belgian':         [4.4, 50.8],
-  'Dutch':           [5.3, 52.1],
-  'Swiss':           [8.2, 46.8],
-  'Romanian':        [25.0, 45.9],
-  'American':        [-98.5, 39.5],
-  'Brazilian':       [-51.9, -14.2],
-  'Argentine':       [-63.6, -38.4],
-  'Greek':           [21.8, 39.1],
-  'Georgian':        [43.4, 42.3],
-  'Estonian':        [24.7, 58.6],
-  'Lithuanian':      [23.9, 55.2],
-  'Latvian':         [24.6, 56.9],
-  'Japanese':        [138.3, 36.2],
-  'Chinese':         [104.2, 35.9],
-  'Franco-Flemish':  [3.2, 50.7],
-  'Flemish':         [3.2, 50.7],
+  'German':          [51.2, 10.4],
+  'Austrian':        [47.5, 14.5],
+  'Italian':         [42.5, 12.5],
+  'French':          [46.6, 2.3],
+  'English':         [52.4, -1.5],
+  'British':         [52.4, -1.5],
+  'Russian':         [55.8, 37.6],
+  'Polish':          [52.2, 19.1],
+  'Czech':           [49.8, 15.5],
+  'Hungarian':       [47.2, 19.0],
+  'Norwegian':       [59.9, 10.7],
+  'Finnish':         [61.9, 25.7],
+  'Swedish':         [59.3, 18.1],
+  'Danish':          [55.7, 10.2],
+  'Spanish':         [40.4, -3.7],
+  'Belgian':         [50.8, 4.4],
+  'Dutch':           [52.1, 5.3],
+  'Swiss':           [46.8, 8.2],
+  'Romanian':        [45.9, 25.0],
+  'American':        [39.5, -98.5],
+  'Brazilian':       [-14.2, -51.9],
+  'Argentine':       [-38.4, -63.6],
+  'Greek':           [39.1, 21.8],
+  'Georgian':        [42.3, 43.4],
+  'Estonian':        [58.6, 24.7],
+  'Lithuanian':      [55.2, 23.9],
+  'Latvian':         [56.9, 24.6],
+  'Japanese':        [36.2, 138.3],
+  'Chinese':         [35.9, 104.2],
+  'Franco-Flemish':  [50.7, 3.2],
+  'Flemish':         [50.7, 3.2],
 };
-
-// Mercator projection: lng/lat → x/y on a 1000×500 canvas
-function project(lng, lat) {
-  const x = (lng + 180) / 360;
-  const latRad = lat * Math.PI / 180;
-  const y = (1 - Math.log(Math.tan(latRad / 2 + Math.PI / 4)) / Math.PI) / 2;
-  return { x: x * 1000, y: y * 500 };
-}
 
 export default function WorldMap({ onClose, onSelectComposer }) {
   const allComposers = useMemo(() => flatComposers(), []);
-  const [hovered, setHovered] = useState(null);
 
   const dots = useMemo(() => {
     const map = new Map();
@@ -66,59 +58,54 @@ export default function WorldMap({ onClose, onSelectComposer }) {
         <div className="world-map-header">
           <h2 className="world-map-title">Birthplace Map</h2>
           <p className="world-map-subtitle">Where classical composers were born</p>
-          <button className="guided-paths-close" onClick={onClose}>✕</button>
+          <button className="guided-paths-close" onClick={onClose}>x</button>
         </div>
 
         <div className="world-map-container">
-          <svg viewBox="0 0 1000 500" className="world-map-svg" preserveAspectRatio="xMidYMid meet">
-            {/* Simple continent outlines */}
-            <rect width="1000" height="500" fill="var(--bg3)" rx="8" />
-
-            {/* Dots per nationality cluster */}
+          <MapContainer
+            center={[30, 10]}
+            zoom={2}
+            minZoom={2}
+            maxZoom={6}
+            style={{ width: '100%', height: '100%', borderRadius: '6px' }}
+            scrollWheelZoom={true}
+          >
+            <TileLayer
+              url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+              attribution='&copy; <a href="https://carto.com/">CARTO</a>'
+            />
             {dots.map(({ coords, composers, nationality }) => {
-              const { x, y } = project(coords[0], coords[1]);
-              const r = Math.min(3 + composers.length * 1.2, 14);
+              const r = Math.min(6 + composers.length * 1.5, 20);
               const period = composers[0]?.period;
               const color = PERIODS[period]?.color ?? '#888';
-              const isHovered = hovered === nationality;
-
               return (
-                <g key={nationality}>
-                  <circle
-                    cx={x} cy={y} r={r + 4}
-                    fill={color} opacity={isHovered ? 0.2 : 0}
-                    style={{ transition: 'opacity 0.15s' }}
-                  />
-                  <circle
-                    cx={x} cy={y} r={r}
-                    fill={color}
-                    opacity={isHovered ? 1 : 0.75}
-                    stroke="var(--bg)" strokeWidth={1.5}
-                    style={{ cursor: 'pointer', transition: 'opacity 0.15s, r 0.15s' }}
-                    onMouseEnter={() => setHovered(nationality)}
-                    onMouseLeave={() => setHovered(null)}
-                    onClick={() => {
+                <CircleMarker
+                  key={nationality}
+                  center={coords}
+                  radius={r}
+                  pathOptions={{
+                    color: color,
+                    fillColor: color,
+                    fillOpacity: 0.85,
+                    weight: 1.5,
+                  }}
+                  eventHandlers={{
+                    click: () => {
                       const c = composers[0];
                       if (c) { onSelectComposer(c); onClose(); }
-                    }}
-                  />
-                  {(isHovered || composers.length >= 5) && (
-                    <text
-                      x={x} y={y - r - 4}
-                      textAnchor="middle"
-                      fontSize={isHovered ? 11 : 9}
-                      fill="var(--text)"
-                      style={{ pointerEvents: 'none', fontWeight: 600 }}
-                    >
-                      {nationality} ({composers.length})
-                    </text>
-                  )}
-                </g>
+                    },
+                  }}
+                >
+                  <Tooltip direction="top" offset={[0, -r]} opacity={1}>
+                    <span style={{ fontWeight: 600 }}>{nationality}</span>
+                    <br />
+                    {composers.length} composer{composers.length !== 1 ? 's' : ''}
+                  </Tooltip>
+                </CircleMarker>
               );
             })}
-          </svg>
+          </MapContainer>
 
-          {/* Legend */}
           <div className="world-map-legend">
             {Object.values(PERIODS).map(p => (
               <div key={p.id} className="world-map-legend-item">
