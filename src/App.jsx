@@ -234,8 +234,8 @@ export default function App() {
         {/* Mobile-only: expand/collapse tree + theme — shown before hamburger */}
         {selectedComposer && (
           <span className="mobile-tree-controls">
-            <button onClick={() => lineageSidebarRef.current?.expandAll()} title="Expand all">⊞</button>
-            <button onClick={() => lineageSidebarRef.current?.collapseAll()} title="Collapse">⊟</button>
+            <button onClick={() => lineageSidebarRef.current?.expandAll()}>Expand</button>
+            <button onClick={() => lineageSidebarRef.current?.collapseAll()}>Fold</button>
           </span>
         )}
         <button
