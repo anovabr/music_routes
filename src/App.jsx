@@ -230,13 +230,11 @@ export default function App() {
           <span className="byline">by Luis Anunciação</span>
         </div>
 
-        {/* Mobile-only: expand/collapse tree + theme — shown before hamburger */}
-        {selectedComposer && (
-          <span className="mobile-tree-controls">
-            <button onClick={() => window.dispatchEvent(new CustomEvent('tree-expand-all'))}>Expand</button>
-            <button onClick={() => window.dispatchEvent(new CustomEvent('tree-collapse-all'))}>Fold</button>
-          </span>
-        )}
+        {/* Mobile-only: expand/collapse all timeline periods */}
+        <span className="mobile-tree-controls">
+          <button onClick={() => window.dispatchEvent(new CustomEvent('timeline-expand-all'))}>Expand</button>
+          <button onClick={() => window.dispatchEvent(new CustomEvent('timeline-collapse-all'))}>Fold</button>
+        </span>
         <button
           className="theme-toggle theme-toggle--mobile"
           onClick={toggleTheme}

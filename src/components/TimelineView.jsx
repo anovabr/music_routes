@@ -34,6 +34,17 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
     setCollapsedPeriods(visiblePeriods.reduce((acc, pid) => ({ ...acc, [pid]: next }), {}));
   }, [allCollapsed, visiblePeriods]);
 
+  useEffect(() => {
+    const onExpand   = () => setCollapsedPeriods({});
+    const onCollapse = () => setCollapsedPeriods(visiblePeriods.reduce((acc, pid) => ({ ...acc, [pid]: true }), {}));
+    window.addEventListener('timeline-expand-all',   onExpand);
+    window.addEventListener('timeline-collapse-all', onCollapse);
+    return () => {
+      window.removeEventListener('timeline-expand-all',   onExpand);
+      window.removeEventListener('timeline-collapse-all', onCollapse);
+    };
+  }, [visiblePeriods]);
+
   const contentRef = useRef(null);
   const selectedCardRef = useRef(null);
 
