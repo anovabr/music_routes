@@ -1,16 +1,100 @@
 export const PERIODS = {
-  MEDIEVAL:       { id: 'MEDIEVAL',       name: 'Medieval',        years: '500–1400',     color: '#8B7355' },
-  RENAISSANCE:    { id: 'RENAISSANCE',    name: 'Renaissance',     years: '1400–1600',    color: '#5C8A5A' },
-  BAROQUE:        { id: 'BAROQUE',        name: 'Baroque',         years: '1600–1750',    color: '#C9A84C' },
-  CLASSICAL:      { id: 'CLASSICAL',      name: 'Classical',       years: '1750–1820',    color: '#4CAF7D' },
-  ROMANTIC:       { id: 'ROMANTIC',       name: 'Romantic',        years: '1820–1900',    color: '#E07040' },
-  LATE_ROMANTIC:  { id: 'LATE_ROMANTIC',  name: 'Late Romantic',   years: '1870–1920',    color: '#D0506A' },
-  IMPRESSIONIST:  { id: 'IMPRESSIONIST',  name: 'Impressionist',   years: '1880–1920',    color: '#7090D0' },
-  MODERN:         { id: 'MODERN',         name: 'Modern',          years: '1900–1950',    color: '#9060C0' },
-  AVANT_GARDE:    { id: 'AVANT_GARDE',    name: 'Contemporary · Avant-garde',    years: '1945–1975', color: '#C04888' },
-  MINIMALISM:     { id: 'MINIMALISM',     name: 'Contemporary · Minimalism',     years: '1960–1990', color: '#38A878' },
-  NEW_SIMPLICITY: { id: 'NEW_SIMPLICITY', name: 'Contemporary · New Simplicity', years: '1975–2000', color: '#7888CC' },
-  CONTEMPORARY:   { id: 'CONTEMPORARY',   name: 'Contemporary',                  years: '1950–present', color: '#50A0A0' },
+  MEDIEVAL:       { id: 'MEDIEVAL',       name: 'Medieval',        years: '500–1400',     color: '#8B7355',
+    worldContext: [
+      'The Roman Empire collapses; Europe fractures into feudal kingdoms',
+      'The Catholic Church becomes the dominant cultural and political force in Europe',
+      'The Crusades: Christian armies march on Jerusalem (1095–1291)',
+      'The Black Death kills one-third of Europe\'s population (1347–1351)',
+      'Genghis Khan builds the largest land empire in history',
+    ]},
+  RENAISSANCE:    { id: 'RENAISSANCE',    name: 'Renaissance',     years: '1400–1600',    color: '#5C8A5A',
+    worldContext: [
+      'Gutenberg\'s printing press (1440) democratises knowledge across Europe',
+      'Columbus reaches the Americas (1492); global exploration reshapes the world',
+      'The Protestant Reformation (1517) shatters the unity of Western Christianity',
+      'Leonardo, Michelangelo, and Raphael redefine art and human possibility',
+      'The Ottoman Empire conquers Constantinople, ending the Byzantine world',
+    ]},
+  BAROQUE:        { id: 'BAROQUE',        name: 'Baroque',         years: '1600–1750',    color: '#C9A84C',
+    worldContext: [
+      'The Thirty Years\' War devastates Central Europe (1618–1648)',
+      'The Scientific Revolution: Galileo, Newton, and Descartes reshape human understanding',
+      'Louis XIV builds Versailles — absolute monarchy at its most theatrical',
+      'The slave trade reaches its peak; millions forcibly transported across the Atlantic',
+      'The English Civil War and the execution of Charles I (1649)',
+    ]},
+  CLASSICAL:      { id: 'CLASSICAL',      name: 'Classical',       years: '1750–1820',    color: '#4CAF7D',
+    worldContext: [
+      'The American Revolution (1776) and the birth of the United States',
+      'The French Revolution (1789) topples the monarchy; the guillotine reshapes politics',
+      'Napoleon Bonaparte rises from general to Emperor, redrawing the map of Europe',
+      'The Industrial Revolution begins in Britain; factories replace fields',
+      'The Age of Enlightenment: reason, liberty, and human rights enter the political vocabulary',
+    ]},
+  ROMANTIC:       { id: 'ROMANTIC',       name: 'Romantic',        years: '1820–1900',    color: '#E07040',
+    worldContext: [
+      'Revolutions sweep Europe in 1848 — the "Springtime of Nations"',
+      'The American Civil War (1861–1865) and the abolition of slavery',
+      'Darwin publishes On the Origin of Species (1859) — science challenges religion',
+      'European empires colonise Africa, Asia, and the Pacific',
+      'The unification of Germany (1871) shifts the balance of European power',
+    ]},
+  LATE_ROMANTIC:  { id: 'LATE_ROMANTIC',  name: 'Late Romantic',   years: '1870–1920',    color: '#D0506A',
+    worldContext: [
+      'World War I (1914–1918) kills 20 million; an entire generation lost in the trenches',
+      'The Russian Revolution (1917) overthrows the Tsar and births the Soviet Union',
+      'The Wright Brothers achieve powered flight (1903)',
+      'Freud publishes The Interpretation of Dreams (1900) — the unconscious enters culture',
+      'Einstein\'s Theory of Relativity (1905) overturns Newtonian physics',
+    ]},
+  IMPRESSIONIST:  { id: 'IMPRESSIONIST',  name: 'Impressionist',   years: '1880–1920',    color: '#7090D0',
+    worldContext: [
+      'The Belle Époque: Paris becomes the cultural capital of the world',
+      'Monet, Renoir, and Cézanne dissolve form into light and sensation',
+      'The Paris Exposition Universelle (1889) introduces the Eiffel Tower to the world',
+      'Colonialism at its height: over 80% of Africa is under European rule by 1900',
+      'World War I ends the optimism of the Belle Époque in catastrophe',
+    ]},
+  MODERN:         { id: 'MODERN',         name: 'Modern',          years: '1900–1950',    color: '#9060C0',
+    worldContext: [
+      'World War II (1939–1945) — the deadliest conflict in human history; the Holocaust',
+      'The Great Depression collapses economies worldwide (1929)',
+      'The rise of totalitarianism: Stalin, Hitler, and Mussolini reshape Europe',
+      'Jazz is born in New Orleans; popular music enters a new era',
+      'Hiroshima and Nagasaki — the atomic bomb changes warfare and human psychology forever',
+    ]},
+  AVANT_GARDE:    { id: 'AVANT_GARDE',    name: 'Contemporary · Avant-garde',    years: '1945–1975', color: '#C04888',
+    worldContext: [
+      'The Cold War divides the world between the USA and USSR',
+      'Decolonisation: dozens of nations in Africa and Asia gain independence',
+      'The Space Race — humanity reaches the Moon (1969)',
+      'The Vietnam War and global anti-war protest reshape Western culture',
+      'The Civil Rights Movement in America; Martin Luther King assassinated (1968)',
+    ]},
+  MINIMALISM:     { id: 'MINIMALISM',     name: 'Contemporary · Minimalism',     years: '1960–1990', color: '#38A878',
+    worldContext: [
+      'The Berlin Wall falls (1989); the Soviet Union begins to collapse',
+      'The rise of rock, pop, and electronic music — music fragments into subcultures',
+      'The AIDS crisis devastates artistic communities worldwide',
+      'Globalisation accelerates; multinational corporations reshape economies',
+      'The internet is invented (ARPANET, 1969); the information age begins',
+    ]},
+  NEW_SIMPLICITY: { id: 'NEW_SIMPLICITY', name: 'Contemporary · New Simplicity', years: '1975–2000', color: '#7888CC',
+    worldContext: [
+      'The Cold War ends with the dissolution of the Soviet Union (1991)',
+      'The World Wide Web (1991) transforms communication and culture',
+      'Apartheid ends in South Africa; Nelson Mandela becomes president (1994)',
+      'The Gulf War (1991) signals a new era of American military dominance',
+      'China opens to the global market; the world\'s fastest economic rise begins',
+    ]},
+  CONTEMPORARY:   { id: 'CONTEMPORARY',   name: 'Contemporary',                  years: '1950–present', color: '#50A0A0',
+    worldContext: [
+      'The September 11 attacks (2001) reshape geopolitics and trigger the War on Terror',
+      'Streaming music (Spotify, 2008) ends the album era; classical music finds new audiences online',
+      'Climate change becomes the defining global challenge of the century',
+      'The smartphone era connects and fragments humanity simultaneously',
+      'A global pandemic (COVID-19, 2020) shuts concert halls — music moves to living rooms',
+    ]},
 };
 
 function c(id, name, born, died, period, nationality, description, videos, children = [], rel = 'taught') {
@@ -35,25 +119,25 @@ export const treeData = {
     // ── MEDIEVAL ──────────────────────────────────────────────────────────────
     c('hildegard', 'Hildegard von Bingen', 1098, 1179, 'MEDIEVAL', 'German',
       'The first composer whose biography is known to history. Her visionary plainchant and the morality play Ordo Virtutum — the earliest surviving musical drama — combine soaring melodic arches with a mystical authority unlike anything before or since.',
-      [v('O Virtus Sapientiae', 'nRpHUBGBB0k'), v('Ordo Virtutum — excerpts', 'RzEfFBBkrQM')]),
+      [v('O Virtus Sapientiae', 'nRpHUBGBB0k'), v('Ordo Virtutum — excerpts', 'RzEfFBBkrQM'), v('O Euchari', 'pJV9-LY2MIQ'), v('Columba aspexit', 'a9LQgRKnGJM')]),
 
     c('machaut', 'Guillaume de Machaut', 1300, 1377, 'MEDIEVAL', 'French',
       'The towering figure of the Ars Nova. His Messe de Nostre Dame is the first complete polyphonic Mass setting by a single known composer — a watershed in Western music. Equally celebrated as poet, he bound lyric and musical craft more tightly than anyone before him.',
-      [v('Messe de Nostre Dame', 'SIQjwbPp6XQ'), v('Ma fin est mon commencement', 'UNe2RiL5VlI')]),
+      [v('Messe de Nostre Dame', 'SIQjwbPp6XQ'), v('Ma fin est mon commencement', 'UNe2RiL5VlI'), v('Douce Dame Jolie', 'bGJKUOK87lI'), v('Rose, lis, printemps, verdure', 'k1QOz6TXMCQ')]),
 
     // ── RENAISSANCE → BAROQUE ─────────────────────────────────────────────────
     c('josquin', 'Josquin des Prez', 1450, 1521, 'RENAISSANCE', 'Franco-Flemish',
       '"The best of composers," Martin Luther called him. His mastery of imitative counterpoint — voices entering in strict canon — set the template for all Renaissance polyphony and directly shaped the sacred language of Palestrina and the Venetian school.',
-      [v('Ave Maria… virgo serena', 'EMSe7TmJYiA'), v('Missa Pange Lingua — Kyrie', 'P7W5GF-SluE')],
+      [v('Ave Maria… virgo serena', 'EMSe7TmJYiA'), v('Missa Pange Lingua — Kyrie', 'P7W5GF-SluE'), v('Mille regretz', 'GnqsFELl5g4'), v('De profundis clamavi', 'Z5QEcVdmM4Q')],
       [
         c('palestrina', 'Giovanni Palestrina', 1525, 1594, 'RENAISSANCE', 'Italian',
           'The supreme master of Renaissance polyphony. Pope Gregory XIII charged him with reforming Catholic sacred music; his Missa Papae Marcelli became the model of pure, text-illuminating counterpoint — a touchstone studied by Bach, Mozart, and Beethoven alike.',
-          [v('Missa Papae Marcelli — Kyrie', '7OGgQMJUR5s'), v('Sicut cervus', 'I3PDFnSBbK0')],
+          [v('Missa Papae Marcelli — Kyrie', '7OGgQMJUR5s'), v('Sicut cervus', 'I3PDFnSBbK0'), v('O Magnum Mysterium', 'TFYf2GpJLwk'), v('Stabat Mater', 'KGJJeC6Mgic')],
           [
     // ── ITALIAN OPERA: MONTEVERDI → BEL CANTO → VERDI → PUCCINI ───────────────
     c('monteverdi', 'Claudio Monteverdi', 1567, 1643, 'BAROQUE', 'Italian',
       'The inventor of opera. His L\'Orfeo (1607) launched an entirely new art form. His radical text-setting and harmonic daring mark the birth of the Baroque era.',
-      [v("L'Orfeo — Opera", 'ARBDHrpX_Fg'), v('Vespers of 1610', 'fFmKlkX_JRA')],
+      [v("L'Orfeo — Opera", 'ARBDHrpX_Fg'), v('Vespers of 1610', 'fFmKlkX_JRA'), v("L'incoronazione di Poppea", 'v6Sn0tqMlV0'), v('Madrigals Book IV', 'AvQLLLYhiYo')],
       [
         // Opera tradition branch
         c('rossini', 'Gioachino Rossini', 1792, 1868, 'ROMANTIC', 'Italian',
@@ -62,10 +146,10 @@ export const treeData = {
           [
             c('donizetti', 'Gaetano Donizetti', 1797, 1848, 'ROMANTIC', 'Italian',
               'Master of bel canto who wrote over 70 operas. His Lucia di Lammermoor contains one of opera\'s most famous mad scenes.',
-              [v('Lucia di Lammermoor — Mad Scene', 'r8E_7M7LL4U'), v("L'elisir d'amore — Una furtiva lagrima", 'fN7zHhYghQ4')]),
+              [v('Lucia di Lammermoor — Mad Scene', 'r8E_7M7LL4U'), v("L'elisir d'amore — Una furtiva lagrima", 'fN7zHhYghQ4'), v('Don Pasquale — Com\'è gentil', 'YDqjTJUBFww'), v('La fille du régiment — Pour mon âme', 'nUnmhMBmCi4')]),
             c('bellini', 'Vincenzo Bellini', 1801, 1835, 'ROMANTIC', 'Italian',
               'The supreme melodist of bel canto. His long-breathed lines in Norma influenced Chopin\'s piano writing. Died at just 33.',
-              [v('Norma — Casta Diva', 'fzPXwJEjpbo'), v('I Puritani — A te, o cara', 'kThNJZJiJck')]),
+              [v('Norma — Casta Diva', 'fzPXwJEjpbo'), v('I Puritani — A te, o cara', 'kThNJZJiJck'), v('La Sonnambula — Ah! Non credea mirarti', 'gM7zFo-n_rc'), v('I Capuleti — Oh! quante volte', 'yFQNzgdumoo')]),
             c('verdi', 'Giuseppe Verdi', 1813, 1901, 'ROMANTIC', 'Italian',
               'Italy\'s greatest opera composer and a national hero of the Risorgimento. From Rigoletto to Otello, he brought unprecedented dramatic truth and psychological depth to opera.',
               [v('Rigoletto — La donna è mobile', 'xCFEk6Y8TsA'), v('La Traviata — Brindisi', 'g0WlNh2McaI'), v('Aida — Triumphal March', 'ZDFFHaz9GsY'), v('Requiem — Dies Irae', 'pW1Uc-grcMs')],
@@ -169,6 +253,7 @@ export const treeData = {
                                 v('Gymnopédies No. 1', 'S-Xm7s9eGxU'),
                                 v('Gnossiennes No. 1', 'ka6uDPMCVlw'),
                                 v('Gymnopédies Nos. 1–3', 'TLNnDmdGBBg'),
+                                v('Vexations (excerpt)', 'LKXM4CRYQRM'),
                               ],
                               [
                                 inf('riopy', 'RIOPY', 1986, null, 'CONTEMPORARY', 'French',
@@ -193,6 +278,8 @@ export const treeData = {
                                   [
                                     v('La Création du monde', 'LfruHYcnFwM'),
                                     v('Le Bœuf sur le toit', 'kvRGSSiXoyo'),
+                                    v('Suite Provençale', 'j4nYLEa3V6s'),
+                                    v('Scaramouche Suite', 'q17Qku02Bq0'),
                                   ],
                                   [
                                     c('reich', 'Steve Reich', 1936, null, 'MINIMALISM', 'American',
@@ -337,6 +424,7 @@ export const treeData = {
                             v('Piano Concerto in A minor', 'Kqpnpf1MDKA'),
                             v('Kinderszenen Op. 15', 'CqFJJJVsXaE'),
                             v('Dichterliebe Song Cycle', 'k2yNMWf8yiw'),
+                            v('Fantasy in C major Op. 17', 'C0zKi4P26hE'),
                           ],
                           [
                             c('brahms', 'Johannes Brahms', 1833, 1897, 'ROMANTIC', 'German',
@@ -354,17 +442,18 @@ export const treeData = {
                                     v('Symphony No. 9 "New World"', '_WXHkIAeChQ'),
                                     v('Cello Concerto', 'NqkBIJRrIaI'),
                                     v('String Quartet "American"', 'sBp2-fHRDcI'),
+                                    v('Slavonic Dances Op. 46', 'kHlFLUMkSN0'),
                                   ]),
                                 c('clara-schumann', 'Clara Schumann', 1819, 1896, 'ROMANTIC', 'German',
                                   'Robert\'s wife and the foremost pianist of the Romantic era. Brahms loved her deeply for decades. A gifted composer herself, largely overlooked until recent scholarship restored her rightful place.',
-                                  [v('Piano Concerto in A minor', 'ZR3ycLhEgAQ'), v('Piano Sonata in G minor', 'k10jGGxGkIo')]),
+                                  [v('Piano Concerto in A minor', 'ZR3ycLhEgAQ'), v('Piano Sonata in G minor', 'k10jGGxGkIo'), v('Three Romances Op. 22', '1HaNYw6C3tU'), v('Piano Trio in G minor', 'NHJfm31KXHQ')]),
                               ]),
                           ]),
                       ]),
 
                     c('czerny', 'Carl Czerny', 1791, 1857, 'ROMANTIC', 'Austrian',
                       'Beethoven\'s most devoted pupil. His systematic piano études codified modern technique and shaped every pianist who came after — most crucially his student Franz Liszt.',
-                      [v('Piano Studies Op. 299', 'oZYVT5OL5xk')],
+                      [v('Piano Studies Op. 299', 'oZYVT5OL5xk'), v('Piano Sonata Op. 7', 'k0-tTJFJI2Y'), v('Nocturne Op. 647', 'x7AkMHFRm-I'), v('Variations on a Theme from Rode', 'RHVxEIj2HHU')],
                       [
                         c('liszt', 'Franz Liszt', 1811, 1886, 'ROMANTIC', 'Hungarian',
                           'The greatest piano virtuoso of the 19th century. He invented the symphonic poem and the solo recital. His harmonic language pointed directly to Wagner and Debussy.',
@@ -381,6 +470,7 @@ export const treeData = {
                                 v('Ride of the Valkyries', 'P_FVRNQj3ec'),
                                 v('Tristan und Isolde — Prelude', 'CqP3Avqy3sk'),
                                 v('Siegfried\'s Funeral March', 'vGBApbfkwcs'),
+                                v('Das Rheingold — Entry of the Gods', 'yWBbm98q8rQ'),
                               ],
                               [
                                 c('mahler', 'Gustav Mahler', 1860, 1911, 'LATE_ROMANTIC', 'Austrian',
@@ -389,6 +479,7 @@ export const treeData = {
                                     v('Symphony No. 5 — Adagietto', 'ULpM0dRhKFw'),
                                     v('Symphony No. 9', 'xT4PITtSIXU'),
                                     v('Das Lied von der Erde', 'cHsYQbC3hVA'),
+                                    v('Symphony No. 2 "Resurrection"', 'oVXCFzgrmEc'),
                                   ],
                                   [
                                     c('schoenberg', 'Arnold Schoenberg', 1874, 1951, 'MODERN', 'Austrian',
@@ -396,14 +487,16 @@ export const treeData = {
                                       [
                                         v('Verklärte Nacht', 'vqODySSxGdc'),
                                         v('Piano Suite Op. 25', 'kW5gP8dVMDs'),
+                                        v('Pierrot Lunaire', 'vA9vKMcGhgc'),
+                                        v('String Quartet No. 2 — Finale', 'mHMgVH2iy8s'),
                                       ],
                                       [
                                         c('berg', 'Alban Berg', 1885, 1935, 'MODERN', 'Austrian',
                                           'Schoenberg\'s most lyrical student. He fused twelve-tone technique with late-Romantic expressionism, producing two of the greatest operas of the 20th century.',
-                                          [v('Violin Concerto', 'sbLAOFuN2NI'), v('Wozzeck — Opera', 'ohNLp0RKQrI')]),
+                                          [v('Violin Concerto', 'sbLAOFuN2NI'), v('Wozzeck — Opera', 'ohNLp0RKQrI'), v('Piano Sonata Op. 1', 'wz0K_9lL5TU'), v('Lulu Suite', 'YRHiWLJCl08')]),
                                         c('webern', 'Anton Webern', 1883, 1945, 'MODERN', 'Austrian',
                                           'Schoenberg\'s most radical pupil. His concentrated, pointillistic miniatures would detonate like a bomb on the post-war generation — Boulez, Stockhausen, Nono all came from Webern.',
-                                          [v('Five Pieces Op. 10', '9N-dvuHpMQI')],
+                                          [v('Five Pieces Op. 10', '9N-dvuHpMQI'), v('Symphony Op. 21', 'Qe7_K8Yln_o'), v('Piano Variations Op. 27', 'JHC4MvM5sOQ'), v('Passacaglia Op. 1', 'F8h_CqTqvHI')],
                                           [
                                             c('feldman', 'Morton Feldman', 1926, 1987, 'MODERN', 'American',
                                               'Pioneer of indeterminate music and extended durations. His quiet, slowly evolving works — some lasting six hours — explored the threshold of audibility. His influence echoes through the ambient piano scene, notably Nils Frahm.',
@@ -533,6 +626,8 @@ export const treeData = {
                               [
                                 v('Piano Concerto in A minor', 'MiJLsGqv37E'),
                                 v('Peer Gynt Suite No. 1', 'O0tH-fkFRZU'),
+                                v('Lyric Pieces — To Spring', 'w3dk2RBmbVo'),
+                                v('In the Hall of the Mountain King', 'Sc4buXFyB_I'),
                               ]),
 
                             c('sibelius', 'Jean Sibelius', 1865, 1957, 'LATE_ROMANTIC', 'Finnish',
@@ -593,7 +688,7 @@ export const treeData = {
           ]),
         c('vivaldi', 'Antonio Vivaldi', 1678, 1741, 'BAROQUE', 'Italian',
           'The Red Priest. He transformed the concerto into a dynamic vehicle of contrast. Bach transcribed at least six of his concertos note-for-note, absorbing his structural clarity and melodic vitality.',
-          [v('The Four Seasons', 'GRxofEmo3HA'), v('Gloria in D major', 'k1-FJbLkNwY')]),
+          [v('The Four Seasons', 'GRxofEmo3HA'), v('Gloria in D major', 'k1-FJbLkNwY'), v('Violin Concerto in A minor RV 356', 'Yy2KVKA_cGY'), v('Mandolin Concerto in C RV 425', '7nN6DnqYGXc')]),
 
         c('pachelbel', 'Johann Pachelbel', 1653, 1706, 'BAROQUE', 'German',
           'The master of the South German Baroque organ school. He taught Johann Christoph Bach — J.S. Bach\'s older brother and first teacher — directly transmitting the German contrapuntal tradition. His Canon in D is one of the most beloved works in all of classical music.',
@@ -615,7 +710,7 @@ export const treeData = {
               [
                 c('cpe-bach', 'C.P.E. Bach', 1714, 1788, 'CLASSICAL', 'German',
                   'J.S. Bach\'s most famous son. His "empfindsamer Stil" (sensitive style) broke from Baroque formalism and was a direct bridge to the Classical style of Haydn and Mozart.',
-                  [v('Prussian Sonata No. 1', 'YUVPBqXY3sc'), v('Symphony Wq 183 No. 1', 'p7zR9UrHqiA')]),
+                  [v('Prussian Sonata No. 1', 'YUVPBqXY3sc'), v('Symphony Wq 183 No. 1', 'p7zR9UrHqiA'), v('Cello Concerto in A minor', 'bHaS4Wm7Y6g'), v('Fantasia in C minor Wq 63', 'DRjAWSmFjvE')]),
 
                 c('gould', 'Glenn Gould', 1932, 1982, 'CONTEMPORARY', 'Canadian',
                   'The most idiosyncratic and influential pianist of the 20th century. He retired from concert at 31, recording studio performances of uncanny intellectual depth. His 1981 Goldberg Variations is one of the great artistic farewells.',
@@ -641,6 +736,8 @@ export const treeData = {
               [
                 v('Debussy Préludes Book 1', 'G3-4VFkLUAY'),
                 v('Mozart Piano Sonatas', 'QCwHNiKWiGs'),
+                v('Ravel Gaspard de la Nuit', 'aqV6MoHEoXo'),
+                v('Schumann Kinderszenen — Träumerei', 'CqFJJJVsXaE'),
               ]),
           ]),
       ]),
@@ -648,11 +745,11 @@ export const treeData = {
             // ── VENETIAN SCHOOL: GABRIELI → SCHÜTZ ────────────────────────────────
             c('gabrieli', 'Giovanni Gabrieli', 1557, 1612, 'RENAISSANCE', 'Italian',
               'The master of Venetian polychoral music. As organist at St Mark\'s Basilica, he pioneered cori spezzati — multiple choirs placed spatially through the basilica, creating the earliest spatial audio. His direct student Heinrich Schütz carried this revolution north, seeding the entire German Baroque.',
-              [v('In Ecclesiis', 'OMNPPAeJYrc'), v('Canzon per sonar No. 1', 'iOvUF8d0P-E')],
+              [v('In Ecclesiis', 'OMNPPAeJYrc'), v('Canzon per sonar No. 1', 'iOvUF8d0P-E'), v('Canzon septimi toni No. 2', 'u7qMJh5DfGM'), v('O Domine Jesu Christe', 'i_0V4hBgCr8')],
               [
                 c('schutz', 'Heinrich Schütz', 1585, 1672, 'BAROQUE', 'German',
                   'The most important German composer before Bach. After studying directly with Gabrieli in Venice, Schütz brought Italian polychoral mastery and expressive text-setting to Germany — the decisive bridge between Renaissance Italy and the Lutheran Baroque that culminated in Bach.',
-                  [v('Musikalische Exequien', 'ILxXwnHizls'), v('Saul, Saul, was verfolgst du mich', 'eSFBGm2OQTM')]),
+                  [v('Musikalische Exequien', 'ILxXwnHizls'), v('Saul, Saul, was verfolgst du mich', 'eSFBGm2OQTM'), v('Christmas History — Beschlossen und verschlossen', 'z5Bq-WB6B8g'), v('Psalmen Davids — Singet dem Herren', 'S0MjxN2cbmc')]),
               ]),
           ]),
       ]),
@@ -663,6 +760,8 @@ export const treeData = {
       [
         v('Islamey — Oriental Fantasy', 'k0XoRKpV_Tg'),
         v('Symphony No. 1 in C', 'jF1JqH2k8ZE'),
+        v('Piano Sonata in B-flat minor', 'VoJ1I6WBbnM'),
+        v('Overture on Russian Themes', 'c6VuiWHjDew'),
       ],
       [
         c('mussorgsky', 'Modest Mussorgsky', 1839, 1881, 'ROMANTIC', 'Russian',
@@ -794,6 +893,8 @@ export const treeData = {
           [
             v('Symphony No. 3 — Mvt. 2', '_7qdFg4tGwg'),
             v('Totus Tuus', 'NDBj8NVP7EM'),
+            v('String Quartet No. 1 — Mvt. 1', 'OKJYFiAJBXA'),
+            v('Kleines Requiem für eine Polka', 'eMVhv7ePUGU'),
           ]),
       ]),
 
@@ -839,6 +940,8 @@ export const treeData = {
           [
             v('Brahms Piano Concerto No. 2', 'WBMRLO_Ymd4'),
             v('Chopin Piano Concerto No. 1', 'cBDl_lH_B40'),
+            v('Schubert Wanderer Fantasy', 'ULlSdFsHhAk'),
+            v('Beethoven Piano Sonata Op. 111', 'UtmhFaLlBRo'),
           ]),
       ]),
 
@@ -848,6 +951,7 @@ export const treeData = {
         v('Ravel Piano Concerto in G', 'AijVEqq1QGQ'),
         v('Chopin Piano Sonata No. 3', 'SjnKR8V0v60'),
         v('Prokofiev Piano Concerto No. 3', 'fWEQMbrXWqY'),
+        v('Schumann Piano Concerto', 'Kqpnpf1MDKA'),
       ],
       [
         c('trifonov', 'Daniil Trifonov', 1991, null, 'CONTEMPORARY', 'Russian',

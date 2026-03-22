@@ -1,7 +1,7 @@
 import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
 import { flatComposers, PERIODS, countDescendants } from '../data/composers';
 
-export default function TimelineView({ activePeriods, selectedComposer, onSelectComposer, onOpenVideo, yearFilter, onYearFilterChange, nationalityFilter, onNationalityFilterChange }) {
+export default function TimelineView({ activePeriods, selectedComposer, onSelectComposer, onOpenVideo, nationalityFilter, onNationalityFilterChange }) {
   const all = useMemo(() => flatComposers(), []);
   const [collapsedPeriods, setCollapsedPeriods] = useState({});
 
@@ -12,10 +12,9 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
   const filtered = useMemo(() => {
     return all.filter(c =>
       activePeriods[c.period] !== false &&
-      (yearFilter === null || c.born <= yearFilter) &&
       (nationalityFilter === null || c.nationality === nationalityFilter)
     );
-  }, [all, activePeriods, yearFilter, nationalityFilter]);
+  }, [all, activePeriods, nationalityFilter]);
 
   const grouped = useMemo(() => {
     const map = {};
@@ -81,26 +80,6 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
         <button className="timeline-toggle-all" onClick={toggleAll}>
           {allCollapsed ? '▶ Expand all' : '▼ Fold all'}
         </button>
-        <div className="year-scrubber">
-          <span className="year-scrubber-label">
-            {yearFilter === null ? 'All eras' : yearFilter}
-          </span>
-          <input
-            className="year-scrubber-input"
-            type="range"
-            min={500}
-            max={2024}
-            step={5}
-            value={yearFilter ?? 2024}
-            onChange={e => {
-              const v = +e.target.value;
-              onYearFilterChange(v >= 2024 ? null : v);
-            }}
-          />
-          {yearFilter !== null && (
-            <button className="year-scrubber-reset" onClick={() => onYearFilterChange(null)} title="Reset">✕</button>
-          )}
-        </div>
       </div>
       <div className="timeline-content" ref={contentRef}>
         {periodOrder.map(pid => {
@@ -129,6 +108,16 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
                 <span className="timeline-period-count">{composers.length}</span>
                 <span className="timeline-period-chevron">{isCollapsed ? '▶' : '▼'}</span>
               </div>
+              {!isCollapsed && period.worldContext && (
+                <div className="period-world-context">
+                  <span className="period-world-context-label">The world in this era</span>
+                  <ul className="period-world-context-list">
+                    {period.worldContext.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               {!isCollapsed && <div className="timeline-grid">
                 {composers.map(c => {
                   const isSelected = selectedComposer?.id === c.id;
@@ -145,7 +134,6 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
                   ].filter(Boolean).join(' ');
 
                   const descendants = countDescendants(c.id);
-                  const spotifyUrl = `https://open.spotify.com/search/${encodeURIComponent(c.name)}`;
 
                   return (
                     <div
@@ -177,7 +165,7 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
 
                       {c.videos?.length > 0 && (
                         <div className="tcard-videos">
-                          {c.videos.slice(0, 3).map((v, i) => (
+                          {c.videos.map((v, i) => (
                             <button
                               key={i}
                               className="tcard-video-btn"
@@ -190,37 +178,6 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
                           ))}
                         </div>
                       )}
-
-                      {/* Streaming links */}
-                      <div className="tcard-streaming" onClick={e => e.stopPropagation()}>
-                        <a
-                          href={spotifyUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="tcard-stream-link"
-                          title={`${c.name} on Spotify`}
-                        >
-                          S
-                        </a>
-                        <a
-                          href={`https://music.apple.com/search?term=${encodeURIComponent(c.name)}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="tcard-stream-link"
-                          title={`${c.name} on Apple Music`}
-                        >
-                          A
-                        </a>
-                        <a
-                          href={`https://www.youtube.com/results?search_query=${encodeURIComponent(c.name + ' classical')}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="tcard-stream-link"
-                          title={`${c.name} on YouTube`}
-                        >
-                          ▶
-                        </a>
-                      </div>
                     </div>
                   );
                 })}

@@ -28,7 +28,6 @@ export default function App() {
   const [mapOpen, setMapOpen] = useState(false);
   const [mobileTab, setMobileTab] = useState('timeline');
   const [menuOpen, setMenuOpen]   = useState(false);
-  const [yearFilter, setYearFilter] = useState(null);
   const [nationalityFilter, setNationalityFilter] = useState(null);
   const [toast, setToast]         = useState(null); // { msg, id }
   const searchRef = useRef(null);
@@ -368,8 +367,6 @@ export default function App() {
             selectedComposer={selectedComposer}
             onSelectComposer={handleSelectComposer}
             onOpenVideo={handleOpenVideo}
-            yearFilter={yearFilter}
-            onYearFilterChange={setYearFilter}
             nationalityFilter={nationalityFilter}
             onNationalityFilterChange={setNationalityFilter}
           />

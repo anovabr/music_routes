@@ -1176,6 +1176,43 @@ a:focus:not(:focus-visible) {
   gap: 16px;
 }
 
+.period-world-context {
+  background: rgba(255,255,255,0.03);
+  border-left: 3px solid var(--pc);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin-bottom: 4px;
+}
+
+[data-theme="light"] .period-world-context {
+  background: rgba(0,0,0,0.03);
+}
+
+.period-world-context-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pc);
+  margin-bottom: 8px;
+  opacity: 0.85;
+}
+
+.period-world-context-list {
+  margin: 0;
+  padding: 0 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.period-world-context-list li {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.5;
+}
+
 .timeline-toolbar {
   display: flex;
   align-items: center;
@@ -1273,10 +1310,15 @@ a:focus:not(:focus-visible) {
   display: flex;
   align-items: baseline;
   gap: 14px;
-  padding-bottom: 12px;
+  padding: 10px 0 12px;
   border-bottom: 1px solid var(--border2);
   cursor: pointer;
   user-select: none;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--bg);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.45);
 }
 
 .timeline-period-chevron {
