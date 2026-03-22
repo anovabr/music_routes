@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Tooltip } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
 import { flatComposers, PERIODS } from '../data/composers';
 
 const NATIONALITY_COORDS = {
@@ -67,7 +66,7 @@ export default function WorldMap({ onClose, onSelectComposer }) {
             zoom={2}
             minZoom={2}
             maxZoom={6}
-            style={{ width: '100%', height: '100%', borderRadius: '6px' }}
+            style={{ width: '100%', height: '460px' }}
             scrollWheelZoom={true}
           >
             <TileLayer
