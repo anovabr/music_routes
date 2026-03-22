@@ -793,21 +793,21 @@ a:focus:not(:focus-visible) {
 }
 
 .lineage-video-pane-right {
-  flex: 2;
+  flex: 0 0 90px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 14px 10px;
+  gap: 6px;
+  padding: 8px 6px;
   background: var(--bg3);
   border-left: 1px solid var(--border2);
 }
 
 .streaming-panel-label {
-  font-size: 10px;
+  font-size: 9px;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.07em;
   color: var(--text2);
   font-weight: 600;
 }
@@ -815,15 +815,16 @@ a:focus:not(:focus-visible) {
 .streaming-panel-btn {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 4px;
   width: 100%;
-  padding: 9px 12px;
-  border-radius: 8px;
-  font-size: 13px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 11px;
   font-weight: 700;
   text-decoration: none;
   transition: opacity var(--transition), transform 0.1s;
   justify-content: center;
+  white-space: nowrap;
 }
 
 .streaming-panel-btn:hover {
