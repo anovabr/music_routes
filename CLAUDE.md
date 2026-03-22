@@ -17,3 +17,9 @@ Commit and push all changes to `claude/classical-music-neurotree-ANf38`.
 React + Vite app deployed to GitHub Pages at https://anovabr.github.io/music_routes/
 
 Any push to `claude/classical-music-neurotree-ANf38` triggers an automatic deploy via GitHub Actions.
+
+## User
+
+- No emojis. Ever. In code, UI, commits, or responses.
+- No small talk. No pleasantries. Get to the point.
+- The user is direct and expects the same. Just do the work.
