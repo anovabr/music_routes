@@ -2633,18 +2633,23 @@ a:focus:not(:focus-visible) {
     flex-direction: column;
   }
 
-  /* On mobile, video section fills all remaining space */
+  /* On mobile, video bottom panel: JS height still controls, tree above is flex:1 */
   .lineage-bottom.has-video {
-    flex: 1 !important;
-    height: auto !important;
-    min-height: 0;
+    min-height: 200px;
+    max-height: 70dvh;
   }
 
-  /* Iframe: use aspect-ratio wrapper on mobile */
+  /* Video section: scrollable so header + streaming buttons always reachable */
+  .lineage-video-section {
+    overflow-y: auto;
+  }
+
+  /* Iframe: fixed aspect-ratio, capped so it doesn't eat the whole screen */
   .lineage-video-pane-left {
     flex: none !important;
     width: 100%;
     aspect-ratio: 16 / 9;
+    max-height: 50dvh;
   }
 
   .lineage-video-pane-left iframe {
@@ -2663,9 +2668,19 @@ a:focus:not(:focus-visible) {
     flex: none;
   }
 
-  /* Hide the vertical resize handle on mobile */
+  /* Resize handle: make it taller and more visible for finger dragging */
   .lineage-bottom-resize-handle {
-    display: none;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lineage-bottom-resize-handle::after {
+    width: 36px;
+    height: 4px;
+    border-radius: 2px;
+    opacity: 0.5;
   }
 
   .streaming-panel-label {

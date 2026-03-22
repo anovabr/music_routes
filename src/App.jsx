@@ -164,6 +164,12 @@ export default function App() {
     setMenuOpen(false);
   }, []);
 
+  // From tree view: select composer and jump to timeline card on mobile
+  const handleSelectComposerFromTree = useCallback((c) => {
+    setSelectedComposer(c);
+    setMobileTab('timeline');
+  }, []);
+
   const handleRandomComposer = useCallback(() => {
     const random = allComposers[Math.floor(Math.random() * allComposers.length)];
     handleSelectComposer(random);
@@ -378,6 +384,7 @@ export default function App() {
           onClose={() => setSelectedComposer(null)}
           onOpenVideo={handleOpenVideo}
           onSelectComposer={handleSelectComposer}
+          onSelectComposerFromTree={handleSelectComposerFromTree}
           activeVideo={activeVideo}
           onCloseVideo={() => setActiveVideo(null)}
         />

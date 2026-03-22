@@ -157,9 +157,13 @@ function buildLineagePath(lineageTree, targetId) {
   return path.filter(c => c.videos?.length > 0);
 }
 
-export default function LineageSidebar({ composer, onClose, onSelectComposer, onOpenVideo, activeVideo, onCloseVideo }) {
+export default function LineageSidebar({ composer, onClose, onSelectComposer, onSelectComposerFromTree, onOpenVideo, activeVideo, onCloseVideo }) {
   const [width, setWidth] = useState(() => Math.round(window.innerWidth * 0.5));
-  const [bottomHeight, setBottomHeight] = useState(240);
+  // On mobile, default to enough height to show video + header; on desktop use compact default
+  const [bottomHeight, setBottomHeight] = useState(() => {
+    const mob = window.innerWidth <= 1024;
+    return mob ? Math.round(window.innerHeight * 0.52) : 240;
+  });
   const isResizing = useRef(false);
   const isResizingBottom = useRef(false);
   const resizeBottomStartY = useRef(0);
@@ -329,7 +333,8 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
       }
       if (isResizingBottom.current) {
         const dy = resizeBottomStartY.current - e.clientY;
-        setBottomHeight(Math.max(120, Math.min(600, resizeBottomStartH.current + dy)));
+        const maxH = Math.round(window.innerHeight * 0.85);
+        setBottomHeight(Math.max(160, Math.min(maxH, resizeBottomStartH.current + dy)));
       }
     };
     const handleMouseUp = () => {
@@ -565,7 +570,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
               ancestorIds={ancestorIds}
               expandedIds={expandedIds}
               onToggle={handleToggle}
-              onSelect={(node) => { onSelectComposer(node); onCloseVideo(); }}
+              onSelect={(node) => { (onSelectComposerFromTree ?? onSelectComposer)(node); onCloseVideo(); }}
               onOpenVideo={onOpenVideo}
             />
           </div>
@@ -581,7 +586,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
       {composer && (
         <div
           className={`lineage-bottom ${activeVideo ? 'has-video' : ''}`}
-          style={activeVideo && !isMobile() ? { height: bottomHeight } : undefined}
+          style={activeVideo ? { height: bottomHeight } : undefined}
         >
           <div className="lineage-bottom-resize-handle" onMouseDown={handleBottomResizeMouseDown} />
           {activeVideo ? (
