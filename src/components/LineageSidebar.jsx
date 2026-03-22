@@ -1,5 +1,6 @@
 import { useState, useMemo, useCallback, useEffect, useRef, memo } from 'react';
 import { PERIODS, buildLineageTree, countDescendants, getWikipediaName } from '../data/composers';
+import { findEmbeddableVideoId } from '../utils/youtubeSearch';
 
 function expandPath(node, targetId, ids) {
   if (!node) return false;
@@ -188,6 +189,10 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
   // Video bar fold state
   const [videoFolded, setVideoFolded] = useState(false);
 
+  // Resolved embeddable YouTube video ID
+  const [resolvedVideoId, setResolvedVideoId] = useState(null);
+  const [videoLoading, setVideoLoading] = useState(false);
+
   // Info panel fold state — collapsed by default on mobile
   const isMobile = () => window.innerWidth <= 1024;
   const [infoFolded, setInfoFolded] = useState(() => isMobile());
@@ -252,6 +257,19 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
 
   // Reset fold whenever a new video opens
   useEffect(() => { setVideoFolded(false); }, [activeVideo?.video?.youtubeId]);
+
+  // Fetch embeddable video ID when active video changes
+  useEffect(() => {
+    if (!activeVideo) { setResolvedVideoId(null); return; }
+    let cancelled = false;
+    setResolvedVideoId(null);
+    setVideoLoading(true);
+    const query = `${activeVideo.composer?.name ?? ''} ${activeVideo.video?.title ?? ''}`.trim();
+    findEmbeddableVideoId(query).then(id => {
+      if (!cancelled) { setResolvedVideoId(id); setVideoLoading(false); }
+    });
+    return () => { cancelled = true; };
+  }, [activeVideo?.video?.youtubeId, activeVideo?.composer?.id]);
 
   // Reset info fold whenever the selected composer changes
   useEffect(() => { setInfoFolded(isMobile()); }, [composer?.id]);
@@ -572,13 +590,22 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
               </div>
               <div className="lineage-video-body">
                 <div className="lineage-video-pane-left">
-                  <iframe
-                    src={`https://www.youtube.com/embed?listType=search&list=${encodedVideoQuery}&autoplay=1&rel=0`}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    title={activeVideo.video.title}
-                    style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
-                  />
+                  {videoLoading ? (
+                    <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#000', color: '#666', fontSize: 13 }}>
+                      Finding video…
+                    </div>
+                  ) : (
+                    <iframe
+                      key={resolvedVideoId ?? encodedVideoQuery}
+                      src={resolvedVideoId
+                        ? `https://www.youtube.com/embed/${resolvedVideoId}?autoplay=1&rel=0`
+                        : `https://www.youtube.com/embed?listType=search&list=${encodedVideoQuery}&autoplay=1&rel=0`}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      title={activeVideo.video.title}
+                      style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+                    />
+                  )}
                 </div>
                 <div className="lineage-video-pane-right">
                   <span className="streaming-panel-label">Listen on</span>
