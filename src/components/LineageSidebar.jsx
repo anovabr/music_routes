@@ -609,7 +609,7 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
           className={`lineage-bottom ${activeVideo ? 'has-video' : ''}`}
           style={activeVideo ? { height: bottomHeight } : undefined}
         >
-          <div className="lineage-bottom-resize-handle" onMouseDown={handleBottomResizeMouseDown} />
+          <div className="lineage-bottom-resize-handle" onMouseDown={handleBottomResizeMouseDown} onTouchStart={handleBottomResizeTouchStart} />
           {activeVideo ? (
             <div className="lineage-video-section">
               <div className="lineage-video-header">
