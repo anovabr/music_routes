@@ -1317,8 +1317,14 @@ a:focus:not(:focus-visible) {
   position: sticky;
   top: 0;
   z-index: 5;
-  background: var(--bg);
-  box-shadow: 0 2px 16px rgba(0,0,0,0.45);
+  background: rgba(13, 12, 10, 0.55);
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.35);
+}
+
+[data-theme="light"] .timeline-period-header {
+  background: rgba(247, 243, 235, 0.6);
 }
 
 .timeline-period-chevron {
