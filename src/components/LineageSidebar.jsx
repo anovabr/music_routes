@@ -157,7 +157,7 @@ function buildLineagePath(lineageTree, targetId) {
   return path.filter(c => c.videos?.length > 0);
 }
 
-export default function LineageSidebar({ composer, onClose, onSelectComposer, onSelectComposerFromTree, onOpenVideo, activeVideo, onCloseVideo, onRegisterControls }) {
+export default function LineageSidebar({ composer, onClose, onSelectComposer, onSelectComposerFromTree, onOpenVideo, activeVideo, onCloseVideo }) {
   const [width, setWidth] = useState(() => Math.round(window.innerWidth * 0.5));
   // On mobile, default to enough height to show video + header; on desktop use compact default
   const [bottomHeight, setBottomHeight] = useState(() => {
@@ -398,8 +398,15 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
   }, [composer?.id, lineageTree]);
 
   useEffect(() => {
-    onRegisterControls?.({ expandAll: handleExpandAll, collapseAll: handleCollapseAll });
-  }, [handleExpandAll, handleCollapseAll, onRegisterControls]);
+    const onExpand   = () => handleExpandAll();
+    const onCollapse = () => handleCollapseAll();
+    window.addEventListener('tree-expand-all',   onExpand);
+    window.addEventListener('tree-collapse-all', onCollapse);
+    return () => {
+      window.removeEventListener('tree-expand-all',   onExpand);
+      window.removeEventListener('tree-collapse-all', onCollapse);
+    };
+  }, [handleExpandAll, handleCollapseAll]);
 
   const handleZoomIn    = useCallback(() => setZoom(z => z + 0.15), [setZoom]);
   const handleZoomOut   = useCallback(() => setZoom(z => z - 0.15), [setZoom]);

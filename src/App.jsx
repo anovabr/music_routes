@@ -31,7 +31,6 @@ export default function App() {
   const [nationalityFilter, setNationalityFilter] = useState(null);
   const [toast, setToast]         = useState(null); // { msg, id }
   const searchRef = useRef(null);
-  const treeControlsRef = useRef(null);
   const toastCounterRef = useRef(0);
   const clefClicksRef = useRef(0);
   const clefTimerRef  = useRef(null);
@@ -234,8 +233,8 @@ export default function App() {
         {/* Mobile-only: expand/collapse tree + theme — shown before hamburger */}
         {selectedComposer && (
           <span className="mobile-tree-controls">
-            <button onClick={() => treeControlsRef.current?.expandAll()}>Expand</button>
-            <button onClick={() => treeControlsRef.current?.collapseAll()}>Fold</button>
+            <button onClick={() => window.dispatchEvent(new CustomEvent('tree-expand-all'))}>Expand</button>
+            <button onClick={() => window.dispatchEvent(new CustomEvent('tree-collapse-all'))}>Fold</button>
           </span>
         )}
         <button
@@ -387,7 +386,6 @@ export default function App() {
         </div>
 
         <LineageSidebar
-          onRegisterControls={(controls) => { treeControlsRef.current = controls; }}
           composer={selectedComposer}
           onClose={() => setSelectedComposer(null)}
           onOpenVideo={handleOpenVideo}
