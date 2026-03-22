@@ -139,7 +139,17 @@ export const treeData = {
       'The inventor of opera. His L\'Orfeo (1607) launched an entirely new art form. His radical text-setting and harmonic daring mark the birth of the Baroque era.',
       [v("L'Orfeo — Opera", 'ARBDHrpX_Fg'), v('Vespers of 1610', 'fFmKlkX_JRA'), v("L'incoronazione di Poppea", 'v6Sn0tqMlV0'), v('Madrigals Book IV', 'AvQLLLYhiYo')],
       [
-        // Opera tradition branch
+        // French Baroque opera branch
+        c('rameau', 'Jean-Philippe Rameau', 1683, 1764, 'BAROQUE', 'French',
+          'The titan of French Baroque opera and the father of Western harmonic theory. His Traité de l\'harmonie (1722) codified the tonal principles underpinning all of Western music. As the dominant voice of the Paris Opéra, he perfected the tragédie lyrique — producing Les Indes galantes and Hippolyte et Aricie — and ignited the famous Querelle des Bouffons, the war between French and Italian opera that defined Enlightenment taste.',
+          [
+            v('Les Indes galantes — Les Sauvages', '_aKeSdKxzKc'),
+            v('Hippolyte et Aricie — Chaconne', 'tXU4LfFHPbw'),
+            v('Pièces de clavecin — La Poule', 'qpBVJcQn_jI'),
+            v('Castor et Pollux — Tristes apprêts', 'CaJmNJ2VHDU'),
+          ]),
+
+        // Italian opera tradition branch
         c('rossini', 'Gioachino Rossini', 1792, 1868, 'ROMANTIC', 'Italian',
           'The first international superstar of opera. His wit and melodic genius in The Barber of Seville set the standard for bel canto. He retired at 37, having shaped Donizetti, Bellini, and indirectly Verdi.',
           [v('The Barber of Seville — Overture', 'OloXRhxnrE8'), v('William Tell — Overture', 'c7O91GDWGPU'), v('La Cenerentola — Non più mesta', 'EtKMtzAaJP8')],
