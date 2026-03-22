@@ -642,6 +642,51 @@ a:focus:not(:focus-visible) {
   opacity: 0.6;
 }
 
+/* Dotted orange connector for influence (non-teaching) relationships */
+.tree-connector-down.is-influence,
+.tree-connector-vertical.is-influence {
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--accent) 0px,
+    var(--accent) 3px,
+    transparent 3px,
+    transparent 7px
+  );
+  opacity: 0.7;
+}
+
+/* Tree legend */
+.tree-legend {
+  display: flex;
+  gap: 16px;
+  padding: 6px 14px;
+  border-bottom: 1px solid var(--border2);
+  font-size: 11px;
+  color: var(--text3);
+}
+.tree-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tree-legend-line {
+  display: inline-block;
+  width: 24px;
+  height: 2px;
+}
+.tree-legend-line.taught {
+  background: var(--border);
+}
+.tree-legend-line.influenced {
+  background: repeating-linear-gradient(
+    to right,
+    var(--accent) 0px,
+    var(--accent) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+
 /* Sibling node cards — visually receded */
 .tree-node-wrapper.is-sibling > .tree-node > .tree-node-body {
   border-left-style: dashed;

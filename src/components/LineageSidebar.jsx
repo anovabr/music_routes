@@ -54,7 +54,7 @@ const TreeNode = memo(function TreeNode({ node, selectedId, ancestorIds, expande
 
       {hasChildren && isExpanded && (
         <div className="tree-children-container">
-          <div className="tree-connector-vertical" style={{ '--pc': period?.color }} />
+          <div className={`tree-connector-vertical${children.length === 1 && children[0]?.rel === 'influenced' ? ' is-influence' : ''}`} style={{ '--pc': period?.color }} />
           {children.length > 1 && (
             <div className="tree-connector-horizontal" style={{ '--pc': period?.color }} />
           )}
@@ -62,7 +62,7 @@ const TreeNode = memo(function TreeNode({ node, selectedId, ancestorIds, expande
             {children.map((child) => (
               <div key={child.id} className="tree-child-wrapper">
                 {children.length > 1 && (
-                  <div className={`tree-connector-down${child.isSibling ? ' is-sibling' : ''}`} style={{ '--pc': PERIODS[child.period]?.color }} />
+                  <div className={`tree-connector-down${child.isSibling ? ' is-sibling' : ''}${child.rel === 'influenced' ? ' is-influence' : ''}`} style={{ '--pc': PERIODS[child.period]?.color }} />
                 )}
                 <TreeNode
                   node={child}
@@ -536,6 +536,11 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
           </div>
         </div>
       )}
+
+      <div className="tree-legend">
+        <span className="tree-legend-item"><span className="tree-legend-line taught" />Taught</span>
+        <span className="tree-legend-item"><span className="tree-legend-line influenced" />Influenced</span>
+      </div>
 
       {lineageTree ? (
         <div

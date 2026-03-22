@@ -137,6 +137,14 @@ export default function App() {
     return () => document.removeEventListener('click', handle);
   }, [menuOpen]);
 
+  const toggleTheme = useCallback(() => {
+    setTheme(t => {
+      const next = THEMES[(THEMES.indexOf(t) + 1) % THEMES.length];
+      if (next === 'light') showToast('If you really want to see this in light mode, it\'s better to leave. But fine.');
+      return next;
+    });
+  }, [showToast]);
+
   const togglePeriod = useCallback((id) =>
     setActivePeriods(p => ({ ...p, [id]: !p[id] })), []);
 
@@ -219,7 +227,7 @@ export default function App() {
         {/* Hamburger button — mobile only */}
         <button
           className="theme-toggle theme-toggle--mobile"
-          onClick={() => setTheme(t => THEMES[(THEMES.indexOf(t) + 1) % THEMES.length])}
+          onClick={toggleTheme}
           title={`Theme: ${THEME_TITLES[theme]} — tap to switch`}
         >
           {THEME_LABELS[theme]}
@@ -344,7 +352,7 @@ export default function App() {
           </a>
           <button
             className="theme-toggle"
-            onClick={() => setTheme(t => THEMES[(THEMES.indexOf(t) + 1) % THEMES.length])}
+            onClick={toggleTheme}
             title={`Theme: ${THEME_TITLES[theme]} — click to switch`}
           >
             {THEME_LABELS[theme]}

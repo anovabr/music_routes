@@ -13,15 +13,19 @@ export const PERIODS = {
   CONTEMPORARY:   { id: 'CONTEMPORARY',   name: 'Contemporary',                  years: '1950–present', color: '#50A0A0' },
 };
 
-function c(id, name, born, died, period, nationality, description, videos, children = []) {
-  return { id, name, born, died, period, nationality, description, videos, children };
+function c(id, name, born, died, period, nationality, description, videos, children = [], rel = 'taught') {
+  return { id, name, born, died, period, nationality, description, videos, children, rel };
+}
+function inf(id, name, born, died, period, nationality, description, videos, children = []) {
+  return c(id, name, born, died, period, nationality, description, videos, children, 'influenced');
 }
 function v(title, youtubeId, performer = '') {
   return { title, youtubeId, performer };
 }
 
 // ─── Tree Data ─────────────────────────────────────────────────────────────────
-// Each node's children = composers they directly taught or most decisively shaped.
+// rel: 'taught'    = documented teacher-student relationship
+// rel: 'influenced' = documented cited influence (not formal teaching)
 export const treeData = {
   id: 'root',
   name: 'Western Classical Music',
@@ -167,7 +171,7 @@ export const treeData = {
                                 v('Gymnopédies Nos. 1–3', 'TLNnDmdGBBg'),
                               ],
                               [
-                                c('riopy', 'RIOPY', 1986, null, 'CONTEMPORARY', 'French',
+                                inf('riopy', 'RIOPY', 1986, null, 'CONTEMPORARY', 'French',
                                   'Born Jean-Baptiste Morali. Studied at the Paris Conservatoire. Has cited Satie and Chopin as his primary influences — Satie\'s harmonic stillness is the most direct antecedent to his sparse, meditative solo piano writing.',
                                   [
                                     v('Bliss', 'WNn-nFdK4dM'),
@@ -494,8 +498,8 @@ export const treeData = {
                                                 v('Chichester Psalms', 'ciCN1CYcaYM'),
                                               ]),
                                           ]),
-                                        c('piazzolla', 'Astor Piazzolla', 1921, 1992, 'MODERN', 'Argentine',
-                                          'The revolutionary of tango. Boulanger told him to embrace his tango roots, and he did — fusing Buenos Aires\' street music with jazz and classical complexity to create nuevo tango.',
+                                        inf('piazzolla', 'Astor Piazzolla', 1921, 1992, 'MODERN', 'Argentine',
+                                          'The revolutionary of tango. Boulanger told him to embrace his tango roots, and he did — fusing Buenos Aires\' street music with jazz and classical complexity to create nuevo tango. As a teenager he played bandoneon in Carlos Gardel\'s orchestra, absorbing the tango tradition at its source before Boulanger redirected him toward composition.',
                                           [
                                             v('Libertango', 'POWcnNt0pFw'),
                                             v('Oblivion', 'AcnpMKBdF4s'),
@@ -852,6 +856,26 @@ export const treeData = {
             v('Chopin Études', 'SjnKR8V0v60'),
             v('Rachmaninoff Piano Concerto No. 3', 'YL-RdSV3xag'),
             v('Liszt Piano Sonata in B minor', 'vCVfMBkNprA'),
+          ]),
+      ]),
+
+    // ── TANGO: GARDEL → PIAZZOLLA ─────────────────────────────────────────────
+    c('gardel', 'Carlos Gardel', 1890, 1935, 'MODERN', 'Argentine',
+      'The defining voice of tango. Born in France, raised in Buenos Aires, he became the face and sound of tango worldwide — his recordings of the 1920s and 30s set the emotional template for the genre. The teenage Astor Piazzolla played bandoneon in his orchestra in 1935, absorbing the tradition directly.',
+      [
+        v('El día que me quieras', 'kvHRTsFBBao'),
+        v('Por una cabeza', 'o-C7MbVJHyk'),
+        v('Volver', 'mjqBKhcHxHk'),
+        v('Mi Buenos Aires querido', 'ZGJJNkU-a14'),
+      ],
+      [
+        inf('piazzolla-g', 'Astor Piazzolla', 1921, 1992, 'MODERN', 'Argentine',
+          'As a teenager played bandoneon in Gardel\'s orchestra — his first exposure to tango at its highest level. Later studied under Nadia Boulanger who told him to embrace those tango roots. He fused Buenos Aires street music with jazz and classical complexity to create nuevo tango.',
+          [
+            v('Libertango', 'POWcnNt0pFw'),
+            v('Oblivion', 'AcnpMKBdF4s'),
+            v('Adiós Nonino', 'VTPec8z5vXk'),
+            v('Four Seasons of Buenos Aires', 'TadxLCMq-2U'),
           ]),
       ]),
 
