@@ -2909,6 +2909,7 @@ a:focus:not(:focus-visible) {
   }
 
   .lineage-fold-controls { display: none; }
+  .timeline-toggle-all { display: none; }
 
   /* Timeline grid */
   .timeline-grid {
