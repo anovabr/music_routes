@@ -1181,6 +1181,59 @@ a:focus:not(:focus-visible) {
   padding-top: 24px;
 }
 
+/* Group (macro header) styles */
+.timeline-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.timeline-group:first-child {
+  padding-top: 24px;
+}
+
+.timeline-group-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 12px 0;
+  border-bottom: 2px solid var(--pc);
+  user-select: none;
+  transition: opacity 0.1s;
+}
+
+.timeline-group-header:hover {
+  opacity: 0.85;
+}
+
+.timeline-group-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.timeline-group-children {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-left: 16px;
+  border-left: 2px solid var(--border2);
+  margin-left: 4px;
+  margin-top: 8px;
+}
+
+.timeline-subsection {
+  gap: 12px;
+}
+
+.timeline-subperiod-header {
+  padding: 8px 0;
+}
+
 .period-world-context {
   background: rgba(255,255,255,0.03);
   border-left: 3px solid var(--pc);

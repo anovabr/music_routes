@@ -63,7 +63,7 @@ export const PERIODS = {
       'Jazz is born in New Orleans; popular music enters a new era',
       'Hiroshima and Nagasaki — the atomic bomb changes warfare and human psychology forever',
     ]},
-  AVANT_GARDE:    { id: 'AVANT_GARDE',    name: 'Contemporary · Avant-garde',    years: '1945–1975', color: '#C04888',
+  AVANT_GARDE:    { id: 'AVANT_GARDE',    name: 'Avant-garde',    years: '1945–1975', color: '#C04888', parent: 'CONTEMPORARY_ERA',
     worldContext: [
       'The Cold War divides the world between the USA and USSR',
       'Decolonisation: dozens of nations in Africa and Asia gain independence',
@@ -71,7 +71,7 @@ export const PERIODS = {
       'The Vietnam War and global anti-war protest reshape Western culture',
       'The Civil Rights Movement in America; Martin Luther King assassinated (1968)',
     ]},
-  MINIMALISM:     { id: 'MINIMALISM',     name: 'Contemporary · Minimalism',     years: '1960–1990', color: '#38A878',
+  MINIMALISM:     { id: 'MINIMALISM',     name: 'Minimalism',     years: '1960–1990', color: '#38A878', parent: 'CONTEMPORARY_ERA',
     worldContext: [
       'The Berlin Wall falls (1989); the Soviet Union begins to collapse',
       'The rise of rock, pop, and electronic music — music fragments into subcultures',
@@ -79,7 +79,7 @@ export const PERIODS = {
       'Globalisation accelerates; multinational corporations reshape economies',
       'The internet is invented (ARPANET, 1969); the information age begins',
     ]},
-  NEW_SIMPLICITY: { id: 'NEW_SIMPLICITY', name: 'Contemporary · New Simplicity', years: '1975–2000', color: '#7888CC',
+  NEW_SIMPLICITY: { id: 'NEW_SIMPLICITY', name: 'New Simplicity', years: '1975–2000', color: '#7888CC', parent: 'CONTEMPORARY_ERA',
     worldContext: [
       'The Cold War ends with the dissolution of the Soviet Union (1991)',
       'The World Wide Web (1991) transforms communication and culture',
@@ -87,7 +87,7 @@ export const PERIODS = {
       'The Gulf War (1991) signals a new era of American military dominance',
       'China opens to the global market; the world\'s fastest economic rise begins',
     ]},
-  CONTEMPORARY:   { id: 'CONTEMPORARY',   name: 'Contemporary',                  years: '1950–present', color: '#50A0A0',
+  CONTEMPORARY:   { id: 'CONTEMPORARY',   name: 'Neo-Classical',   years: '1950–present', color: '#50A0A0', parent: 'CONTEMPORARY_ERA',
     worldContext: [
       'The September 11 attacks (2001) reshape geopolitics and trigger the War on Terror',
       'Streaming music (Spotify, 2008) ends the album era; classical music finds new audiences online',
@@ -95,6 +95,17 @@ export const PERIODS = {
       'The smartphone era connects and fragments humanity simultaneously',
       'A global pandemic (COVID-19, 2020) shuts concert halls — music moves to living rooms',
     ]},
+};
+
+// Macro period groups (headers that contain sub-periods)
+export const PERIOD_GROUPS = {
+  CONTEMPORARY_ERA: {
+    id: 'CONTEMPORARY_ERA',
+    name: 'Contemporary',
+    years: '1945–present',
+    color: '#50A0A0',
+    children: ['AVANT_GARDE', 'MINIMALISM', 'NEW_SIMPLICITY', 'CONTEMPORARY'],
+  },
 };
 
 function c(id, name, born, died, period, nationality, description, videos, children = [], rel = 'taught') {
