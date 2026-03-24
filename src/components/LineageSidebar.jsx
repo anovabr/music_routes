@@ -159,10 +159,10 @@ function buildLineagePath(lineageTree, targetId) {
 
 export default function LineageSidebar({ composer, onClose, onSelectComposer, onSelectComposerFromTree, onOpenVideo, activeVideo, onCloseVideo }) {
   const [width, setWidth] = useState(() => Math.round(window.innerWidth * 0.5));
-  // On mobile, default to enough height to show video + header; on desktop use compact default
+  // On mobile, default to enough height to show video + header; on desktop use taller default for better video
   const [bottomHeight, setBottomHeight] = useState(() => {
     const mob = window.innerWidth <= 1024;
-    return mob ? Math.round(window.innerHeight * 0.52) : 240;
+    return mob ? Math.round(window.innerHeight * 0.52) : 340;
   });
   const isResizing = useRef(false);
   const isResizingBottom = useRef(false);
@@ -544,10 +544,6 @@ export default function LineageSidebar({ composer, onClose, onSelectComposer, on
             <span className="zoom-level" onClick={handleZoomReset} title="Reset view">{Math.round(zoom * 100)}%</span>
             <button onClick={handleZoomIn} title="Zoom in">+</button>
             <button onClick={handleFitAll} title="Fit entire tree in view">⤢</button>
-            <span className="lineage-fold-controls">
-              <button onClick={handleExpandAll} title="Expand all">⊞</button>
-              <button onClick={handleCollapseAll} title="Collapse">⊟</button>
-            </span>
             <button className="lineage-close" onClick={onClose} aria-label="Close">✕</button>
           </div>
         )}

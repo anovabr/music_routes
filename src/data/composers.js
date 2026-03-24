@@ -265,6 +265,14 @@ export const treeData = {
                                     v('Awakening', 'RyeLkryZPi4'),
                                     v('Ab Ovo', 'W0txKNHqZPk'),
                                   ]),
+                                c('tony-ann', 'Tony Ann', 1997, null, 'CONTEMPORARY', 'Korean-American',
+                                  'Viral pianist and composer whose emotionally direct, cinematic piano pieces have reached millions on social media. His accessible neo-classical style channels Einaudi\'s meditative minimalism with a dramatic, film-score sensibility.',
+                                  [
+                                    v('The Pianist', 'Yl4X3_HzkNQ'),
+                                    v('Running Away', 'iUz9W6kLxQw'),
+                                    v('Reminiscence', 'HnPsXv5oEYk'),
+                                    v('Letting Go', 'v3Ks7ZeJvDo'),
+                                  ]),
 
                               ]),
 
