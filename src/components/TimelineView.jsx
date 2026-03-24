@@ -33,26 +33,27 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
 
   const periodOrder = Object.keys(PERIODS);
   
-  // Identify which periods belong to groups
-  const groupedPeriodIds = new Set(
+  // Identify which periods belong to groups (stable reference)
+  const groupedPeriodIds = useMemo(() => new Set(
     Object.values(PERIOD_GROUPS).flatMap(g => g.children)
-  );
+  ), []);
   
-  // Standalone periods (not in any group)
-  const standalonePeriods = periodOrder.filter(pid => !groupedPeriodIds.has(pid));
-  
-  // Build render order: standalone periods first, then groups
+  // Build render order: insert group after MODERN (where contemporary era starts)
   const renderOrder = useMemo(() => {
     const order = [];
-    standalonePeriods.forEach(pid => {
+    for (const pid of periodOrder) {
+      if (groupedPeriodIds.has(pid)) continue; // Skip periods that belong to a group
       if (grouped[pid]?.length) order.push({ type: 'period', id: pid });
-    });
-    Object.entries(PERIOD_GROUPS).forEach(([gid, group]) => {
-      const hasComposers = group.children.some(pid => grouped[pid]?.length);
-      if (hasComposers) order.push({ type: 'group', id: gid, group });
-    });
+      // Insert Contemporary group right after Modern
+      if (pid === 'MODERN') {
+        Object.entries(PERIOD_GROUPS).forEach(([gid, group]) => {
+          const hasComposers = group.children.some(p => grouped[p]?.length);
+          if (hasComposers) order.push({ type: 'group', id: gid, group });
+        });
+      }
+    }
     return order;
-  }, [grouped, standalonePeriods]);
+  }, [grouped, periodOrder, groupedPeriodIds]);
   
   const visiblePeriods = periodOrder.filter(pid => grouped[pid]?.length);
   const allKeys = [...visiblePeriods, ...Object.keys(PERIOD_GROUPS)];
