@@ -386,7 +386,7 @@ a:focus:not(:focus-visible) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 20px;
+  padding: 6px 12px;
   border-bottom: 1px solid var(--border2);
   flex-shrink: 0;
 }
@@ -402,17 +402,17 @@ a:focus:not(:focus-visible) {
 .lineage-controls {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 8px;
+  gap: 2px;
+  padding: 0;
 }
 
 .lineage-controls button {
-  width: 26px; height: 26px;
-  border-radius: 4px;
+  width: 22px; height: 22px;
+  border-radius: 3px;
   background: transparent;
   border: 1px solid transparent;
   color: var(--text2);
-  font-size: 13px;
+  font-size: 12px;
   display: flex; align-items: center; justify-content: center;
   transition: all var(--transition);
   cursor: pointer;
@@ -424,19 +424,19 @@ a:focus:not(:focus-visible) {
 
 .zoom-level {
   font-family: inherit;
-  font-size: 11px;
+  font-size: 10px;
   color: var(--text3);
-  min-width: 32px;
+  min-width: 28px;
   text-align: center;
   cursor: pointer;
-  padding: 2px 4px;
+  padding: 1px 2px;
   border-radius: 3px;
   font-weight: 600;
   transition: color var(--transition);
 }
 .zoom-level:hover { color: var(--accent); }
 
-.lineage-close { border-radius: 50% !important; }
+.lineage-close { border-radius: 50% !important; margin-left: 4px; }
 .lineage-close:hover { background: var(--red) !important; color: #fff !important; border-color: transparent !important; }
 
 .lineage-tree {
