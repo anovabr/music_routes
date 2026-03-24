@@ -993,6 +993,30 @@ export const treeData = {
           ]),
       ]),
 
+    // ── CARL ORFF → ORFF SCHULWERK ─────────────────────────────────────────────
+    c('orff', 'Carl Orff', 1895, 1982, 'MODERN', 'German',
+      'Creator of the Orff Schulwerk approach to music education and composer of Carmina Burana — one of the most performed works of the 20th century. Trained at the Munich Academy, he forged a deliberately primitive style: driving rhythms, modal harmonies, and incantatory repetition drawn from medieval sources. His theatrical trilogy of scenic cantatas redefined the relationship between word, rhythm, and ritual.',
+      [
+        v('Carmina Burana — O Fortuna', 'GXFSK0ogeg4'),
+        v('Carmina Burana — In taberna', 'rHxZfkIzimc'),
+        v('Catulli Carmina', 'nWTWkX4BQSM'),
+        v('Der Mond — Introduction', 'e9yV1beFqHg'),
+      ],
+      [
+        c('keetman', 'Gunild Keetman', 1904, 1990, 'MODERN', 'German',
+          'Orff\'s closest collaborator and co-creator of the Orff Schulwerk method. A dancer, composer, and educator, she developed the elemental music approach that has shaped music education worldwide. Her compositions for xylophones, metallophones, and recorders remain staples of the method.',
+          [
+            v('Spielstucke fur Blockfloten', 'T2dvKJQCsQA'),
+            v('Pieces for Orff Instruments', 'EcbPWbDh_jA'),
+          ]),
+        c('hiller', 'Wilfried Hiller', 1941, null, 'CONTEMPORARY', 'German',
+          'Orff\'s last significant student, studying with him in Munich from 1968. Known for his operas and works for children that continue the Orff tradition of theatrical immediacy and rhythmic vitality.',
+          [
+            v('Der Rattenfanger', 'bIZKx9-cVfA'),
+            v('Traumfresserchen — Suite', 'O1nA__HkF6w'),
+          ]),
+      ]),
+
   ],
 };
 

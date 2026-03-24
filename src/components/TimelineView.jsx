@@ -1,9 +1,15 @@
 import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
 import { flatComposers, PERIODS, countDescendants } from '../data/composers';
 
+// All periods start collapsed
+const DEFAULT_COLLAPSED = Object.keys(PERIODS).reduce(
+  (acc, k) => ({ ...acc, [k]: true }),
+  {}
+);
+
 export default function TimelineView({ activePeriods, selectedComposer, onSelectComposer, onOpenVideo, nationalityFilter, onNationalityFilterChange }) {
   const all = useMemo(() => flatComposers(), []);
-  const [collapsedPeriods, setCollapsedPeriods] = useState({});
+  const [collapsedPeriods, setCollapsedPeriods] = useState(DEFAULT_COLLAPSED);
 
   const togglePeriodCollapse = useCallback((pid) => {
     setCollapsedPeriods(prev => ({ ...prev, [pid]: !prev[pid] }));
@@ -35,7 +41,7 @@ export default function TimelineView({ activePeriods, selectedComposer, onSelect
   }, [allCollapsed, visiblePeriods]);
 
   useEffect(() => {
-    const onExpand   = () => setCollapsedPeriods({});
+    const onExpand   = () => setCollapsedPeriods(visiblePeriods.reduce((acc, pid) => ({ ...acc, [pid]: false }), {}));
     const onCollapse = () => setCollapsedPeriods(visiblePeriods.reduce((acc, pid) => ({ ...acc, [pid]: true }), {}));
     window.addEventListener('timeline-expand-all',   onExpand);
     window.addEventListener('timeline-collapse-all', onCollapse);
