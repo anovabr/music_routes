@@ -281,7 +281,7 @@ a:focus:not(:focus-visible) {
   min-width: 0;
   overflow: hidden;
   position: relative;
-  transition: --period-glow 2.5s ease;
+  transition: --period-glow 2s ease;
 }
 
 .app-content::before,
