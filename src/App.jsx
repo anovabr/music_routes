@@ -4,6 +4,7 @@ import TimelineView from './components/TimelineView';
 import LoadingScreen from './components/LoadingScreen';
 import ShortcutsModal from './components/ShortcutsModal';
 import WorldMap from './components/WorldMap';
+import HorizontalTimeline from './components/HorizontalTimeline';
 import { PERIODS, flatComposers } from './data/composers';
 
 const DEFAULT_PERIODS = Object.keys(PERIODS).reduce(
@@ -18,6 +19,7 @@ export default function App() {
   const THEME_LABELS = { dark: 'Dark', light: 'Light' };
   const THEME_TITLES = { dark: 'Classic dark', light: 'Classic light' };
   const [theme, setTheme]         = useState('dark');
+  const [viewMode, setViewMode]   = useState('default'); // 'default' | 'horizontal'
   const [selectedComposer, setSelectedComposer] = useState(null);
   const [activeVideo, setActiveVideo]           = useState(null);
   const [activePeriods, setActivePeriods]       = useState(DEFAULT_PERIODS);
@@ -334,6 +336,13 @@ export default function App() {
           >
             Map
           </button>
+          <button
+            className="timeline-btn"
+            onClick={() => setViewMode('horizontal')}
+            title="Horizontal Timeline View"
+          >
+            Timeline
+          </button>
           {/* Share button */}
           <button
             className="share-btn"
@@ -370,7 +379,17 @@ export default function App() {
         </div>
       </header>
 
+      {/* ── Horizontal Timeline View ─────────────────────────────────────── */}
+      {viewMode === 'horizontal' && (
+        <HorizontalTimeline
+          onSelectComposer={handleSelectComposer}
+          onOpenVideo={handleOpenVideo}
+          onClose={() => setViewMode('default')}
+        />
+      )}
+
       {/* ── Body ────────────────────────────────────────────────────────── */}
+      {viewMode === 'default' && (
       <main className="app-main" data-mobile-tab={mobileTab}>
         <div className="app-content">
           <TimelineView
@@ -393,9 +412,10 @@ export default function App() {
           onCloseVideo={() => setActiveVideo(null)}
         />
       </main>
+      )}
 
       {/* ── Mobile Tab Bar ───────────────────────────────────────────────── */}
-      <nav className="mobile-tab-bar">
+      <nav className="mobile-tab-bar" style={{ display: viewMode === 'horizontal' ? 'none' : undefined }}>
         <button
           className={`mobile-tab ${mobileTab === 'timeline' ? 'active' : ''}`}
           onClick={() => setMobileTab('timeline')}

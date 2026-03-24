@@ -2575,6 +2575,419 @@ a:focus:not(:focus-visible) {
 .tcard-stream-link:hover { background: var(--accent); color: #000; border-color: var(--accent); }
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   HORIZONTAL TIMELINE VIEW
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.htl-container {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.htl-container.htl-loaded {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.htl-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: linear-gradient(180deg, var(--bg) 0%, transparent 100%);
+  position: relative;
+  z-index: 10;
+}
+
+.htl-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 16px;
+  border-radius: 24px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.htl-back:hover {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+
+.htl-back-arrow {
+  font-size: 16px;
+  transition: transform 0.2s ease;
+}
+
+.htl-back:hover .htl-back-arrow {
+  transform: translateX(-3px);
+}
+
+.htl-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  text-align: center;
+  flex: 1;
+}
+
+.htl-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text3);
+  font-size: 12px;
+}
+
+.htl-hint-arrow {
+  animation: htlHintPulse 2s ease-in-out infinite;
+}
+
+@keyframes htlHintPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.htl-scroll {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  cursor: grab;
+  position: relative;
+}
+
+.htl-scroll.htl-dragging {
+  cursor: grabbing;
+}
+
+.htl-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.htl-scroll::-webkit-scrollbar-track {
+  background: var(--bg2);
+}
+
+.htl-scroll::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+.htl-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+.htl-track {
+  position: relative;
+  height: 100%;
+  min-height: 500px;
+}
+
+.htl-periods {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.htl-period-band {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 60px;
+}
+
+.htl-period-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding-left: 12px;
+  opacity: 0.7;
+}
+
+.htl-years {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  pointer-events: none;
+}
+
+.htl-year-marker {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.htl-year-line {
+  width: 1px;
+  height: 20px;
+  background: var(--border);
+}
+
+.htl-century .htl-year-line {
+  height: 30px;
+  background: var(--text3);
+}
+
+.htl-year-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 4px;
+}
+
+.htl-century .htl-year-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text2);
+}
+
+.htl-axis {
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent) 5%, var(--accent) 95%, transparent);
+}
+
+.htl-composers {
+  position: absolute;
+  inset: 0;
+}
+
+.htl-composer-card {
+  position: absolute;
+  cursor: pointer;
+  transition: transform 0.2s ease, z-index 0s;
+  z-index: 1;
+}
+
+.htl-composer-card:hover,
+.htl-composer-card.htl-hovered {
+  z-index: 10;
+  transform: scale(1.05);
+}
+
+.htl-composer-card.htl-selected {
+  z-index: 20;
+  transform: scale(1.02);
+}
+
+.htl-composer-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--pc);
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 0 2px var(--pc), 0 2px 8px rgba(0,0,0,0.3);
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  transition: all 0.2s ease;
+}
+
+.htl-composer-card:hover .htl-composer-dot {
+  width: 16px;
+  height: 16px;
+  box-shadow: 0 0 0 3px var(--pc), 0 0 20px var(--pc);
+}
+
+.htl-composer-line {
+  width: 2px;
+  height: 40px;
+  background: linear-gradient(180deg, var(--pc) 0%, transparent 100%);
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+}
+
+.htl-composer-content {
+  position: absolute;
+  bottom: 55px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--pc);
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: var(--shadow-card);
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.htl-composer-card:hover .htl-composer-content {
+  background: var(--surface2);
+  box-shadow: var(--shadow);
+}
+
+.htl-composer-name {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.htl-composer-dates {
+  display: block;
+  font-size: 11px;
+  color: var(--text2);
+  margin-top: 2px;
+}
+
+.htl-composer-expanded {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  width: 280px;
+  max-width: 90vw;
+  box-shadow: var(--shadow);
+  animation: htlExpandIn 0.2s ease;
+  z-index: 100;
+}
+
+@keyframes htlExpandIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.htl-composer-desc {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text2);
+  margin: 0 0 8px;
+}
+
+.htl-composer-nat {
+  display: inline-block;
+  font-size: 10px;
+  color: var(--accent);
+  background: rgba(212, 175, 80, 0.1);
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+.htl-composer-videos {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.htl-video-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg3);
+  border: none;
+  color: var(--text2);
+  font-size: 11px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+}
+
+.htl-video-btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.htl-play-icon {
+  font-size: 8px;
+}
+
+.htl-floating-year {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 10px 20px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  box-shadow: var(--shadow);
+  z-index: 100;
+}
+
+.htl-floating-label {
+  font-size: 10px;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.htl-floating-range {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* Timeline button in header */
+.timeline-btn {
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 4px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text2);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.timeline-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    MOBILE RESPONSIVE
    ═══════════════════════════════════════════════════════════════════════════ */
 
